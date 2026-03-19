@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留学问答AI助手 - 智能数字人直播平台</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --background-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部样式 */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 24px 0;
+            margin-bottom: 0;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 24px;
+            padding: 24px 0;
+            min-height: calc(100vh - 120px);
+        }
+
+        /* 视频区域 */
+        .video-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .video-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-container {
+            position: relative;
+            flex: 1;
+            min-height: 500px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .video-overlay-text i {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            opacity: 0.8;
+            display: none; /* 隐藏图标 */
+        }
+
+        .video-overlay-text p {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            opacity: 0.9;
+            display: none; /* 隐藏文字 */
+        }
+
+        .video-overlay-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-overlay-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .video-controls {
+            padding: 20px 24px;
+            border-top: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* 数字人形象网格 */
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .avatar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .avatar-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar-item.selected {
+            border-color: var(--primary-color);
+            background: #eff6ff;
+        }
+
+        .avatar-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .avatar-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            border: 1px solid #cbd5e1;
+            background: transparent;
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 聊天区域 */
+        .chat-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+
+        .chat-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .chat-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.4;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.system {
+            align-self: center;
+            background: #f1f5f9;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .message.thinking {
+            align-self: center;
+            background: #fff3cd;
+            color: #856404;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 1px solid #ffeaa7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .thinking-dots {
+            display: inline-block;
+        }
+
+        .thinking-dots span {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #856404;
+            margin: 0 1px;
+            animation: thinking 1.4s infinite ease-in-out;
+        }
+
+        .thinking-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .thinking-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes thinking {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+            background: #f8fafc;
+            color: var(--text-color);
+            border: 1px solid #e2e8f0;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-input textarea {
+            flex: 1;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 12px 16px;
+            resize: none;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .chat-input textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input button {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-voice {
+            background: #10b981 !important;
+            padding: 12px 16px !important;
+        }
+
+        .btn-voice:hover {
+            background: #059669 !important;
+        }
+
+        .btn-voice.recording {
+            background: #dc2626 !important;
+            animation: pulse 1.5s infinite;
+        }
+
+        .chat-input button:hover {
+            background: #1d4ed8;
+        }
+
+        .voice-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .voice-indicator {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .voice-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #dc2626;
+            animation: voicePulse 1.5s infinite;
+        }
+
+        .voice-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .btn-stop-voice {
+            background: #dc2626;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-stop-voice:hover {
+            background: #b91c1c;
+        }
+
+        .identity-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-save-identity {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-save-identity:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-clear-identity {
+            background: #6b7280;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-clear-identity:hover {
+            background: #4b5563;
+        }
+
+        #identity-preset {
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 12px 16px;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        #identity-preset:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* 通知样式 */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--primary-color);
+            z-index: 1000;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 300px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification-success {
+            border-left-color: #10b981;
+        }
+
+        .notification-error {
+            border-left-color: #dc2626;
+        }
+
+        .notification-info {
+            border-left-color: var(--primary-color);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-content i {
+            font-size: 1.2rem;
+        }
+
+        .notification-success .notification-content i {
+            color: #10b981;
+        }
+
+        .notification-error .notification-content i {
+            color: #dc2626;
+        }
+
+        .notification-info .notification-content i {
+            color: var(--primary-color);
+        }
+
+        .notification-content span {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        @keyframes voicePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* 设置区域 */
+        .settings-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 24px;
+        }
+
+        .settings-section h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .setting-group {
+            margin-bottom: 20px;
+        }
+
+        .setting-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .setting-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .setting-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 0 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .logo-section {
+                justify-content: center;
+            }
+
+            .video-container {
+                min-height: 300px;
+            }
+
+            .control-buttons {
+                justify-content: center;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* 状态指示器 */
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-connected {
+            background-color: var(--success-color);
+        }
+
+        .status-disconnected {
+            background-color: #dc2626;
+        }
+
+        .status-connecting {
+            background-color: #f59e0b;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 应用头部 -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>留学问答AI助手</h1>
+                    <p>智能数字人直播平台 - 专业留学咨询与问答</p>
+                </div>
+            </div>
+            <div class="connection-status">
+                <span class="status-indicator status-disconnected" id="connection-status"></span>
+                <span id="status-text">未连接</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <div class="app-container">
+        <div class="main-content">
+            <!-- 视频区域 -->
+            <section class="video-section fade-in">
+                <div class="video-header">
+                    <h3>
+                        <i class="bi bi-camera-video"></i>
+                        AI留学顾问直播
+                    </h3>
+                </div>
+                <div class="video-container">
+                    <video id="video" autoplay playsinline></video>
+                    <div class="video-overlay">
+                        <div class="video-overlay-text">
+                            <i class="bi bi-camera-video"></i>
+                            <p>点击开始连接与AI留学顾问对话</p>
+                            <button class="video-overlay-btn" id="connect-overlay-btn">
+                                <i class="bi bi-play-fill me-2"></i>开始连接
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-controls">
+                    <div class="control-buttons">
+                        <button class="btn-primary" id="connect-btn">
+                            <i class="bi bi-play-fill me-2"></i>开始连接
+                        </button>
+                        <button class="btn-outline" id="switch-avatar-btn">
+                            <i class="bi bi-arrow-repeat me-2"></i>切换顾问
+                        </button>
+                    </div>
+                    <div class="mt-3">
+                        <div class="avatar-grid" id="avatar-grid">
+                            <!-- 数字人形象将动态加载到这里 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 侧边栏 -->
+            <aside class="sidebar">
+                <!-- 聊天区域 -->
+                <section class="chat-section fade-in">
+                    <div class="chat-header">
+                        <h3>
+                            <i class="bi bi-chat-dots"></i>
+                            留学问答对话
+                        </h3>
+                    </div>
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message system">
+                            欢迎使用留学问答AI助手！您可以咨询留学申请、院校选择、专业规划等问题。
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <div class="input-group">
+                            <textarea id="chat-message" rows="2" placeholder="输入您的留学问题..."></textarea>
+                            <div class="input-buttons">
+                                <button type="button" id="voice-input" class="btn-voice" title="语音输入">
+                                    <i class="bi bi-mic"></i>
+                                </button>
+                                <button type="button" id="send-message">
+                                    <i class="bi bi-send"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="voice-status" id="voice-status" style="display: none;">
+                            <div class="voice-indicator">
+                                <span class="voice-dot"></span>
+                                <span class="voice-text">正在聆听...</span>
+                            </div>
+                            <button type="button" id="stop-voice" class="btn-stop-voice">
+                                停止
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 设置区域 -->
+                <section class="settings-section fade-in">
+                    <h4>
+                        <i class="bi bi-gear"></i>
+                        平台设置
+                    </h4>
+                    <div class="setting-group">
+                        <label for="identity-preset">数字人身份预设</label>
+                        <textarea id="identity-preset" rows="4" placeholder="请输入数字人的身份信息，例如：
+您是一位专业的留学顾问，拥有10年留学咨询经验，擅长美国、英国、加拿大等国家的留学申请..."></textarea>
+                        <div class="identity-buttons">
+                            <button type="button" id="save-identity" class="btn-save-identity">
+                                <i class="bi bi-save me-1"></i>保存身份
+                            </button>
+                            <button type="button" id="clear-identity" class="btn-clear-identity">
+                                <i class="bi bi-trash me-1"></i>清空
+                            </button>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <label for="model-select">AI模型</label>
+                        <select id="model-select" class="form-control">
+                            <option value="wav2lip">Wav2Lip (推荐)</option>
+                            <option value="musetalk">MuseTalk</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="tts-select">语音引擎</label>
+                        <select id="tts-select" class="form-control">
+                            <option value="edgetts">Edge TTS</option>
+                            <option value="azuretts">Azure TTS</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="auto-connect">
+                            <label class="form-check-label" for="auto-connect">
+                                自动连接
+                            </label>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </div>
+
+    <!-- 隐藏字段 -->
+    <input type="hidden" id="sessionid" value="0">
+
+    <!-- JavaScript 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="srs.sdk.js"></script>
+
+    <script>
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('留学问答AI助手平台初始化...');
+
+            // 初始化功能
+            initializePlatform();
+
+            // 加载数字人形象列表
+            loadAvatars();
+        });
+
+        // 平台初始化
+        function initializePlatform() {
+            // 连接状态管理
+            updateConnectionStatus('disconnected');
+
+            // 检查语音识别支持
+            checkSpeechRecognitionSupport();
+
+            // 加载保存的身份预设
+            loadSavedIdentity();
+
+            // 绑定事件监听器
+            bindEventListeners();
+        }
+
+        // 绑定事件监听器
+        function bindEventListeners() {
+            // 连接按钮（开始/停止切换）
+            document.getElementById('connect-btn').addEventListener('click', function() {
+                const connectBtn = this;
+                const icon = connectBtn.querySelector('i');
+                const text = connectBtn.textContent.trim();
+
+                console.log('按钮点击 - 当前文本:', text);
+                console.log('按钮点击 - 当前图标类名:', icon.className);
+
+                if (text === '开始连接') {
+                    console.log('执行开始连接逻辑');
+                    // 切换到停止连接状态
+                    updateConnectionStatus('connecting');
+                    startPlay();
+
+                    // 更新按钮图标和文本
+                    console.log('更新按钮为停止连接状态');
+                    icon.className = 'bi bi-stop-fill me-2';
+                    connectBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>停止连接';
+                    connectBtn.classList.remove('btn-primary');
+                    connectBtn.classList.add('btn-outline');
+
+                    console.log('更新后按钮文本:', connectBtn.textContent.trim());
+                    console.log('更新后按钮类名:', connectBtn.className);
+                } else {
+                    console.log('执行停止连接逻辑');
+                    // 切换到开始连接状态
+                    stopPlay();
+
+                    // 更新按钮图标和文本
+                    console.log('更新按钮为开始连接状态');
+                    icon.className = 'bi bi-play-fill me-2';
+                    connectBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>开始连接';
+                    connectBtn.classList.remove('btn-outline');
+                    connectBtn.classList.add('btn-primary');
+
+                    console.log('更新后按钮文本:', connectBtn.textContent.trim());
+                    console.log('更新后按钮类名:', connectBtn.className);
+                }
+            });
+
+            // 发送消息按钮
+            document.getElementById('send-message').addEventListener('click', sendChatMessage);
+
+            // 回车发送消息
+            document.getElementById('chat-message').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChatMessage();
+                }
+            });
+
+            // 切换顾问按钮
+            document.getElementById('switch-avatar-btn').addEventListener('click', switchAvatar);
+
+            // 语音输入按钮
+            document.getElementById('voice-input').addEventListener('click', startVoiceInput);
+
+            // 停止语音输入按钮
+            document.getElementById('stop-voice').addEventListener('click', stopVoiceInput);
+
+            // 身份预设按钮
+            document.getElementById('save-identity').addEventListener('click', saveIdentity);
+            document.getElementById('clear-identity').addEventListener('click', clearIdentity);
+
+            // 覆盖层连接按钮
+            document.getElementById('connect-overlay-btn').addEventListener('click', function() {
+                document.getElementById('connect-btn').click();
+            });
+        }
+
+        // 更新连接状态
+        function updateConnectionStatus(status) {
+            const statusIndicator = document.getElementById('connection-status');
+            const statusText = document.getElementById('status-text');
+
+            statusIndicator.className = 'status-indicator';
+
+            switch(status) {
+                case 'connected':
+                    statusIndicator.classList.add('status-connected');
+                    statusText.textContent = '已连接';
+                    break;
+                case 'disconnected':
+                    statusIndicator.classList.add('status-disconnected');
+                    statusText.textContent = '未连接';
+                    break;
+                case 'connecting':
+                    statusIndicator.classList.add('status-connecting');
+                    statusText.textContent = '连接中...';
+                    break;
+            }
+        }
+
+        // 添加思考中消息（带动画）
+        function addThinkingMessage() {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message thinking';
+            messageDiv.id = 'thinking-message';
+            messageDiv.innerHTML = `
+                <div class="thinking-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                正在思考中...
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // 移除思考中消息
+        function removeThinkingMessage() {
+            const thinkingMsg = document.getElementById('thinking-message');
+            if (thinkingMsg) {
+                thinkingMsg.remove();
+            }
+        }
+
+        // 添加聊天消息
+        function addChatMessage(message, type = 'user') {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // 发送聊天消息
+        function sendChatMessage() {
+            const messageInput = document.getElementById('chat-message');
+            const message = messageInput.value.trim();
+
+            if (!message) return;
+
+            console.log('发送消息:', message);
+
+            // 添加到聊天界面
+            addChatMessage(message, 'user');
+
+            // 立即显示"正在思考..."动画提示
+            addThinkingMessage();
+
+            // 禁用发送按钮，避免重复发送
+            const sendButton = document.getElementById('send-message');
+            sendButton.disabled = true;
+
+            // 发送到后端
+            fetch('/human', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: message,
+                    type: 'chat',
+                    interrupt: true,
+                    sessionid: parseInt(document.getElementById('sessionid').value)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 重新启用发送按钮
+                sendButton.disabled = false;
+
+                if (data.code === 0) {
+                    console.log('消息发送成功');
+                } else {
+                    addChatMessage('发送失败，请重试', 'system');
+                }
+            })
+            .catch(error => {
+                console.error('发送消息错误:', error);
+                sendButton.disabled = false;
+                addChatMessage('网络错误，请检查连接', 'system');
+            });
+
+            // 清空输入框
+            messageInput.value = '';
+        }
+
+        // 加载数字人形象列表
+        function loadAvatars() {
+            fetch('/get_avatars')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 0) {
+                        const grid = document.getElementById('avatar-grid');
+                        grid.innerHTML = '';
+
+                        console.log('加载的数字人数据:', data.data);
+                        data.data.forEach((avatar, index) => {
+                            const avatarItem = document.createElement('div');
+                            avatarItem.className = 'avatar-item';
+                            if (index === 0) {
+                                avatarItem.classList.add('selected');
+                            }
+
+                            // 存储数字人ID到数据属性中
+                            avatarItem.dataset.avatarId = avatar.id;
+
+                            // 使用第一张图片作为展示 - 修正图片路径
+                            const firstImage = avatar.full_imgs && avatar.full_imgs.length > 0
+                                ? avatar.full_imgs[0]
+                                : `/data/avatars/${avatar.id}/full_imgs/00000000.png`;
+
+                            avatarItem.innerHTML = `
+                                <img src="${firstImage}" alt="${avatar.name}" class="avatar-image"
+                                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjQwIiB5PSI0NCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNkI3MjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+5paw5Lq6PC90ZXh0Pgo8L3N2Zz4K';">
+                                <div class="avatar-name">${avatar.name}</div>
+                            `;
+
+                            avatarItem.addEventListener('click', () => {
+                                // 移除其他项目的选中状态
+                                document.querySelectorAll('.avatar-item').forEach(item => {
+                                    item.classList.remove('selected');
+                                });
+                                // 设置当前项目为选中状态
+                                avatarItem.classList.add('selected');
+                                // 切换数字人 - 使用正确的ID
+                                switchToAvatar(avatar.id);
+                            });
+
+                            grid.appendChild(avatarItem);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('加载数字人形象失败:', error);
+                });
+        }
+
+        // 切换数字人形象
+
+        // 切换到指定数字人 - 只改变选择状态，不建立连接
+        function switchToAvatar(avatarId) {
+            console.log('选择顾问:', avatarId);
+
+            // 只更新选择状态，不建立连接
+            // 连接将在用户点击"开始连接"时建立
+        }
+
+        // 旧的切换按钮功能（保留兼容性）
+        function switchAvatar() {
+            const selectedItem = document.querySelector('.avatar-item.selected');
+            if (selectedItem) {
+                const avatarId = Array.from(document.querySelectorAll('.avatar-item')).indexOf(selectedItem) + 1;
+                switchToAvatar(avatarId);
+            } else {
+                alert('请先选择一个顾问形象');
+            }
+        }
+
+        // WebRTC连接相关变量
+        let pc = null;
+
+        // 语音识别相关变量
+        let recognition = null;
+        let isRecording = false;
+        let finalTranscript = '';
+        let interimTranscript = '';
+
+        // 开始播放 - 只有点击开始连接时才真正建立连接
+        function startPlay() {
+            // 如果已经有连接，先停止
+            if (pc && pc.connectionState !== 'closed') {
+                console.log('停止当前连接，开始新连接');
+                stopPlay();
+                // 等待一小段时间让连接完全关闭
+                setTimeout(() => {
+                    startPlay();
+                }, 500);
+                return;
+            }
+
+            // 获取当前选中的数字人形象 - 修正ID获取方式
+            const selectedItem = document.querySelector('.avatar-item.selected');
+            let selectedAvatar = 'wav2lip256_avatar1'; // 默认值
+
+            if (selectedItem) {
+                // 从数据属性中获取真实的ID
+                selectedAvatar = selectedItem.dataset.avatarId || 'wav2lip256_avatar1';
+            }
+
+            console.log('开始连接，使用顾问:', selectedAvatar);
+
+            // 创建PeerConnection
+            pc = new RTCPeerConnection({
+                iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+            });
+
+            // 添加音视频轨道
+            pc.addTransceiver("audio", { direction: "recvonly" });
+            pc.addTransceiver("video", { direction: "recvonly" });
+
+            // 设置视频流
+            pc.ontrack = function(event) {
+                console.log('收到轨道:', event.track.kind);
+                if (event.track.kind === 'video') {
+                    const video = document.getElementById('video');
+                    video.srcObject = event.streams[0];
+
+                    // 隐藏覆盖层
+                    document.querySelector('.video-overlay').style.display = 'none';
+                }
+            };
+
+            // 创建offer并发送
+            pc.createOffer().then(offer => {
+                return pc.setLocalDescription(offer);
+            }).then(() => {
+                console.log('发送offer到后端...');
+
+                return fetch('/offer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sdp: pc.localDescription.sdp,
+                        type: pc.localDescription.type,
+                        avatar_id: selectedAvatar
+                    })
+                });
+            }).then(response => response.json())
+            .then(data => {
+                console.log('收到后端响应:', data);
+
+                // 保存会话ID
+                if (data.sessionid) {
+                    document.getElementById('sessionid').value = data.sessionid;
+                    console.log('会话ID设置为:', data.sessionid);
+                }
+
+                // 设置远程描述
+                return pc.setRemoteDescription(new RTCSessionDescription({
+                    type: 'answer',
+                    sdp: data.sdp
+                }));
+            }).then(() => {
+                console.log('WebRTC连接已建立');
+                updateConnectionStatus('connected');
+            }).catch(error => {
+                console.error('WebRTC连接失败:', error);
+                updateConnectionStatus('disconnected');
+                addChatMessage('连接失败: ' + error.message, 'system');
+            });
+        }
+
+        // 停止播放
+        function stopPlay() {
+            if (pc) {
+                // 关闭所有轨道
+                if (pc.getReceivers) {
+                    pc.getReceivers().forEach(receiver => {
+                        if (receiver.track) {
+                            receiver.track.stop();
+                        }
+                    });
+                }
+
+                // 关闭连接
+                pc.close();
+                pc = null;
+                console.log('WebRTC连接已关闭');
+            }
+
+            // 重置UI状态
+            const overlay = document.querySelector('.video-overlay');
+            if (overlay) {
+                overlay.style.display = 'flex';
+            }
+            updateConnectionStatus('disconnected');
+
+            // 清除视频元素
+            const videoElement = document.getElementById('video');
+            if (videoElement) {
+                videoElement.srcObject = null;
+            }
+        }
+
+        // 语音输入功能
+        function startVoiceInput() {
+            if (isRecording) {
+                stopVoiceInput();
+                return;
+            }
+
+            // 检查浏览器是否支持语音识别
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert('您的浏览器不支持语音识别功能，请使用Chrome、Edge等现代浏览器');
+                return;
+            }
+
+            // 初始化语音识别
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'zh-CN';
+
+            // 重置转录文本
+            finalTranscript = '';
+            interimTranscript = '';
+
+            // 开始识别时的处理
+            recognition.onstart = function() {
+                console.log('语音识别开始');
+                isRecording = true;
+                updateVoiceUI(true);
+            };
+
+            // 识别结果处理
+            recognition.onresult = function(event) {
+                interimTranscript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+
+                // 更新输入框显示
+                const messageInput = document.getElementById('chat-message');
+                messageInput.value = finalTranscript + interimTranscript;
+
+                // 自动滚动到输入框底部
+                messageInput.scrollTop = messageInput.scrollHeight;
+            };
+
+            // 识别结束处理
+            recognition.onend = function() {
+                console.log('语音识别结束');
+                isRecording = false;
+                updateVoiceUI(false);
+
+                // 如果有最终转录文本，自动发送
+                if (finalTranscript.trim()) {
+                    setTimeout(() => {
+                        sendChatMessage();
+                    }, 500);
+                }
+            };
+
+            // 错误处理
+            recognition.onerror = function(event) {
+                console.error('语音识别错误:', event.error);
+                isRecording = false;
+                updateVoiceUI(false);
+
+                let errorMsg = '语音识别错误: ';
+                switch(event.error) {
+                    case 'not-allowed':
+                        errorMsg += '请允许浏览器访问麦克风权限';
+                        break;
+                    case 'audio-capture':
+                        errorMsg += '无法访问麦克风';
+                        break;
+                    case 'network':
+                        errorMsg += '网络连接错误';
+                        break;
+                    default:
+                        errorMsg += event.error;
+                }
+
+                addChatMessage(errorMsg, 'system');
+            };
+
+            // 开始语音识别
+            try {
+                recognition.start();
+            } catch (error) {
+                console.error('启动语音识别失败:', error);
+                addChatMessage('启动语音识别失败，请刷新页面重试', 'system');
+            }
+        }
+
+        // 停止语音输入
+        function stopVoiceInput() {
+            if (recognition && isRecording) {
+                recognition.stop();
+                isRecording = false;
+                updateVoiceUI(false);
+            }
+        }
+
+        // 更新语音输入UI状态
+        function updateVoiceUI(recording) {
+            const voiceBtn = document.getElementById('voice-input');
+            const voiceStatus = document.getElementById('voice-status');
+
+            if (recording) {
+                voiceBtn.classList.add('recording');
+                voiceBtn.innerHTML = '<i class="bi bi-mic-fill"></i>';
+                voiceBtn.title = '停止语音输入';
+                voiceStatus.style.display = 'flex';
+            } else {
+                voiceBtn.classList.remove('recording');
+                voiceBtn.innerHTML = '<i class="bi bi-mic"></i>';
+                voiceBtn.title = '语音输入';
+                voiceStatus.style.display = 'none';
+            }
+        }
+
+        // 检查语音识别支持
+        function checkSpeechRecognitionSupport() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                // 如果不支持语音识别，隐藏语音输入按钮
+                document.getElementById('voice-input').style.display = 'none';
+                console.log('浏览器不支持语音识别API');
+            } else {
+                console.log('浏览器支持语音识别API');
+            }
+        }
+
+        // 保存身份预设
+        function saveIdentity() {
+            const identityText = document.getElementById('identity-preset').value.trim();
+            const sessionId = parseInt(document.getElementById('sessionid').value);
+
+            if (!identityText) {
+                alert('请输入数字人的身份信息');
+                return;
+            }
+
+            console.log('保存身份预设:', identityText);
+
+            fetch('/set_identity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    identity: identityText,
+                    sessionid: sessionId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 0) {
+                    addChatMessage('身份预设已保存，数字人将根据此身份回答问题', 'system');
+
+                    // 保存到本地存储
+                    localStorage.setItem('digitalHumanIdentity', identityText);
+
+                    // 显示成功提示
+                    showNotification('身份预设保存成功', 'success');
+                } else {
+                    addChatMessage('身份预设保存失败: ' + data.msg, 'system');
+                }
+            })
+            .catch(error => {
+                console.error('保存身份预设错误:', error);
+                addChatMessage('保存身份预设时发生错误', 'system');
+            });
+        }
+
+        // 清空身份预设
+        function clearIdentity() {
+            document.getElementById('identity-preset').value = '';
+
+            const sessionId = parseInt(document.getElementById('sessionid').value);
+
+            fetch('/clear_identity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sessionid: sessionId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 0) {
+                    addChatMessage('身份预设已清空，数字人将使用默认身份', 'system');
+
+                    // 清除本地存储
+                    localStorage.removeItem('digitalHumanIdentity');
+
+                    // 显示成功提示
+                    showNotification('身份预设已清空', 'info');
+                }
+            })
+            .catch(error => {
+                console.error('清空身份预设错误:', error);
+            });
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            // 创建通知元素
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="bi bi-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            // 添加到页面
+            document.body.appendChild(notification);
+
+            // 显示动画
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+
+            // 3秒后自动移除
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // 加载保存的身份预设
+        function loadSavedIdentity() {
+            const savedIdentity = localStorage.getItem('digitalHumanIdentity');
+            if (savedIdentity) {
+                document.getElementById('identity-preset').value = savedIdentity;
+                console.log('已加载保存的身份预设');
+            }
+        }
+    </script>
+</body>
+</html>
