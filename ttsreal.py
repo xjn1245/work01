@@ -99,6 +99,170 @@ class EdgeTTS(BaseTTS):
     def txt_to_audio(self, msg: tuple[str, dict]):
         voicename = self.opt.REF_FILE  # "zh-CN-YunxiaNeural"
         text, textevent = msg
+        # True streaming path: EdgeTTS mp3 chunks -> ffmpeg decode -> 20ms PCM frames
+        try:
+            import shutil
+            import subprocess
+            from threading import Thread, Event
+            import numpy as np
+            from config_loader import get_config_value
+
+            ffmpeg = shutil.which("ffmpeg")
+            if not ffmpeg:
+                raise FileNotFoundError("ffmpeg not found")
+
+            cmd = [
+                ffmpeg,
+                "-hide_banner",
+                "-loglevel",
+                "error",
+                "-fflags",
+                "nobuffer",
+                "-flags",
+                "low_delay",
+                "-probesize",
+                "32k",
+                "-analyzeduration",
+                "0",
+                "-i",
+                "pipe:0",
+                "-f",
+                "s16le",
+                "-ac",
+                "1",
+                "-ar",
+                str(self.sample_rate),
+                "pipe:1",
+            ]
+            proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+            pcm_buf = bytearray()
+            chunk_bytes = self.chunk * 2  # s16le mono
+            started = False
+            stop_read = Event()
+            audio_received = False
+            tts_timeout_s = float(get_config_value("server.tts_timeout_seconds", 20))
+            deadline = time.time() + tts_timeout_s
+
+            def _drain_stderr():
+                try:
+                    if proc.stderr:
+                        proc.stderr.read()
+                except Exception:
+                    pass
+
+            Thread(target=_drain_stderr, daemon=True).start()
+
+            def _stdout_reader():
+                nonlocal started, pcm_buf
+                try:
+                    while (not stop_read.is_set()) and self.state == State.RUNNING and time.time() < deadline:
+                        if not proc.stdout:
+                            break
+                        data = proc.stdout.read(4096)
+                        if not data:
+                            break
+                        pcm_buf.extend(data)
+                        while len(pcm_buf) >= chunk_bytes and self.state == State.RUNNING:
+                            frame_bytes = bytes(pcm_buf[:chunk_bytes])
+                            del pcm_buf[:chunk_bytes]
+                            frame = (np.frombuffer(frame_bytes, dtype=np.int16).astype(np.float32) / 32767.0)
+                            eventpoint = None
+                            if not started:
+                                eventpoint = {"status": "start", "text": text}
+                                eventpoint.update(**textevent)
+                                started = True
+                            self.parent.put_audio_frame(frame, eventpoint)
+                except Exception as e:
+                    logger.warning(f"EdgeTTS stdout reader error: {e}")
+
+            reader_thread = Thread(target=_stdout_reader, daemon=True, name="edgetts_ffmpeg_stdout")
+            reader_thread.start()
+
+            async def _stream_and_feed():
+                nonlocal audio_received
+
+                # 复用 __main 的校验逻辑，但不要写入 input_stream
+                if not text or len(text.strip()) == 0:
+                    logger.error("EdgeTTS: 文本内容为空")
+                    return False
+
+                valid_voices = ["zh-CN-YunxiaNeural", "zh-CN-XiaoxiaoNeural", "zh-CN-YunyangNeural"]
+                vn = voicename if voicename in valid_voices else "zh-CN-YunxiaNeural"
+                if vn != voicename:
+                    logger.warning(f"EdgeTTS: 语音名称 {voicename} 可能无效，使用默认语音")
+
+                connect_timeout = int(get_config_value("tts.edgetts.connect_timeout", 10))
+                receive_timeout = int(get_config_value("tts.edgetts.receive_timeout", 60))
+                communicate = edge_tts.Communicate(text, vn, connect_timeout=connect_timeout, receive_timeout=receive_timeout)
+
+                async for chunk in communicate.stream():
+                    if self.state != State.RUNNING:
+                        break
+                        if time.time() >= deadline:
+                            logger.warning("EdgeTTS tts timeout reached, stop streaming")
+                            break
+                    if chunk["type"] == "audio":
+                        audio_received = True
+                        if proc.stdin:
+                            proc.stdin.write(chunk["data"])
+                    # ignore boundaries
+
+                return audio_received
+
+            t = time.time()
+            audio_received = asyncio.new_event_loop().run_until_complete(_stream_and_feed())
+            logger.info(f"-------edge tts (stream) time:{time.time() - t:.4f}s")
+            if time.time() >= deadline and not started:
+                logger.warning("EdgeTTS timed out before start frame; degrade without audio")
+
+            # close stdin, flush remaining decoded data
+            try:
+                if proc.stdin:
+                    proc.stdin.close()
+            except Exception:
+                pass
+
+            # allow reader thread to drain remaining stdout quickly
+            try:
+                proc.wait(timeout=2)
+            except Exception:
+                pass
+            stop_read.set()
+            try:
+                reader_thread.join(timeout=1)
+            except Exception:
+                pass
+
+            while len(pcm_buf) >= chunk_bytes and self.state == State.RUNNING:
+                frame_bytes = bytes(pcm_buf[:chunk_bytes])
+                del pcm_buf[:chunk_bytes]
+                frame = (np.frombuffer(frame_bytes, dtype=np.int16).astype(np.float32) / 32767.0)
+                eventpoint = None
+                if not started:
+                    eventpoint = {"status": "start", "text": text}
+                    eventpoint.update(**textevent)
+                    started = True
+                self.parent.put_audio_frame(frame, eventpoint)
+
+            if self.state == State.RUNNING and started:
+                eventpoint = {"status": "end", "text": text}
+                eventpoint.update(**textevent)
+                self.parent.put_audio_frame(np.zeros(self.chunk, np.float32), eventpoint)
+
+            try:
+                proc.kill()
+            except Exception:
+                pass
+
+            if not audio_received:
+                logger.error("edgetts err!!!!!")
+            return
+
+        except Exception as e:
+            # Fallback to old behaviour (buffer then decode)
+            logger.warning(f"EdgeTTS streaming decode unavailable, fallback. reason={e}")
+
         t = time.time()
         asyncio.new_event_loop().run_until_complete(self.__main(voicename, text))
         logger.info(f'-------edge tts time:{time.time() - t:.4f}s')
@@ -115,14 +279,12 @@ class EdgeTTS(BaseTTS):
             streamlen -= self.chunk
             if idx == 0:
                 eventpoint = {'status': 'start', 'text': text}
-                eventpoint.update(**textevent)  # eventpoint={'status':'start','text':text,'msgevent':textevent}
+                eventpoint.update(**textevent)
             elif streamlen < self.chunk:
                 eventpoint = {'status': 'end', 'text': text}
-                eventpoint.update(**textevent)  # eventpoint={'status':'end','text':text,'msgevent':textevent}
+                eventpoint.update(**textevent)
             self.parent.put_audio_frame(stream[idx:idx + self.chunk], eventpoint)
             idx += self.chunk
-        # if streamlen>0:  #skip last frame(not 20ms)
-        #    self.queue.put(stream[idx:])
         self.input_stream.seek(0)
         self.input_stream.truncate()
 

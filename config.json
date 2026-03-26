@@ -1,0 +1,60 @@
+{
+  "server": {
+    "listenport": 8010,
+    "max_session": 1,
+    "transport": "rtcpush",
+    "push_url": "http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream",
+    "max_inflight_chats": 2,
+    "llm_timeout_seconds": 30,
+    "tts_timeout_seconds": 20,
+    "llm_fallback_text": "我正在整理答案，稍后再为你详细说明。"
+  },
+  "avatar": {
+    "default_avatar_id": "avator_1",
+    "preload_enabled": true,
+    "preload_all_on_start": true,
+    "model_infer_from_id": true,
+    "preload_queue_size": 3,
+    "cache_max_size": 5
+  },
+  "model": {
+    "default_model": "musetalk",
+    "batch_size": 16,
+    "fps": 50
+  },
+  "tts": {
+    "default_engine": "edgetts",
+    "default_voice": "zh-CN-YunxiaNeural",
+    "server": "http://127.0.0.1:9880"
+  },
+  "rag": {
+    "enabled": true,
+    "retrieval_mode": "hybrid",
+    "top_k": 5,
+    "min_credibility": 0.7,
+    "category": null,
+    "max_content_chars": 600,
+    "hybrid_alpha": 0.5
+  },
+  "performance": {
+    "level": "speed",
+    "enable_parallel_processing": true,
+    "enable_streaming": true,
+    "tts_engine": "edgetts",
+    "fps": 50,
+    "text_chunk_size": 20,
+    "enable_smart_segmentation": false,
+    "max_response_length": 220,
+    "temperature": 0.6,
+    "stream_tts": true
+  },
+  "gui": {
+    "width": 450,
+    "height": 450
+  },
+  "sliding_window": {
+    "left": 10,
+    "middle": 8,
+    "right": 10
+  }
+}

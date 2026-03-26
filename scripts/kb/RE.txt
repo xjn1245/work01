@@ -1,0 +1,24 @@
+python scripts\kb\kb_batch_import.py --db study_abroad_kb.db --json data.json --default_source "用户贡献"
+
+python scripts\kb\kb_add_single.py --db study_abroad_kb.db --category "申请要求" --title "美国CS硕士申请条件" `
+--content "通常需要本科背景与GPA/语言成绩等（以官网为准）" --source "官方渠道" `
+--tags "美国,计算机科学,硕士" --expiration_days 365
+
+
+用法示例
+1) 关键词检索（keyword）
+python scripts\kb\kb_search.py --db study_abroad_kb.db --query "美国 F1" --category "签证政策" --mode keyword
+2) 混合检索（hybrid）
+python scripts\kb\kb_search.py --db study_abroad_kb.db --query "硕士 申请条件" --mode hybrid --alpha 0.5 --top_k 10
+3) 输出 JSON（便于你二次处理/看证据字段）
+python scripts\kb\kb_search.py --db study_abroad_kb.db --query "奖学金" --mode hybrid --json_out
+
+
+用法
+1) 只导出 knowledge_entries（全量）
+python scripts\kb\kb_dump_all.py --db study_abroad_kb.db
+2) 全量导出到 JSON 文件（推荐）
+python scripts\kb\kb_dump_all.py --db study_abroad_kb.db --json_out scripts\kb\dump_all.json --include_relations --include_update_logs
+3) 若数据太大：只看前 N 条 entries
+python scripts\kb\kb_dump_all.py --db study_abroad_kb.db --limit_entries 50 --include_relations --include_update_logs
+导出结果包含字段：knowledge_entries 的全部列（含 content/tags/last_updated/expiration_date/credibility_

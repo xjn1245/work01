@@ -329,6 +329,13 @@ class BaseReal:
                     _transition_start = time.time()
                 _last_speaking = current_speaking
 
+            # 统一做索引归一化，避免并发切换形象时偶发越界
+            frame_count = len(self.frame_list_cycle) if hasattr(self, 'frame_list_cycle') and self.frame_list_cycle is not None else 0
+            if frame_count <= 0:
+                logger.warning("frame_list_cycle is empty, skip one frame")
+                continue
+            safe_idx = idx % frame_count
+
             if audio_frames[0][1]!=0 and audio_frames[1][1]!=0: #全为静音数据，只需要取fullimg
                 self.speaking = False
                 audiotype = audio_frames[0][1]
@@ -337,7 +344,7 @@ class BaseReal:
                     target_frame = self.custom_img_cycle[audiotype][mirindex]
                     self.custom_index[audiotype] += 1
                 else:
-                    target_frame = self.frame_list_cycle[idx]
+                    target_frame = self.frame_list_cycle[safe_idx]
                 
                 if enable_transition:
                     # 说话→静音过渡
@@ -353,7 +360,7 @@ class BaseReal:
             else:
                 self.speaking = True
                 try:
-                    current_frame = self.paste_back_frame(res_frame,idx)
+                    current_frame = self.paste_back_frame(res_frame,safe_idx)
                 except Exception as e:
                     logger.warning(f"paste_back_frame error: {e}")
                     continue

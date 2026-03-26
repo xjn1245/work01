@@ -24,13 +24,14 @@ LiveTalking 主应用文件
 
 # server.py
 from flask import Flask, render_template, send_from_directory, request, jsonify
-from flask_sockets import Sockets
+# from flask_sockets import Sockets
 import base64
 import json
 # import gevent
 # from gevent import pywsgi
 # from geventwebsocket.handler import WebSocketHandler
 import re
+import copy
 import numpy as np
 from threading import Thread, Event
 # import multiprocessing
@@ -115,9 +116,28 @@ def llm_response_with_identity(message, nerfreal, identity=None):
             msg = chunk.choices[0].delta.content
             result += msg
 
-            # 优化5: 更智能的文本分割，减少TTS等待时间
-            # 当积累到一定长度或遇到自然断句时发送
-            if len(result) >= 50 or (len(result) > 10 and any(punct in result for punct in "，。！？；")):
+            # 优化5: 使用性能配置的智能文本分割
+            chunk_size = llm_config.get("text_chunk_size", 30)
+            enable_smart_seg = llm_config.get("enable_smart_segmentation", True)
+
+            # 智能文本分割策略
+            should_send = False
+
+            if enable_smart_seg:
+                # 智能分割：基于长度和自然断句
+                if len(result) >= chunk_size:
+                    # 检查是否在自然断句处
+                    if any(punct in result for punct in "，。！？；"):
+                        should_send = True
+                    # 如果达到两倍chunk_size，强制发送避免过长等待
+                    elif len(result) >= chunk_size * 2:
+                        should_send = True
+            else:
+                # 简单分割：仅基于长度
+                if len(result) >= chunk_size:
+                    should_send = True
+
+            if should_send:
                 nerfreal.put_msg_txt(result)
                 result = ""
 
@@ -135,10 +155,16 @@ import random
 import shutil
 import asyncio
 import torch
-from typing import Dict
+import time
+from typing import Dict, List, Tuple
 from logger import logger
 import gc
 from performance_config import get_performance_config, optimize_llm_response, optimize_tts_config
+from config_loader import get_config, get_config_value
+from livetalking.services.avatar_manager import AvatarManager
+from livetalking.server.state import AppState
+from livetalking.server.routes import setup_routes
+from knowledge_base import StudyAbroadKnowledgeBase
 
 app = Flask(__name__)
 # sockets = Sockets(app)
@@ -147,6 +173,11 @@ identities: Dict[int, str] = {}  # 存储会话ID到身份信息的映射
 opt = None  # 命令行参数
 model = None  # 数字人模型
 avatar = None  # 数字人形象
+
+# 预加载/资源管理（模块化）
+avatar_manager = None  # type: ignore[assignment]
+preload_queue: List[Tuple[int, str]] = []  # 预加载队列
+preload_in_progress = False  # 预加载是否正在进行
 
 ##### WebRTC 相关功能 ###############################
 pcs = set()  # 存储所有活动的 PeerConnection
@@ -167,6 +198,62 @@ def randN(N) -> int:
     return random.randint(min_val, max_val - 1)
 
 
+def infer_model_type_by_avatar_id(avatar_id: str, fallback_model: str) -> str:
+    """
+    根据 avatar 目录文件存在情况推断数字人实现类型。
+
+    兼容不同形象模型混用的场景：wav2lip / musetalk / ultralight
+    """
+    if not avatar_id:
+        return fallback_model
+
+    import os
+
+    avatar_path = f"./data/avatars/{avatar_id}"
+    # ultralight
+    if os.path.exists(os.path.join(avatar_path, "ultralight.pth")):
+        return "ultralight"
+
+    # musetalk（musetalk 需要 latents.pt / mask_coords.pkl 等）
+    if os.path.exists(os.path.join(avatar_path, "latents.pt")) and os.path.exists(
+        os.path.join(avatar_path, "mask_coords.pkl")
+    ):
+        return "musetalk"
+
+    # wav2lip（wav2lip 只需要 coords.pkl + face_imgs）
+    face_imgs_dir = os.path.join(avatar_path, "face_imgs")
+    coords_path = os.path.join(avatar_path, "coords.pkl")
+    if os.path.exists(face_imgs_dir) and os.path.exists(coords_path):
+        return "wav2lip"
+
+    # 兜底：如果用户仍希望按 avatar_id 名称做推断，则走兼容逻辑
+    if get_config_value('avatar.model_infer_from_id', True):
+        aid = (avatar_id or "").lower()
+        if "wav2lip" in aid:
+            return "wav2lip"
+        if "ultralight" in aid:
+            return "ultralight"
+
+    return fallback_model
+
+
+def preload_avatar_resources(avatar_id: str) -> Dict:
+    """
+    预加载头像和模型资源
+
+    Args:
+        avatar_id: 头像ID
+
+    Returns:
+        Dict: 包含模型和头像的字典
+    """
+    global avatar_manager
+    if avatar_manager is None:
+        raise RuntimeError("avatar_manager is not initialized")
+    res = avatar_manager.preload_avatar_resources(avatar_id)
+    return None if res is None else {"model": res.model, "avatar": res.avatar, "loaded_at": res.loaded_at}
+
+
 def build_nerfreal(sessionid: int, avatar_id=None) -> BaseReal:
     """
     根据指定的模型类型创建数字人实例
@@ -178,35 +265,81 @@ def build_nerfreal(sessionid: int, avatar_id=None) -> BaseReal:
     Returns:
         BaseReal: 数字人实例
     """
-    opt.sessionid = sessionid
-
-    # 如果指定了avatar_id，则使用该ID，否则使用opt.avatar_id
-    target_avatar_id = avatar_id if avatar_id is not None else opt.avatar_id
-
-    # 根据当前模型重新加载对应的模型和头像
-    if opt.model == 'wav2lip':
-        from lipreal import LipReal, load_model, load_avatar
-        current_model = load_model("./models/wav2lip.pth")
-        current_avatar = load_avatar(target_avatar_id)
-        nerfreal = LipReal(opt, current_model, current_avatar)
-    elif opt.model == 'musetalk':
-        from musereal import MuseReal, load_model, load_avatar
-        current_model = load_model()
-        current_avatar = load_avatar(target_avatar_id)
-        nerfreal = MuseReal(opt, current_model, current_avatar)
-    # elif opt.model == 'ernerf':
-    #     from nerfreal import NeRFReal, load_model, load_avatar
-    #     current_model = load_model(opt)
-    #     current_avatar = load_avatar(target_avatar_id)
-    #     nerfreal = NeRFReal(opt, current_model, current_avatar)
-    elif opt.model == 'ultralight':
-        from lightreal import LightReal, load_model, load_avatar
-        current_model = load_model(opt)
-        current_avatar = load_avatar(target_avatar_id)
-        nerfreal = LightReal(opt, current_model, current_avatar)
-    return nerfreal
+    global avatar_manager
+    if avatar_manager is None:
+        raise RuntimeError("avatar_manager is not initialized")
+    return avatar_manager.build_nerfreal(sessionid, avatar_id)
 
 
+async def process_preload_queue():
+    """
+    处理预加载队列
+    """
+    global preload_in_progress, preload_queue
+
+    if preload_in_progress or not preload_queue:
+        return
+
+    preload_in_progress = True
+
+    try:
+        # 从配置文件获取队列大小限制
+        preload_queue_size = get_config_value('avatar.preload_queue_size', 10)
+
+        # 限制队列处理数量
+        processing_count = 0
+        while preload_queue and processing_count < preload_queue_size:
+            sessionid, avatar_id = preload_queue.pop(0)
+            logger.info(f"处理预加载请求: session={sessionid}, avatar={avatar_id}")
+
+            # 在后台线程中预加载资源
+            await asyncio.get_event_loop().run_in_executor(
+                None, preload_avatar_resources, avatar_id
+            )
+
+            processing_count += 1
+
+            # 检查缓存大小并清理
+            await check_and_clean_cache()
+
+    except Exception as e:
+        logger.exception(f"预加载队列处理错误: {e}")
+    finally:
+        preload_in_progress = False
+
+
+async def check_and_clean_cache():
+    """
+    检查并清理缓存，确保不超过配置的最大大小
+    """
+    global avatar_manager
+    if avatar_manager is None:
+        return
+
+    # 如果用户开启“启动时预加载全部”，则不做缓存淘汰
+    if avatar_manager.preload_all_on_start:
+        return
+
+    cache_max_size = get_config_value('avatar.cache_max_size', 5)
+
+    if len(avatar_manager.avatar_cache) > cache_max_size:
+        # 按加载时间排序，删除最旧的缓存
+        sorted_cache = sorted(avatar_manager.avatar_cache.items(), key=lambda x: x[1].loaded_at)
+        items_to_remove = len(avatar_manager.avatar_cache) - cache_max_size
+
+        for i in range(items_to_remove):
+            if sorted_cache[i][0] in avatar_manager.avatar_cache:
+                del avatar_manager.avatar_cache[sorted_cache[i][0]]
+                logger.info(f"清理缓存: {sorted_cache[i][0]}")
+
+        # 清理GPU资源
+        import gc
+        gc.collect()
+        torch.cuda.empty_cache() if torch.cuda.is_available() else None
+
+
+# NOTE: 以下 aiohttp handlers 已迁移到 `livetalking/server/routes.py`。
+# 这里暂时保留旧实现，避免一次性大删改造成冲突；实际运行已不再注册这些 handler。
 async def offer(request):
     """
     处理 WebRTC 连接请求
@@ -513,10 +646,12 @@ async def get_avatars(request):
                         f'Checking files for {item}: face_imgs exists: {os.path.exists(face_imgs_path)}, coords exists: {os.path.exists(coords_path)}')
 
                     if os.path.exists(face_imgs_path) and os.path.exists(coords_path):
+                        # 根据目录文件推断实现类型
+                        avatar_type = avatar_manager.infer_model_type(item, getattr(opt, "model", "musetalk")) if avatar_manager else getattr(opt, "model", "musetalk")
                         avatar_list.append({
                             "id": item,
                             "name": item,
-                            "type": "wav2lip" if "wav2lip" in item else "musetalk"
+                            "type": avatar_type
                         })
                         logger.info(f'Added avatar: {item}')
 
@@ -685,6 +820,182 @@ async def clear_identity(request):
         )
 
 
+async def preload_avatar(request):
+    """
+    预加载数字人头像资源
+
+    Args:
+        request: HTTP 请求对象
+
+    Returns:
+        web.Response: 操作结果的 JSON 响应
+    """
+    try:
+        params = await request.json()
+        sessionid = params.get('sessionid', 0)
+        avatar_id = params.get('avatar_id', '')
+
+        logger.info(f'Preloading avatar {avatar_id} for session {sessionid}')
+
+        if not avatar_id:
+            return web.Response(
+                content_type="application/json",
+                text=json.dumps(
+                    {"code": -1, "msg": "avatar_id is required"}
+                ),
+            )
+
+        # 如果当前未启用“预加载模式”，拒绝执行预加载，避免重复加载浪费资源
+        global avatar_manager
+        if avatar_manager is None or not avatar_manager.preload_enabled:
+            return web.Response(
+                content_type="application/json",
+                text=json.dumps(
+                    {"code": -1, "msg": "preload disabled by server config"}
+                ),
+            )
+
+        # 添加到预加载队列
+        global preload_queue
+        preload_queue.append((sessionid, avatar_id))
+
+        # 启动预加载处理
+        asyncio.create_task(process_preload_queue())
+
+        return web.Response(
+            content_type="application/json",
+            text=json.dumps(
+                {"code": 0, "msg": "preload started"}
+            ),
+        )
+    except Exception as e:
+        logger.exception('exception:')
+        return web.Response(
+            content_type="application/json",
+            text=json.dumps(
+                {"code": -1, "msg": str(e)}
+            ),
+        )
+
+
+async def set_preload_status(request):
+    """
+    设置预加载功能状态
+
+    Args:
+        request: HTTP 请求对象
+
+    Returns:
+        web.Response: 操作结果的 JSON 响应
+    """
+    try:
+        params = await request.json()
+        enabled = params.get('enabled', False)
+
+        global avatar_manager
+        if avatar_manager is not None:
+            avatar_manager.preload_enabled = enabled
+
+        logger.info(f'Set preload status to {enabled}')
+
+        return web.Response(
+            content_type="application/json",
+            text=json.dumps(
+                {"code": 0, "msg": f"preload {'enabled' if enabled else 'disabled'}"}
+            ),
+        )
+    except Exception as e:
+        logger.exception('exception:')
+        return web.Response(
+            content_type="application/json",
+            text=json.dumps(
+                {"code": -1, "msg": str(e)}
+            ),
+        )
+
+
+async def get_preload_status(request):
+    """
+    获取预加载功能状态
+
+    Args:
+        request: HTTP 请求对象
+
+    Returns:
+        web.Response: 包含预加载状态的 JSON 响应
+    """
+    try:
+        global avatar_manager, preload_queue
+
+        # 计算缓存大小
+        cache_size = len(avatar_manager.avatar_cache) if avatar_manager is not None else 0
+        queue_size = len(preload_queue)
+
+        return web.Response(
+            content_type="application/json",
+            text=json.dumps(
+                {
+                    "code": 0,
+                    "data": {
+                        "enabled": bool(avatar_manager.preload_enabled) if avatar_manager is not None else False,
+                        "cache_size": cache_size,
+                        "queue_size": queue_size,
+                        "cached_avatars": list(avatar_manager.avatar_cache.keys()) if avatar_manager is not None else []
+                    }
+                }
+            ),
+        )
+    except Exception as e:
+        logger.exception('exception:')
+        return web.Response(
+            content_type="application/json",
+            text=json.dumps(
+                {"code": -1, "msg": str(e)}
+            ),
+        )
+
+
+async def clear_cache(request):
+    """
+    清除预加载缓存
+
+    Args:
+        request: HTTP 请求对象
+
+    Returns:
+        web.Response: 操作结果的 JSON 响应
+    """
+    try:
+        global avatar_manager
+
+        # 清除缓存
+        cache_size = len(avatar_manager.avatar_cache) if avatar_manager is not None else 0
+        if avatar_manager is not None:
+            avatar_manager.avatar_cache.clear()
+
+        # 清理GPU资源
+        import gc
+        gc.collect()
+        torch.cuda.empty_cache() if torch.cuda.is_available() else None
+
+        logger.info(f'Cleared cache, removed {cache_size} items')
+
+        return web.Response(
+            content_type="application/json",
+            text=json.dumps(
+                {"code": 0, "msg": f"cache cleared, removed {cache_size} items"}
+            ),
+        )
+    except Exception as e:
+        logger.exception('exception:')
+        return web.Response(
+            content_type="application/json",
+            text=json.dumps(
+                {"code": -1, "msg": str(e)}
+            ),
+        )
+
+
 async def on_shutdown(app):
     """
     应用关闭时的清理操作
@@ -768,45 +1079,57 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # 音频 FPS
-    parser.add_argument('--fps', type=int, default=50, help="audio fps,must be 50")
+    parser.add_argument('--fps', type=int, default=get_config_value('model.fps', 50), help="audio fps,must be 50")
     # 滑动窗口左-中-右长度 (单位: 20ms)
-    parser.add_argument('-l', type=int, default=10)
-    parser.add_argument('-m', type=int, default=8)
-    parser.add_argument('-r', type=int, default=10)
+    parser.add_argument('-l', type=int, default=get_config_value('sliding_window.left', 10))
+    parser.add_argument('-m', type=int, default=get_config_value('sliding_window.middle', 8))
+    parser.add_argument('-r', type=int, default=get_config_value('sliding_window.right', 10))
 
     # GUI 尺寸
-    parser.add_argument('--W', type=int, default=450, help="GUI width")
-    parser.add_argument('--H', type=int, default=450, help="GUI height")
+    parser.add_argument('--W', type=int, default=get_config_value('gui.width', 450), help="GUI width")
+    parser.add_argument('--H', type=int, default=get_config_value('gui.height', 450), help="GUI height")
 
     # musetalk 选项
-    parser.add_argument('--avatar_id', type=str, default='avator_1', help="define which avatar in data/avatars")
+    parser.add_argument('--avatar_id', type=str, default=get_config_value('avatar.default_avatar_id', 'avator_1'),
+                        help="define which avatar in data/avatars")
     # parser.add_argument('--bbox_shift', type=int, default=5)
-    parser.add_argument('--batch_size', type=int, default=16, help="infer batch")
+    parser.add_argument('--batch_size', type=int, default=get_config_value('model.batch_size', 16), help="infer batch")
 
     # 自定义视频配置
     parser.add_argument('--customvideo_config', type=str, default='', help="custom action json")
 
     # TTS 配置
-    parser.add_argument('--tts', type=str, default='edgetts',
+    parser.add_argument('--tts', type=str, default=get_config_value('tts.default_engine', 'edgetts'),
                         help="tts service type")  # xtts gpt-sovits cosyvoice fishtts tencent doubao indextts2 azuretts
-    parser.add_argument('--REF_FILE', type=str, default="zh-CN-YunxiaNeural",
+    parser.add_argument('--REF_FILE', type=str, default=get_config_value('tts.default_voice', "zh-CN-YunxiaNeural"),
                         help="参考文件名或语音模型ID，默认值为 edgetts的语音模型ID zh-CN-YunxiaNeural, 若--tts指定为azuretts, 可以使用Azure语音模型ID, 如zh-CN-XiaoxiaoMultilingualNeural")
     parser.add_argument('--REF_TEXT', type=str, default=None)
-    parser.add_argument('--TTS_SERVER', type=str, default='http://127.0.0.1:9880')  # http://localhost:9000
+    parser.add_argument('--TTS_SERVER', type=str,
+                        default=get_config_value('tts.server', 'http://127.0.0.1:9880'))  # http://localhost:9000
     # parser.add_argument('--CHARACTER', type=str, default='test')
     # parser.add_argument('--EMOTION', type=str, default='default')
 
     # 模型选择
-    parser.add_argument('--model', type=str, default='musetalk')  # musetalk wav2lip ultralight
+    parser.add_argument('--model', type=str,
+                        default=get_config_value('model.default_model', 'musetalk'))  # musetalk wav2lip ultralight
 
     # 传输方式
-    parser.add_argument('--transport', type=str, default='rtcpush')  # webrtc rtcpush virtualcam
+    parser.add_argument('--transport', type=str,
+                        default=get_config_value('server.transport', 'rtcpush'))  # webrtc rtcpush virtualcam
     parser.add_argument('--push_url', type=str,
-                        default='http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream')  # rtmp://localhost/live/livestream
+                        default=get_config_value('server.push_url',
+                                                 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream'))  # rtmp://localhost/live/livestream
 
     # 会话配置
-    parser.add_argument('--max_session', type=int, default=1)  # multi session count
-    parser.add_argument('--listenport', type=int, default=8010, help="web listen port")
+    parser.add_argument('--max_session', type=int,
+                        default=get_config_value('server.max_session', 1))  # multi session count
+    parser.add_argument('--listenport', type=int, default=get_config_value('server.listenport', 8010),
+                        help="web listen port")
+    # 预加载配置
+    parser.add_argument('--preload', action='store_true', default=get_config_value('avatar.preload_enabled', False),
+                        help="enable avatar preload feature")
+    # 测试模式
+    parser.add_argument('--test', action='store_true', default=False, help="test mode, print info and exit")
 
     opt = parser.parse_args()
 
@@ -820,35 +1143,54 @@ if __name__ == '__main__':
     perf_config = get_performance_config()
     perf_config.apply_to_opt(opt)
 
-    # 加载模型和头像
-    # if opt.model == 'ernerf':
-    #     from nerfreal import NeRFReal, load_model, load_avatar
-    #     model = load_model(opt)
-    #     avatar = load_avatar(opt)
-    if opt.model == 'musetalk':
-        from musereal import MuseReal, load_model, load_avatar, warm_up
+    # 初始化模块化的 avatar/资源管理器
+    avatar_manager = AvatarManager(opt, get_config_value)
+    kb = StudyAbroadKnowledgeBase(get_config_value("rag.db_path", "study_abroad_kb.db"))
 
-        logger.info(opt)
-        model = load_model()
-        avatar = load_avatar(opt.avatar_id)
-        warm_up(opt.batch_size, model)
-    elif opt.model == 'wav2lip':
-        from lipreal import LipReal, load_model, load_avatar, warm_up
+    # 设置预加载功能状态
+    preload_enabled = opt.preload
+    logger.info(f"预加载功能: {'启用' if preload_enabled else '禁用'}")
 
-        logger.info(opt)
-        model = load_model("./models/wav2lip.pth")
-        avatar = load_avatar(opt.avatar_id)
-        warm_up(opt.batch_size, model, 256)
-    elif opt.model == 'ultralight':
-        from lightreal import LightReal, load_model, load_avatar, warm_up
+    # 从配置文件获取预加载相关设置
+    import os
+    preload_all_on_start = bool(get_config_value('avatar.preload_all_on_start', False))
+    logger.info(f"启动时预加载全部形象: {'启用' if preload_all_on_start else '禁用'}")
 
-        logger.info(opt)
-        model = load_model(opt)
-        avatar = load_avatar(opt.avatar_id)
-        warm_up(opt.batch_size, avatar, 160)
+    preload_queue_size = get_config_value('avatar.preload_queue_size', 10)
+    cache_max_size = get_config_value('avatar.cache_max_size', 5)
+    logger.info(f"预加载队列大小: {preload_queue_size}, 缓存最大大小: {cache_max_size}")
+
+    avatar_manager.configure(preload_enabled=preload_enabled, preload_all_on_start=preload_all_on_start)
+
+    # 启动时一次性预加载所有形象资源
+    if avatar_manager.preload_enabled and avatar_manager.preload_all_on_start:
+        logger.info("开始启动时全量预加载...")
+        loaded = avatar_manager.preload_all_avatars_on_start()
+        logger.info(f"启动时全量预加载完成，加载数量: {loaded}")
+
+    # 测试模式，只打印信息然后退出
+    if opt.test:
+        logger.info("测试模式: 服务器配置信息")
+        logger.info(f"  传输方式: {opt.transport}")
+        logger.info(f"  模型: {opt.model}")
+        logger.info(f"  Avatar ID: {opt.avatar_id}")
+        logger.info(f"  端口: {opt.listenport}")
+        logger.info("  注意: 模型和头像将在需要时动态加载，而不是在启动时加载")
+        logger.info("测试完成，退出")
+        exit(0)
+
+    # 延迟加载模型和头像，只有在需要时才加载
+    logger.info("服务器启动完成，模型和头像将在需要时动态加载")
 
     # 启动虚拟摄像头模式
-    if opt.transport == 'virtualcam':
+    if opt.transport == 'virtualcam' and opt.avatar_id:
+        thread_quit = Event()
+        nerfreals[0] = build_nerfreal(0)
+        rendthrd = Thread(target=nerfreals[0].render, args=(thread_quit,))
+        rendthrd.start()
+    elif opt.transport == 'virtualcam' and not opt.avatar_id:
+        logger.warning("虚拟摄像头模式需要指定avatar_id，将使用默认值: %s",
+                       get_config_value('avatar.default_avatar_id', 'avator_1'))
         thread_quit = Event()
         nerfreals[0] = build_nerfreal(0)
         rendthrd = Thread(target=nerfreals[0].render, args=(thread_quit,))
@@ -859,18 +1201,23 @@ if __name__ == '__main__':
     appasync = web.Application(client_max_size=1024 ** 2 * 100)  # 100MB
     appasync.on_shutdown.append(on_shutdown)
 
-    # 注册路由
-    appasync.router.add_post("/offer", offer)
-    appasync.router.add_post("/human", human)
-    appasync.router.add_post("/humanaudio", humanaudio)
-    appasync.router.add_post("/set_audiotype", set_audiotype)
-    appasync.router.add_post("/record", record)
-    appasync.router.add_post("/interrupt_talk", interrupt_talk)
-    appasync.router.add_post("/is_speaking", is_speaking)
-    appasync.router.add_post("/switch_avatar", switch_avatar)
-    appasync.router.add_post("/set_identity", set_identity)
-    appasync.router.add_post("/clear_identity", clear_identity)
-    appasync.router.add_get("/get_avatars", get_avatars)
+    state = AppState(
+        opt=opt,
+        avatar_manager=avatar_manager,
+        kb=kb,
+        get_config_value=get_config_value,
+        rand_sessionid=lambda: randN(6),
+        nerfreals=nerfreals,
+        identities=identities,
+        preload_queue=preload_queue,
+        preload_in_progress=preload_in_progress,
+        pcs=pcs,
+        chat_semaphore=asyncio.Semaphore(int(get_config_value("server.max_inflight_chats", 2))),
+        chat_gen_ids={},
+    )
+
+    # 注册路由（模块化）
+    setup_routes(appasync, state)
     appasync.router.add_static('/', path='web')
 
     # 配置 CORS

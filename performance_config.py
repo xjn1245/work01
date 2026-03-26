@@ -1,10 +1,11 @@
 """
 性能优化配置文件
-提供不同级别的性能优化选项
+提供不同级别的性能优化选项，并支持从 config.json 覆盖具体数值。
 """
 
-import os
 from typing import Dict, Any
+import os
+from config_loader import get_config_value
 
 class PerformanceConfig:
     """性能优化配置类"""
@@ -18,6 +19,32 @@ class PerformanceConfig:
         """
         self.level = level.lower()
         self.configs = self._get_configs()
+        self._apply_config_overrides()
+
+    def _apply_config_overrides(self) -> None:
+        """
+        允许 config.json 里的 performance.* 覆盖预设值，实现“完全可配置”。
+        """
+        # 允许覆盖的字段（与 configs keys 对齐）
+        keys = [
+            "tts_engine",
+            "llm_model",
+            "max_response_length",
+            "fps",
+            "video_quality",
+            "enable_cache",
+            "parallel_processing",
+            "stream_tts",
+            "text_chunk_size",
+            "enable_smart_segmentation",
+            "temperature",
+            "max_tokens",
+        ]
+
+        for k in keys:
+            v = get_config_value(f"performance.{k}", None)
+            if v is not None:
+                self.configs[k] = v
 
     def _get_configs(self) -> Dict[str, Any]:
         """获取对应级别的配置"""
@@ -28,11 +55,16 @@ class PerformanceConfig:
                 "tts_engine": "azuretts",  # 使用更快的TTS引擎
                 "llm_model": "qwen-turbo",  # 使用更快的LLM模型
                 "max_response_length": 300,  # 限制回答长度
-                "fps": 20,  # 降低帧率
+                # audio chunk timing in webrtc assumes 20ms (=320 samples @ 16kHz),
+                # so keep fps=50 to avoid audio/clock drift that increases perceived latency.
+                "fps": 50,
                 "video_quality": "low",  # 低视频质量
                 "enable_cache": True,  # 启用缓存
                 "parallel_processing": True,  # 并行处理
                 "stream_tts": True,  # 流式TTS
+                # Reduce first TTS segment latency by sending smaller text chunks sooner.
+                "text_chunk_size": 15,
+                "enable_smart_segmentation": True,
             }
         elif self.level == "quality":
             # 质量优先配置 - 使用Azure TTS替代有问题的EdgeTTS
@@ -40,11 +72,13 @@ class PerformanceConfig:
                 "tts_engine": "azuretts",  # 使用Azure TTS替代EdgeTTS
                 "llm_model": "qwen-plus",  # 使用更强的LLM模型
                 "max_response_length": 500,  # 允许更长的回答
-                "fps": 30,  # 标准帧率
+                "fps": 50,
                 "video_quality": "high",  # 高视频质量
                 "enable_cache": False,  # 禁用缓存
                 "parallel_processing": False,  # 串行处理
                 "stream_tts": False,  # 完整TTS
+                "text_chunk_size": 25,
+                "enable_smart_segmentation": True,
             }
         else:
             # 平衡配置（默认）
@@ -52,11 +86,13 @@ class PerformanceConfig:
                 "tts_engine": "azuretts",  # 平衡的TTS引擎
                 "llm_model": "qwen-turbo",  # 平衡的LLM模型
                 "max_response_length": 350,  # 适中的回答长度
-                "fps": 35,  # 平衡的帧率
+                "fps": 50,
                 "video_quality": "medium",  # 中等视频质量
                 "enable_cache": True,  # 启用缓存
                 "parallel_processing": True,  # 并行处理
                 "stream_tts": True,  # 流式TTS
+                "text_chunk_size": 20,
+                "enable_smart_segmentation": True,
             }
     
     def get(self, key: str, default: Any = None) -> Any:
@@ -66,8 +102,23 @@ class PerformanceConfig:
     def apply_to_opt(self, opt) -> None:
         """将配置应用到opt对象"""
         # 设置TTS引擎
-        if self.get("tts_engine") == "azuretts":
-            opt.REF_FILE = "zh-CN-XiaoxiaoMultilingualNeural"
+        # 注意：opt.tts 需要真正影响 basereal/BaseReal 中 TTS 实例选择。
+        tts_engine = self.get("tts_engine")
+        if tts_engine == "azuretts":
+            # AzureTTS 依赖环境变量；缺失时不要强行切换，避免直接报错导致完全不说话。
+            has_azure_creds = bool(os.getenv("AZURE_SPEECH_KEY")) and bool(os.getenv("AZURE_TTS_REGION"))
+            if has_azure_creds:
+                opt.tts = "azuretts"
+                opt.REF_FILE = "zh-CN-XiaoxiaoMultilingualNeural"
+            else:
+                print(
+                    "AzureTTS credentials not found (need AZURE_SPEECH_KEY & AZURE_TTS_REGION). "
+                    "Keep current opt.tts=" + str(getattr(opt, "tts", None))
+                )
+        else:
+            # 默认情况下只做直接覆盖（当前配置主要就是 azuretts）
+            if tts_engine:
+                opt.tts = tts_engine
         
         # 设置帧率
         opt.fps = self.get("fps", 25)
@@ -85,8 +136,8 @@ class PerformanceConfig:
 
 def get_performance_config() -> PerformanceConfig:
     """获取性能配置实例"""
-    # 从环境变量获取优化级别
-    level = os.getenv("PERFORMANCE_LEVEL", "balanced")
+    # 从配置文件获取优化级别（完全避免使用环境变量）
+    level = str(get_config_value("performance.level", "balanced")).lower()
     return PerformanceConfig(level)
 
 
@@ -95,8 +146,10 @@ def optimize_llm_response(performance_config: PerformanceConfig) -> Dict[str, An
     return {
         "model": performance_config.get("llm_model"),
         "max_tokens": performance_config.get("max_response_length"),
-        "temperature": 0.7,
-        "stream": True
+        "temperature": performance_config.get("temperature", 0.7),
+        "stream": True,
+        "text_chunk_size": performance_config.get("text_chunk_size", 20),
+        "enable_smart_segmentation": performance_config.get("enable_smart_segmentation", True),
     }
 
 

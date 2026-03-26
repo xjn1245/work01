@@ -1,0 +1,18 @@
+[
+    {
+      "category": "签证政策",
+      "title": "美国F1签证材料概览",
+      "content": "I-20、DS-160、签证预约、照片、资金证明、学习计划等（以官网为准）。",
+      "source": "官方渠道",
+      "tags": ["美国", "F1"],
+      "expiration_days": 180
+    },
+    {
+      "category": "申请要求",
+      "title": "英国授课型硕士语言成绩要求示例",
+      "content": "IELTS/TOEFL要求因学校与项目而异，通常需满足最低分并提交材料。",
+      "source": "权威媒体",
+      "tags": ["英国"],
+      "expiration_days": 180
+    }
+  ]

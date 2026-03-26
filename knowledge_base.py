@@ -6,9 +6,14 @@
 import json
 import sqlite3
 import hashlib
+import threading
+import re
 from datetime import datetime, timedelta
 from typing import Dict, List, Any
 from logger import logger
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 class StudyAbroadKnowledgeBase:
     """留学专业知识库类"""
@@ -30,6 +35,15 @@ class StudyAbroadKnowledgeBase:
             "用户贡献": {"权重": 0.7, "更新频率": "每周"},
             "历史数据": {"权重": 0.5, "更新频率": "每月"}
         }
+
+        # --- Vector index cache (for hybrid retrieval) ---
+        self._vector_index_lock = threading.Lock()
+        self._vectorizer: TfidfVectorizer | None = None
+        self._tfidf_matrix = None
+        self._index_entry_ids: List[int] = []
+        self._index_entries_meta: Dict[int, Dict[str, Any]] = {}
+        self._db_revision_key: str | None = None
+        self._last_vector_build_at: str | None = None
     
     def _init_database(self):
         """初始化数据库"""
@@ -80,6 +94,311 @@ class StudyAbroadKnowledgeBase:
         
         conn.commit()
         conn.close()
+
+    def _get_db_revision_key(self) -> str:
+        """
+        用 (总数, 最新更新时间) 作为“粗略变更”信号。
+        这样能在热更新（插入/更新）后自动重建向量索引。
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*), MAX(last_updated) FROM knowledge_entries")
+        cnt, max_ts = cursor.fetchone()
+        conn.close()
+        return f"{cnt}:{max_ts}"
+
+    def _parse_expiration_date(self, expiration_date) -> datetime | None:
+        if not expiration_date:
+            return None
+        if isinstance(expiration_date, datetime):
+            return expiration_date
+        # SQLite may return strings like "2026-03-26 12:34:56"
+        s = str(expiration_date)
+        for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"):
+            try:
+                return datetime.strptime(s[:19], fmt)
+            except Exception:
+                continue
+        return None
+
+    def _maybe_rebuild_vector_index(self, max_features: int = 5000) -> None:
+        revision = self._get_db_revision_key()
+        if self._db_revision_key == revision and self._vectorizer is not None and self._tfidf_matrix is not None:
+            return
+
+        with self._vector_index_lock:
+            # re-check after acquiring lock
+            revision = self._get_db_revision_key()
+            if self._db_revision_key == revision and self._vectorizer is not None and self._tfidf_matrix is not None:
+                return
+
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT id, category, title, content, source, credibility_score, last_updated, tags, expiration_date
+                FROM knowledge_entries
+                """
+            )
+            rows = cursor.fetchall()
+            conn.close()
+
+            texts: List[str] = []
+            entry_ids: List[int] = []
+            entries_meta: Dict[int, Dict[str, Any]] = {}
+
+            for row in rows:
+                entry_id = row[0]
+                category = row[1]
+                title = row[2]
+                content = row[3]
+                source = row[4]
+                credibility_score = row[5]
+                last_updated = row[6]
+                tags_raw = row[7]
+                expiration_date = row[8]
+                tags = json.loads(tags_raw) if tags_raw else []
+
+                entry_ids.append(entry_id)
+                texts.append(f"{title}\n{content}")
+                entries_meta[entry_id] = {
+                    "id": entry_id,
+                    "category": category,
+                    "title": title,
+                    "content": content,
+                    "source": source,
+                    "credibility_score": credibility_score,
+                    "last_updated": last_updated,
+                    "tags": tags,
+                    "expiration_date": expiration_date,
+                }
+
+            # If KB is empty, keep index empty
+            if not texts:
+                self._vectorizer = None
+                self._tfidf_matrix = None
+                self._index_entry_ids = []
+                self._index_entries_meta = {}
+                self._db_revision_key = revision
+                return
+
+            # TF-IDF vectors: lightweight, no external embedding model required.
+            vectorizer = TfidfVectorizer(
+                max_features=max_features,
+                ngram_range=(1, 2),
+                min_df=1,
+                stop_words=None,
+            )
+            tfidf_matrix = vectorizer.fit_transform(texts)
+
+            self._vectorizer = vectorizer
+            self._tfidf_matrix = tfidf_matrix
+            self._index_entry_ids = entry_ids
+            self._index_entries_meta = entries_meta
+            self._db_revision_key = revision
+            self._last_vector_build_at = datetime.now().isoformat(timespec="seconds")
+
+    def _compute_keyword_score(self, query: str, title: str, content: str) -> float:
+        """
+        在没有 embedding 的情况下，用“字符串包含 + 字符重叠”的方式估计相关度。
+        """
+        q = (query or "").strip()
+        if not q:
+            return 0.0
+
+        text_all = f"{title}\n{content}"
+        score = 0.0
+
+        # Exact substring boost
+        if q in title:
+            score += 3.0
+        if q in content:
+            score += 2.0
+
+        # Chinese character overlap (very cheap heuristic)
+        chars = re.findall(r"[\u4e00-\u9fff]", q)
+        if chars:
+            uniq_chars = set(chars)
+            overlap = sum(1 for c in uniq_chars if c in text_all)
+            score += float(overlap) / max(1, len(uniq_chars)) * 2.0
+
+        # Word-like overlap for alphanumerics
+        words = re.findall(r"[a-zA-Z0-9]+", q)
+        if words:
+            w_uniq = set(words)
+            overlap_w = sum(1 for w in w_uniq if w.lower() in text_all.lower())
+            score += float(overlap_w) / max(1, len(w_uniq)) * 1.5
+
+        return score
+
+    def search_knowledge_hybrid(
+        self,
+        query: str,
+        category: str = None,
+        min_credibility: float = 0.7,
+        top_k: int = 5,
+        alpha: float = 0.5,
+        keyword_candidate_limit: int = 200,
+        vector_candidate_limit: int = 50,
+        max_vector_candidates_merge: int = 120,
+    ) -> List[Dict[str, Any]]:
+        """
+        混合检索（向量 TF-IDF + 关键词启发式评分）。
+        热更新：只要知识库发生插入/更新（last_updated 变化），会自动重建向量索引。
+        """
+        # Ensure vector index exists (and is rebuilt after KB change)
+        self._maybe_rebuild_vector_index()
+
+        now = datetime.now()
+        active_ids: set[int] = set()
+
+        # Keyword candidates via LIKE, then compute heuristic keyword score in Python
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        conditions = ["(content LIKE ? OR title LIKE ?)"]
+        params = [f"%{query}%", f"%{query}%"]
+
+        if category:
+            conditions.append("category = ?")
+            params.append(category)
+
+        conditions.append("credibility_score >= ?")
+        params.append(min_credibility)
+
+        conditions.append("(expiration_date IS NULL OR expiration_date > datetime('now'))")
+
+        where_clause = " AND ".join(conditions)
+        cursor.execute(
+            f"""
+            SELECT id, category, title, content, source, credibility_score, last_updated, tags, expiration_date
+            FROM knowledge_entries
+            WHERE {where_clause}
+            LIMIT {keyword_candidate_limit}
+            """,
+            params,
+        )
+        keyword_rows = cursor.fetchall()
+        conn.close()
+
+        keyword_scores: Dict[int, float] = {}
+        keyword_meta: Dict[int, Dict[str, Any]] = {}
+        for row in keyword_rows:
+            entry_id = row[0]
+            title = row[2]
+            content = row[3]
+            credibility_score = row[5]
+            last_updated = row[6]
+            tags_raw = row[7]
+            expiration_date = row[8]
+            tags = json.loads(tags_raw) if tags_raw else []
+
+            kw_score = self._compute_keyword_score(query, title, content)
+            keyword_scores[entry_id] = kw_score
+            keyword_meta[entry_id] = {
+                "id": entry_id,
+                "category": row[1],
+                "title": title,
+                "content": content,
+                "source": row[4],
+                "credibility_score": credibility_score,
+                "last_updated": last_updated,
+                "tags": tags,
+                "expiration_date": expiration_date,
+                "keyword_score": kw_score,
+            }
+
+        # Vector candidates from TF-IDF cosine similarity
+        vector_scores: Dict[int, float] = {}
+        vector_meta: Dict[int, Dict[str, Any]] = {}
+
+        if self._vectorizer is not None and self._tfidf_matrix is not None and self._index_entry_ids:
+            q_vec = self._vectorizer.transform([query])
+            sims = cosine_similarity(q_vec, self._tfidf_matrix).flatten()
+
+            # Top-N indices by similarity
+            top_indices = sims.argsort()[::-1][:vector_candidate_limit]
+            for idx in top_indices:
+                entry_id = self._index_entry_ids[int(idx)]
+                meta = self._index_entries_meta.get(entry_id)
+                if not meta:
+                    continue
+
+                # Filter category/min credibility and expiration in Python (for correctness)
+                if category and meta.get("category") != category:
+                    continue
+                if meta.get("credibility_score", 0) < min_credibility:
+                    continue
+                exp_dt = self._parse_expiration_date(meta.get("expiration_date"))
+                if exp_dt is not None and exp_dt <= now:
+                    continue
+
+                sim_score = float(sims[int(idx)])
+                vector_scores[entry_id] = sim_score
+                vector_meta[entry_id] = {
+                    **{k: v for k, v in meta.items() if k != "expiration_date"},
+                    "expiration_date": meta.get("expiration_date"),
+                    "vector_score": sim_score,
+                }
+
+        # Merge candidates: union
+        candidate_ids = set(keyword_scores.keys()) | set(vector_scores.keys())
+        if not candidate_ids:
+            return []
+
+        # If candidates too many, keep the most promising by either score
+        # (simple prune to cap work)
+        if len(candidate_ids) > max_vector_candidates_merge:
+            scored = []
+            for cid in candidate_ids:
+                scored.append((vector_scores.get(cid, 0.0), keyword_scores.get(cid, 0.0), cid))
+            scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+            candidate_ids = {cid for _, _, cid in scored[:max_vector_candidates_merge]}
+
+        # Normalize scores within candidates
+        max_vec = max(vector_scores.get(cid, 0.0) for cid in candidate_ids) or 1e-9
+        max_kw = max(keyword_scores.get(cid, 0.0) for cid in candidate_ids) or 1e-9
+
+        ranked: List[Dict[str, Any]] = []
+        for cid in candidate_ids:
+            kw_meta = keyword_meta.get(cid)
+            v_meta = vector_meta.get(cid)
+            meta = kw_meta or v_meta
+            if not meta:
+                continue
+
+            # Exclude expired just in case
+            exp_dt = self._parse_expiration_date(meta.get("expiration_date"))
+            if exp_dt is not None and exp_dt <= now:
+                continue
+            if category and meta.get("category") != category:
+                continue
+            if meta.get("credibility_score", 0) < min_credibility:
+                continue
+
+            vec_score = vector_scores.get(cid, 0.0)
+            kw_score = keyword_scores.get(cid, 0.0)
+
+            vec_norm = vec_score / max_vec if max_vec > 0 else 0.0
+            kw_norm = kw_score / max_kw if max_kw > 0 else 0.0
+            combined = alpha * vec_norm + (1.0 - alpha) * kw_norm
+
+            entry_out = {
+                "id": meta["id"],
+                "category": meta["category"],
+                "title": meta["title"],
+                "content": meta["content"],
+                "source": meta["source"],
+                "credibility_score": meta["credibility_score"],
+                "last_updated": meta["last_updated"],
+                "tags": meta.get("tags", []),
+                "combined_score": combined,
+                "vector_score": vec_score,
+                "keyword_score": kw_score,
+            }
+            ranked.append(entry_out)
+
+        ranked.sort(key=lambda x: (x["combined_score"], str(x.get("last_updated", ""))), reverse=True)
+        return ranked[:top_k]
     
     def add_knowledge_entry(self, category: str, title: str, content: str, 
                           source: str, tags: List[str] = None, 
