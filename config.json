@@ -1,0 +1,40 @@
+{
+  "server": {
+    "listenport": 8010,
+    "max_session": 1,
+    "transport": "rtcpush",
+    "push_url": "http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream"
+  },
+  "avatar": {
+    "default_avatar_id": "avator_1",
+    "preload_enabled": true,
+    "preload_all_on_start": true,
+    "model_infer_from_id": true,
+    "preload_queue_size": 3,
+    "cache_max_size": 5
+  },
+  "model": {
+    "default_model": "musetalk",
+    "batch_size": 16,
+    "fps": 50
+  },
+  "tts": {
+    "default_engine": "edgetts",
+    "default_voice": "zh-CN-YunxiaNeural",
+    "server": "http://127.0.0.1:9880"
+  },
+  "performance": {
+    "level": "balanced",
+    "enable_parallel_processing": true,
+    "enable_streaming": true
+  },
+  "gui": {
+    "width": 450,
+    "height": 450
+  },
+  "sliding_window": {
+    "left": 10,
+    "middle": 8,
+    "right": 10
+  }
+}

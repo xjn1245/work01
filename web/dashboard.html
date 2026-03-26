@@ -902,6 +902,20 @@
             // 连接状态管理
             updateConnectionStatus('disconnected');
 
+            // 根据后端配置判断是否启用“预加载模式”
+            fetch('/get_preload_status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 0 && data.data) {
+                        isPreloadMode = !!data.data.enabled;
+                        console.log('预加载模式:', isPreloadMode);
+                    }
+                })
+                .catch(err => {
+                    console.warn('获取预加载状态失败，默认关闭预加载:', err);
+                    isPreloadMode = false;
+                });
+
             // 检查语音识别支持
             checkSpeechRecognitionSupport();
 
@@ -1035,6 +1049,34 @@
             }
         }
 
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            // 创建通知元素
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type} show`;
+
+            // 设置通知内容
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="bi ${type === 'success' ? 'bi-check-circle' : type === 'error' ? 'bi-exclamation-circle' : 'bi-info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            // 添加到页面
+            document.body.appendChild(notification);
+
+            // 3秒后移除
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
         // 添加聊天消息
         function addChatMessage(message, type = 'user') {
             const chatMessages = document.getElementById('chat-messages');
@@ -1156,8 +1198,52 @@
         function switchToAvatar(avatarId) {
             console.log('选择顾问:', avatarId);
 
-            // 只更新选择状态，不建立连接
-            // 连接将在用户点击"开始连接"时建立
+            // 预加载模式下才立即预加载数字人资源；
+            // 非预加载模式下仅在点击“开始连接”时才通过 `/offer` 加载对应数字人。
+            if (isPreloadMode) {
+                preloadAvatar(avatarId);
+            } else {
+                console.log('非预加载模式：仅选择，不预加载数字人资源');
+            }
+
+            // 如果当前已经连接，重建连接以确保音频/视频来自新数字人
+            if (pc && pc.connectionState !== 'closed' && !isReconnecting) {
+                isReconnecting = true;
+                stopPlay();
+                setTimeout(() => {
+                    isReconnecting = false;
+                    startPlay();
+                }, 800);
+            }
+        }
+
+        // 预加载数字人资源
+        function preloadAvatar(avatarId) {
+            console.log('预加载数字人资源:', avatarId);
+
+            // 发送预加载请求
+            fetch('/preload_avatar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    avatar_id: avatarId,
+                    sessionid: parseInt(document.getElementById('sessionid').value)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 0) {
+                    console.log('预加载开始');
+                    showNotification('预加载开始', 'info');
+                } else {
+                    console.error('预加载失败:', data.msg);
+                }
+            })
+            .catch(error => {
+                console.error('预加载错误:', error);
+            });
         }
 
         // 旧的切换按钮功能（保留兼容性）
@@ -1173,6 +1259,8 @@
 
         // WebRTC连接相关变量
         let pc = null;
+        let isPreloadMode = false;
+        let isReconnecting = false;
 
         // 语音识别相关变量
         let recognition = null;
@@ -1250,6 +1338,7 @@
                 if (data.sessionid) {
                     document.getElementById('sessionid').value = data.sessionid;
                     console.log('会话ID设置为:', data.sessionid);
+                    applySavedIdentityToSession(data.sessionid);
                 }
 
                 // 设置远程描述
@@ -1548,6 +1637,32 @@
                 document.getElementById('identity-preset').value = savedIdentity;
                 console.log('已加载保存的身份预设');
             }
+        }
+
+        // 重建连接（切换形象）后，把本地保存的身份同步到后端会话
+        function applySavedIdentityToSession(sessionId) {
+            const identityText = localStorage.getItem('digitalHumanIdentity');
+            if (!identityText || !identityText.trim()) return;
+
+            fetch('/set_identity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    identity: identityText,
+                    sessionid: parseInt(sessionId)
+                })
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.code === 0) {
+                        console.log('身份已同步到新会话:', sessionId);
+                    }
+                })
+                .catch(err => {
+                    console.warn('同步身份到新会话失败:', err);
+                });
         }
     </script>
 </body>

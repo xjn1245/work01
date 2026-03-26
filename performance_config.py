@@ -66,8 +66,23 @@ class PerformanceConfig:
     def apply_to_opt(self, opt) -> None:
         """将配置应用到opt对象"""
         # 设置TTS引擎
-        if self.get("tts_engine") == "azuretts":
-            opt.REF_FILE = "zh-CN-XiaoxiaoMultilingualNeural"
+        # 注意：opt.tts 需要真正影响 basereal/BaseReal 中 TTS 实例选择。
+        tts_engine = self.get("tts_engine")
+        if tts_engine == "azuretts":
+            # AzureTTS 依赖环境变量；缺失时不要强行切换，避免直接报错导致完全不说话。
+            has_azure_creds = bool(os.getenv("AZURE_SPEECH_KEY")) and bool(os.getenv("AZURE_TTS_REGION"))
+            if has_azure_creds:
+                opt.tts = "azuretts"
+                opt.REF_FILE = "zh-CN-XiaoxiaoMultilingualNeural"
+            else:
+                print(
+                    "AzureTTS credentials not found (need AZURE_SPEECH_KEY & AZURE_TTS_REGION). "
+                    "Keep current opt.tts=" + str(getattr(opt, "tts", None))
+                )
+        else:
+            # 默认情况下只做直接覆盖（当前配置主要就是 azuretts）
+            if tts_engine:
+                opt.tts = tts_engine
         
         # 设置帧率
         opt.fps = self.get("fps", 25)
