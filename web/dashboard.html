@@ -1181,6 +1181,8 @@
                             avatarItem.className = 'avatar-item';
                             if (index === 0) {
                                 avatarItem.classList.add('selected');
+                                // 首次加载头像列表时，按首个头像加载独立身份预设
+                                loadSavedIdentityForAvatar(avatar.id);
                             }
 
                             // 存储数字人ID到数据属性中
@@ -1222,6 +1224,8 @@
         // 切换到指定数字人 - 只改变选择状态，不建立连接
         function switchToAvatar(avatarId) {
             console.log('选择顾问:', avatarId);
+            // 切换头像时加载该头像独立身份预设
+            loadSavedIdentityForAvatar(avatarId);
 
             // 预加载模式下才立即预加载数字人资源；
             // 非预加载模式下仅在点击“开始连接”时才通过 `/offer` 加载对应数字人。
@@ -1275,7 +1279,8 @@
         function switchAvatar() {
             const selectedItem = document.querySelector('.avatar-item.selected');
             if (selectedItem) {
-                const avatarId = Array.from(document.querySelectorAll('.avatar-item')).indexOf(selectedItem) + 1;
+                // 必须使用真实 avatar_id，不能再用索引号（否则身份预设 key 对不上）
+                const avatarId = selectedItem.dataset.avatarId || 'wav2lip256_avatar1';
                 switchToAvatar(avatarId);
             } else {
                 alert('请先选择一个顾问形象');
@@ -1554,6 +1559,7 @@
         function saveIdentity() {
             const identityText = document.getElementById('identity-preset').value.trim();
             const sessionId = parseInt(document.getElementById('sessionid').value);
+            const avatarId = getSelectedAvatarId();
 
             if (!identityText) {
                 alert('请输入数字人的身份信息');
@@ -1562,12 +1568,13 @@
 
             console.log('保存身份预设:', identityText);
 
-            fetch('/set_identity', {
+            fetch('/set_avatar_identity', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    avatar_id: avatarId,
                     identity: identityText,
                     sessionid: sessionId
                 })
@@ -1576,9 +1583,6 @@
             .then(data => {
                 if (data.code === 0) {
                     addChatMessage('身份预设已保存，数字人将根据此身份回答问题', 'system');
-
-                    // 保存到本地存储
-                    localStorage.setItem('digitalHumanIdentity', identityText);
 
                     // 显示成功提示
                     showNotification('身份预设保存成功', 'success');
@@ -1595,15 +1599,17 @@
         // 清空身份预设
         function clearIdentity() {
             document.getElementById('identity-preset').value = '';
+            const avatarId = getSelectedAvatarId();
 
             const sessionId = parseInt(document.getElementById('sessionid').value);
 
-            fetch('/clear_identity', {
+            fetch('/clear_avatar_identity', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    avatar_id: avatarId,
                     sessionid: sessionId
                 })
             })
@@ -1611,9 +1617,6 @@
             .then(data => {
                 if (data.code === 0) {
                     addChatMessage('身份预设已清空，数字人将使用默认身份', 'system');
-
-                    // 清除本地存储
-                    localStorage.removeItem('digitalHumanIdentity');
 
                     // 显示成功提示
                     showNotification('身份预设已清空', 'info');
@@ -1655,33 +1658,59 @@
             }, 3000);
         }
 
-        // 加载保存的身份预设
+        function getSelectedAvatarId() {
+            const selectedItem = document.querySelector('.avatar-item.selected');
+            return (selectedItem && selectedItem.dataset && selectedItem.dataset.avatarId)
+                ? selectedItem.dataset.avatarId
+                : 'wav2lip256_avatar1';
+        }
+
+        // 加载保存的身份预设（当前选中头像）
         function loadSavedIdentity() {
-            const savedIdentity = localStorage.getItem('digitalHumanIdentity');
-            if (savedIdentity) {
-                document.getElementById('identity-preset').value = savedIdentity;
-                console.log('已加载保存的身份预设');
-            }
+            const avatarId = getSelectedAvatarId();
+            loadSavedIdentityForAvatar(avatarId);
+        }
+
+        function loadSavedIdentityForAvatar(avatarId) {
+            fetch(`/get_avatar_identity?avatar_id=${encodeURIComponent(avatarId)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 0 && data.data) {
+                        const savedIdentity = (data.data.identity || '');
+                        document.getElementById('identity-preset').value = savedIdentity;
+                        console.log('已加载头像身份预设:', avatarId);
+                    } else {
+                        document.getElementById('identity-preset').value = '';
+                    }
+                })
+                .catch(err => {
+                    console.warn('加载头像身份预设失败:', err);
+                    document.getElementById('identity-preset').value = '';
+                });
         }
 
         // 重建连接（切换形象）后，把本地保存的身份同步到后端会话
         function applySavedIdentityToSession(sessionId) {
-            const identityText = localStorage.getItem('digitalHumanIdentity');
-            if (!identityText || !identityText.trim()) return;
-
-            fetch('/set_identity', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    identity: identityText,
-                    sessionid: parseInt(sessionId)
-                })
-            })
+            const avatarId = getSelectedAvatarId();
+            fetch(`/get_avatar_identity?avatar_id=${encodeURIComponent(avatarId)}`)
                 .then(r => r.json())
                 .then(data => {
-                    if (data.code === 0) {
+                    const identityText = data && data.data ? (data.data.identity || '') : '';
+                    if (!identityText.trim()) return;
+                    return fetch('/set_identity', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            identity: identityText,
+                            sessionid: parseInt(sessionId)
+                        })
+                    });
+                })
+                .then(r => r ? r.json() : null)
+                .then(data => {
+                    if (data && data.code === 0) {
                         console.log('身份已同步到新会话:', sessionId);
                     }
                 })

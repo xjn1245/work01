@@ -21,6 +21,8 @@ class AppState:
     # session state
     nerfreals: Dict[int, BaseReal]
     identities: Dict[int, str]
+    avatar_identities: Dict[str, str]
+    save_avatar_identities: Callable[[], bool]
 
     # preload queue
     preload_queue: List[Tuple[int, str]]

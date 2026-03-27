@@ -338,6 +338,74 @@ def setup_routes(app: web.Application, state: AppState) -> None:
             logger.exception("exception:")
             return web.Response(content_type="application/json", text=json.dumps({"code": -1, "msg": str(e)}))
 
+    async def get_avatar_identity(request: web.Request) -> web.Response:
+        try:
+            avatar_id = request.query.get("avatar_id", "")
+            if not avatar_id:
+                return web.Response(content_type="application/json", text=json.dumps({"code": -1, "msg": "avatar_id is required"}))
+            identity = state.avatar_identities.get(avatar_id, "")
+            return web.Response(
+                content_type="application/json",
+                text=json.dumps({"code": 0, "msg": "ok", "data": {"avatar_id": avatar_id, "identity": identity}}),
+            )
+        except Exception as e:
+            logger.exception("exception:")
+            return web.Response(content_type="application/json", text=json.dumps({"code": -1, "msg": str(e)}))
+
+    async def set_avatar_identity(request: web.Request) -> web.Response:
+        try:
+            params = await request.json()
+            avatar_id = str(params.get("avatar_id", "")).strip()
+            identity = str(params.get("identity", ""))
+            sessionid = params.get("sessionid", 0)
+
+            if not avatar_id:
+                return web.Response(content_type="application/json", text=json.dumps({"code": -1, "msg": "avatar_id is required"}))
+
+            state.avatar_identities[avatar_id] = identity
+            ok = state.save_avatar_identities()
+
+            # 同步到当前会话（如果提供）
+            try:
+                if sessionid:
+                    state.identities[int(sessionid)] = identity
+            except Exception:
+                pass
+
+            return web.Response(
+                content_type="application/json",
+                text=json.dumps({"code": 0 if ok else -1, "msg": "ok" if ok else "save failed"}),
+            )
+        except Exception as e:
+            logger.exception("exception:")
+            return web.Response(content_type="application/json", text=json.dumps({"code": -1, "msg": str(e)}))
+
+    async def clear_avatar_identity(request: web.Request) -> web.Response:
+        try:
+            params = await request.json()
+            avatar_id = str(params.get("avatar_id", "")).strip()
+            sessionid = params.get("sessionid", 0)
+            if not avatar_id:
+                return web.Response(content_type="application/json", text=json.dumps({"code": -1, "msg": "avatar_id is required"}))
+
+            if avatar_id in state.avatar_identities:
+                del state.avatar_identities[avatar_id]
+            ok = state.save_avatar_identities()
+
+            try:
+                if sessionid and int(sessionid) in state.identities:
+                    del state.identities[int(sessionid)]
+            except Exception:
+                pass
+
+            return web.Response(
+                content_type="application/json",
+                text=json.dumps({"code": 0 if ok else -1, "msg": "ok" if ok else "save failed"}),
+            )
+        except Exception as e:
+            logger.exception("exception:")
+            return web.Response(content_type="application/json", text=json.dumps({"code": -1, "msg": str(e)}))
+
     async def clear_identity(request: web.Request) -> web.Response:
         try:
             params = await request.json()
@@ -442,6 +510,9 @@ def setup_routes(app: web.Application, state: AppState) -> None:
     app.router.add_post("/switch_avatar", switch_avatar)
     app.router.add_post("/set_identity", set_identity)
     app.router.add_post("/clear_identity", clear_identity)
+    app.router.add_get("/get_avatar_identity", get_avatar_identity)
+    app.router.add_post("/set_avatar_identity", set_avatar_identity)
+    app.router.add_post("/clear_avatar_identity", clear_avatar_identity)
     app.router.add_get("/get_avatars", get_avatars)
     app.router.add_post("/preload_avatar", preload_avatar)
     app.router.add_post("/set_preload_status", set_preload_status)

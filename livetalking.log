@@ -8090,3 +8090,796 @@ websockets.exceptions.ConnectionClosedError: sent 1007 (invalid frame payload da
 2026-03-27 14:05:30,329 - logger - INFO - basereal process_frames thread stop
 2026-03-27 14:05:30,353 - logger - INFO - Connection state is closed
 2026-03-27 14:05:30,770 - logger - INFO - ttsreal thread stop
+2026-03-27 14:14:57,993 - logger - INFO - 预加载功能: 启用
+2026-03-27 14:14:57,993 - logger - INFO - 启动时预加载全部形象: 启用
+2026-03-27 14:14:57,994 - logger - INFO - 预加载队列大小: 3, 缓存最大大小: 5
+2026-03-27 14:14:57,994 - logger - INFO - 开始启动时全量预加载...
+2026-03-27 14:14:57,996 - logger - INFO - 开始预加载资源: wav2lip_lw002
+2026-03-27 14:14:58,734 - logger - INFO - Load checkpoint from: ./models/wav2lip.pth
+2026-03-27 14:15:02,693 - logger - INFO - reading images...
+2026-03-27 14:15:26,865 - logger - INFO - reading images...
+2026-03-27 14:15:33,157 - logger - INFO - 资源预加载完成: wav2lip_lw002
+2026-03-27 14:15:33,159 - logger - INFO - 开始预加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:15:33,439 - logger - INFO - Load checkpoint from: ./models/wav2lip.pth
+2026-03-27 14:15:34,117 - logger - INFO - reading images...
+2026-03-27 14:15:46,612 - logger - INFO - reading images...
+2026-03-27 14:15:51,290 - logger - INFO - 资源预加载完成: wav2lip_wav2lip256_avatar1
+2026-03-27 14:15:51,291 - logger - INFO - 启动时全量预加载完成，加载数量: 2
+2026-03-27 14:15:51,292 - logger - INFO - 服务器启动完成，模型和头像将在需要时动态加载
+2026-03-27 14:15:51,295 - logger - INFO - start http server; http://<serverip>:8010/webrtcapi.html
+2026-03-27 14:15:51,296 - logger - INFO - 如果使用webrtc，推荐访问webrtc集成前端: http://<serverip>:8010/dashboard.html
+2026-03-27 14:16:03,389 - logger - INFO - Preloading avatar wav2lip256_avatar1 for session 227734
+2026-03-27 14:16:03,393 - logger - INFO - 资源已在缓存中: wav2lip_wav2lip256_avatar1
+2026-03-27 14:16:07,924 - logger - INFO - Preloading avatar lw002 for session 227734
+2026-03-27 14:16:07,927 - logger - INFO - 资源已在缓存中: wav2lip_lw002
+2026-03-27 14:16:22,244 - logger - INFO - Preloading avatar wav2lip256_avatar1 for session 227734
+2026-03-27 14:16:22,247 - logger - INFO - 资源已在缓存中: wav2lip_wav2lip256_avatar1
+2026-03-27 14:16:23,351 - logger - INFO - sessionid=717197, session num=1
+2026-03-27 14:16:23,351 - logger - INFO - Creating nerfreal instance with avatar_id: wav2lip256_avatar1
+2026-03-27 14:16:23,352 - logger - INFO - session=717197 avatar=wav2lip256_avatar1 custom_actions=1
+2026-03-27 14:16:23,352 - logger - INFO - 从缓存加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:16:23,353 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:16:23,353 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:16:23,353 - logger - INFO - {'avatar_id': 'wav2lip256_avatar1', 'audiotype': 1, 'imgpath': 'data/customvideo/avatar1/image', 'audiopath': 'data/customvideo/avatar1/audio.wav'}
+2026-03-27 14:16:23,357 - logger - INFO - reading images...
+2026-03-27 14:16:32,349 - logger - INFO - Connection state is connecting
+2026-03-27 14:16:32,607 - logger - INFO - Connection state is connected
+2026-03-27 14:16:32,610 - logger - INFO - start inference
+2026-03-27 14:16:35,972 - logger - INFO - video start:1774592195.972561
+2026-03-27 14:16:35,999 - logger - INFO - audio start:1774592195.999829
+2026-03-27 14:16:39,934 - logger - INFO - ------actual avg final fps:7.9234
+2026-03-27 14:16:43,939 - logger - INFO - ------actual avg final fps:24.9697
+2026-03-27 14:16:44,102 - logger - INFO - [trace=567fa54daba3] chat start session=717197 len=3
+2026-03-27 14:16:44,105 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:16:44,107 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:16:45,435 - logger - INFO - LLM初始化时间: 1.330s
+2026-03-27 14:16:45,435 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:16:47,740 - logger - INFO - LLM首字节时间: 0.020s
+2026-03-27 14:16:47,856 - logger - INFO - RAG cited evidence ids: [E1]
+2026-03-27 14:16:47,857 - logger - INFO - LLM处理完成 - 总时间: 3.751s, 处理chunks: 9
+2026-03-27 14:16:47,859 - logger - INFO - [trace=567fa54daba3] chat done dt=3.756s
+2026-03-27 14:16:47,940 - logger - INFO - ------actual avg final fps:25.0023
+2026-03-27 14:16:49,255 - logger - INFO - -------edge tts (stream) time:1.3029s
+2026-03-27 14:16:51,218 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:16:51,249 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:16:51,257 - logger - INFO - notify:{'status': 'start', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:16:51,259 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:16:51,284 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:16:51,298 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:16:51,910 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:16:51,911 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,914 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,917 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,923 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,925 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,929 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,932 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,935 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,940 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,944 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,945 - logger - INFO - notify:{'status': 'end', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:16:51,947 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,952 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,954 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,958 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,958 - logger - INFO - ------actual avg final fps:24.8856
+2026-03-27 14:16:51,973 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,975 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,979 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,983 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,986 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:51,989 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:16:55,947 - logger - INFO - ------actual avg final fps:25.0739
+2026-03-27 14:16:59,925 - logger - INFO - ------actual avg final fps:25.1452
+2026-03-27 14:17:01,360 - logger - INFO - lipreal thread stop
+2026-03-27 14:17:01,367 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:17:01,373 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:17:01,390 - logger - INFO - Connection state is closed
+2026-03-27 14:17:01,401 - logger - INFO - ttsreal thread stop
+2026-03-27 14:17:02,346 - logger - INFO - Preloading avatar lw002 for session 717197
+2026-03-27 14:17:02,348 - logger - INFO - 资源已在缓存中: wav2lip_lw002
+2026-03-27 14:17:05,038 - logger - INFO - sessionid=583011, session num=1
+2026-03-27 14:17:05,039 - logger - INFO - Creating nerfreal instance with avatar_id: lw002
+2026-03-27 14:17:05,040 - logger - INFO - session=583011 avatar=lw002 custom_actions=1
+2026-03-27 14:17:05,042 - logger - INFO - 从缓存加载资源: wav2lip_lw002
+2026-03-27 14:17:05,043 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:17:05,044 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:17:05,044 - logger - INFO - {'avatar_id': 'lw002', 'audiotype': 1, 'imgpath': 'data/customvideo/lw002/image', 'audiopath': 'data/customvideo/lw002/audio.wav'}
+2026-03-27 14:17:05,045 - logger - INFO - reading images...
+2026-03-27 14:17:14,425 - logger - INFO - Connection state is connecting
+2026-03-27 14:17:14,663 - logger - INFO - Connection state is connected
+2026-03-27 14:17:14,667 - logger - INFO - start inference
+2026-03-27 14:17:15,183 - logger - INFO - video start:1774592235.183337
+2026-03-27 14:17:15,188 - logger - INFO - audio start:1774592235.188318
+2026-03-27 14:17:19,132 - logger - INFO - ------actual avg final fps:10.2701
+2026-03-27 14:17:21,392 - logger - INFO - [trace=2ddd27b1d6ec] chat start session=583011 len=3
+2026-03-27 14:17:21,393 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:17:21,395 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:17:21,426 - logger - INFO - LLM初始化时间: 0.033s
+2026-03-27 14:17:21,426 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:17:23,149 - logger - INFO - ------actual avg final fps:24.9000
+2026-03-27 14:17:23,165 - logger - INFO - LLM首字节时间: 0.002s
+2026-03-27 14:17:23,481 - logger - INFO - RAG cited evidence ids: [E1]
+2026-03-27 14:17:23,482 - logger - INFO - LLM处理完成 - 总时间: 2.090s, 处理chunks: 9
+2026-03-27 14:17:23,484 - logger - INFO - [trace=2ddd27b1d6ec] chat done dt=2.092s
+2026-03-27 14:17:27,148 - logger - INFO - ------actual avg final fps:25.0052
+2026-03-27 14:17:31,131 - logger - INFO - ------actual avg final fps:25.1113
+2026-03-27 14:17:34,029 - logger - WARNING - EdgeTTS streaming decode unavailable, fallback. reason=Connection timeout to host wss://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1?TrustedClientToken=6A5AA1D4EAFF4E9FB37E23D68491D6F4&ConnectionId=e7a47f394f72452d988ece4bb390000e&Sec-MS-GEC=5557C5278302849770EE25869F4C27010F68FBB10B463016DA475C4EFDCB53CB&Sec-MS-GEC-Version=1-143.0.3650.75
+2026-03-27 14:17:35,147 - logger - INFO - ------actual avg final fps:24.9024
+2026-03-27 14:17:35,341 - logger - INFO - -------edge tts time:1.3103s
+2026-03-27 14:17:35,353 - logger - INFO - [INFO]tts audio stream 24000: (48384,)
+2026-03-27 14:17:35,354 - logger - INFO - [WARN] audio sample rate is 24000, resampling into 16000.
+2026-03-27 14:17:36,702 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:17:36,703 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,706 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,710 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,713 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,716 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,719 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,722 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,727 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,735 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,738 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:36,742 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:17:37,154 - logger - INFO - notify:{'status': 'start', 'text': '我是一只猫。'}
+2026-03-27 14:17:38,747 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:17:38,747 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:17:38,749 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:17:38,751 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:17:38,753 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:17:38,755 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:17:38,758 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:17:38,759 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:17:38,761 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:17:38,763 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:17:39,118 - logger - INFO - notify:{'status': 'end', 'text': '我是一只猫。'}
+2026-03-27 14:17:39,131 - logger - INFO - ------actual avg final fps:25.1053
+2026-03-27 14:17:43,139 - logger - INFO - ------actual avg final fps:24.9533
+2026-03-27 14:17:43,787 - logger - INFO - lipreal thread stop
+2026-03-27 14:17:43,797 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:17:43,804 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:17:43,821 - logger - INFO - Connection state is closed
+2026-03-27 14:17:44,190 - logger - INFO - ttsreal thread stop
+2026-03-27 14:24:57,023 - logger - INFO - 预加载功能: 启用
+2026-03-27 14:24:57,024 - logger - INFO - 启动时预加载全部形象: 启用
+2026-03-27 14:24:57,024 - logger - INFO - 预加载队列大小: 3, 缓存最大大小: 5
+2026-03-27 14:24:57,024 - logger - INFO - 开始启动时全量预加载...
+2026-03-27 14:24:57,026 - logger - INFO - 开始预加载资源: wav2lip_lw002
+2026-03-27 14:24:57,810 - logger - INFO - Load checkpoint from: ./models/wav2lip.pth
+2026-03-27 14:25:01,812 - logger - INFO - reading images...
+2026-03-27 14:25:27,180 - logger - INFO - reading images...
+2026-03-27 14:25:33,878 - logger - INFO - 资源预加载完成: wav2lip_lw002
+2026-03-27 14:25:33,879 - logger - INFO - 开始预加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:25:34,212 - logger - INFO - Load checkpoint from: ./models/wav2lip.pth
+2026-03-27 14:25:34,842 - logger - INFO - reading images...
+2026-03-27 14:25:46,686 - logger - INFO - reading images...
+2026-03-27 14:25:52,357 - logger - INFO - 资源预加载完成: wav2lip_wav2lip256_avatar1
+2026-03-27 14:25:52,357 - logger - INFO - 启动时全量预加载完成，加载数量: 2
+2026-03-27 14:25:52,359 - logger - INFO - 服务器启动完成，模型和头像将在需要时动态加载
+2026-03-27 14:25:52,362 - logger - INFO - start http server; http://<serverip>:8010/webrtcapi.html
+2026-03-27 14:25:52,363 - logger - INFO - 如果使用webrtc，推荐访问webrtc集成前端: http://<serverip>:8010/dashboard.html
+2026-03-27 14:26:59,084 - logger - INFO - Preloading avatar wav2lip256_avatar1 for session 583011
+2026-03-27 14:26:59,088 - logger - INFO - 资源已在缓存中: wav2lip_wav2lip256_avatar1
+2026-03-27 14:27:00,090 - logger - INFO - sessionid=398505, session num=1
+2026-03-27 14:27:00,090 - logger - INFO - Creating nerfreal instance with avatar_id: wav2lip256_avatar1
+2026-03-27 14:27:00,091 - logger - INFO - session=398505 avatar=wav2lip256_avatar1 custom_actions=1
+2026-03-27 14:27:00,094 - logger - INFO - 从缓存加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:27:00,095 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:27:00,096 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:27:00,097 - logger - INFO - {'avatar_id': 'wav2lip256_avatar1', 'audiotype': 1, 'imgpath': 'data/customvideo/avatar1/image', 'audiopath': 'data/customvideo/avatar1/audio.wav'}
+2026-03-27 14:27:00,101 - logger - INFO - reading images...
+2026-03-27 14:27:10,551 - logger - INFO - Connection state is connecting
+2026-03-27 14:27:10,827 - logger - INFO - Connection state is connected
+2026-03-27 14:27:10,831 - logger - INFO - start inference
+2026-03-27 14:27:15,902 - logger - INFO - video start:1774592835.902811
+2026-03-27 14:27:15,939 - logger - INFO - audio start:1774592835.939177
+2026-03-27 14:27:19,880 - logger - INFO - ------actual avg final fps:6.9628
+2026-03-27 14:27:23,873 - logger - INFO - ------actual avg final fps:25.0537
+2026-03-27 14:27:27,864 - logger - INFO - ------actual avg final fps:25.0566
+2026-03-27 14:27:31,871 - logger - INFO - ------actual avg final fps:24.9592
+2026-03-27 14:27:35,854 - logger - INFO - ------actual avg final fps:25.1139
+2026-03-27 14:27:36,258 - logger - INFO - [trace=48333f83598f] chat start session=398505 len=3
+2026-03-27 14:27:36,260 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:27:36,267 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:27:39,871 - logger - INFO - ------actual avg final fps:24.8949
+2026-03-27 14:27:41,687 - logger - INFO - LLM初始化时间: 5.426s
+2026-03-27 14:27:43,859 - logger - INFO - ------actual avg final fps:25.0766
+2026-03-27 14:27:46,447 - logger - INFO - LLM首字节时间: 0.030s
+2026-03-27 14:27:47,127 - logger - INFO - RAG cited evidence ids: [E1], [E2]
+2026-03-27 14:27:47,134 - logger - INFO - LLM处理完成 - 总时间: 10.873s, 处理chunks: 20
+2026-03-27 14:27:47,136 - logger - INFO - [trace=48333f83598f] chat done dt=10.876s
+2026-03-27 14:27:47,869 - logger - INFO - ------actual avg final fps:24.9434
+2026-03-27 14:27:49,161 - logger - INFO - -------edge tts (stream) time:1.9138s
+2026-03-27 14:27:50,631 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:27:50,641 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:27:50,647 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:27:50,657 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:27:50,667 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:27:50,675 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:27:50,675 - logger - INFO - notify:{'status': 'start', 'text': '我是一位专业的留学顾问，拥有丰富的留学咨询经验，擅长解答留学申请、院校选择、专业规划等问题。我的回答将基于提供的证据库内容，确保信息的准确性和可靠性。如果您有具体问题，欢迎随时提问。'}
+2026-03-27 14:27:50,682 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:27:50,690 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:27:52,148 - logger - INFO - ------actual avg final fps:23.3750
+2026-03-27 14:27:52,875 - logger - INFO - ------actual avg infer fps:28.4716
+2026-03-27 14:27:55,617 - logger - INFO - ------actual avg infer fps:47.4554
+2026-03-27 14:27:55,858 - logger - INFO - ------actual avg final fps:26.9533
+2026-03-27 14:27:59,858 - logger - INFO - ------actual avg final fps:25.0032
+2026-03-27 14:28:01,474 - logger - INFO - ------actual avg infer fps:51.1419
+2026-03-27 14:28:03,865 - logger - INFO - ------actual avg final fps:24.9606
+2026-03-27 14:28:06,018 - logger - INFO - ------actual avg infer fps:52.2153
+2026-03-27 14:28:07,848 - logger - INFO - ------actual avg final fps:25.1062
+2026-03-27 14:28:08,327 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:28:08,328 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:28:08,336 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:28:08,341 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:28:08,346 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:28:08,353 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:28:08,822 - logger - INFO - notify:{'status': 'end', 'text': '我是一位专业的留学顾问，拥有丰富的留学咨询经验，擅长解答留学申请、院校选择、专业规划等问题。我的回答将基于提供的证据库内容，确保信息的准确性和可靠性。如果您有具体问题，欢迎随时提问。'}
+2026-03-27 14:28:11,849 - logger - INFO - ------actual avg final fps:25.0008
+2026-03-27 14:28:13,831 - logger - INFO - lipreal thread stop
+2026-03-27 14:28:13,842 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:28:13,849 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:28:13,871 - logger - INFO - Connection state is closed
+2026-03-27 14:28:14,472 - logger - INFO - ttsreal thread stop
+2026-03-27 14:28:14,972 - logger - INFO - Preloading avatar lw002 for session 398505
+2026-03-27 14:28:14,974 - logger - INFO - 资源已在缓存中: wav2lip_lw002
+2026-03-27 14:28:18,451 - logger - INFO - sessionid=695328, session num=1
+2026-03-27 14:28:18,451 - logger - INFO - Creating nerfreal instance with avatar_id: lw002
+2026-03-27 14:28:18,452 - logger - INFO - session=695328 avatar=lw002 custom_actions=1
+2026-03-27 14:28:18,455 - logger - INFO - 从缓存加载资源: wav2lip_lw002
+2026-03-27 14:28:18,455 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:28:18,456 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:28:18,457 - logger - INFO - {'avatar_id': 'lw002', 'audiotype': 1, 'imgpath': 'data/customvideo/lw002/image', 'audiopath': 'data/customvideo/lw002/audio.wav'}
+2026-03-27 14:28:18,461 - logger - INFO - reading images...
+2026-03-27 14:28:27,790 - logger - INFO - Connection state is connecting
+2026-03-27 14:28:28,026 - logger - INFO - Connection state is connected
+2026-03-27 14:28:28,030 - logger - INFO - start inference
+2026-03-27 14:28:28,541 - logger - INFO - video start:1774592908.541899
+2026-03-27 14:28:28,550 - logger - INFO - audio start:1774592908.550390
+2026-03-27 14:28:32,497 - logger - INFO - ------actual avg final fps:10.2495
+2026-03-27 14:28:35,773 - logger - INFO - [trace=041df4cfeb2a] chat start session=695328 len=3
+2026-03-27 14:28:35,774 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:28:35,775 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:28:35,897 - logger - INFO - LLM初始化时间: 0.123s
+2026-03-27 14:28:36,510 - logger - INFO - ------actual avg final fps:24.9217
+2026-03-27 14:28:39,461 - logger - INFO - LLM首字节时间: 0.001s
+2026-03-27 14:28:40,004 - logger - INFO - RAG cited evidence ids: [E1], [E2]
+2026-03-27 14:28:40,011 - logger - INFO - LLM处理完成 - 总时间: 4.237s, 处理chunks: 18
+2026-03-27 14:28:40,014 - logger - INFO - [trace=041df4cfeb2a] chat done dt=4.241s
+2026-03-27 14:28:40,515 - logger - INFO - ------actual avg final fps:24.9714
+2026-03-27 14:28:42,207 - logger - INFO - -------edge tts (stream) time:2.0716s
+2026-03-27 14:28:42,425 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:28:42,430 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:28:42,610 - logger - INFO - notify:{'status': 'start', 'text': '我是一位专业的留学顾问，拥有丰富的留学咨询经验，擅长解答留学申请、院校选择、专业规划等问题。我的信息基于权威渠道和官方资料，旨在为用户提供准确的留学相关信息。'}
+2026-03-27 14:28:44,486 - logger - INFO - ------actual avg final fps:25.1880
+2026-03-27 14:28:44,813 - logger - INFO - ------actual avg infer fps:38.7066
+2026-03-27 14:28:48,487 - logger - INFO - ------actual avg final fps:24.9927
+2026-03-27 14:28:49,834 - logger - INFO - ------actual avg infer fps:49.1452
+2026-03-27 14:28:52,501 - logger - INFO - ------actual avg final fps:24.9175
+2026-03-27 14:28:53,309 - logger - INFO - lipreal thread stop
+2026-03-27 14:28:53,341 - logger - INFO - ttsreal thread stop
+2026-03-27 14:28:54,039 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:28:54,131 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:28:54,155 - logger - INFO - Connection state is closed
+2026-03-27 14:29:04,202 - logger - INFO - sessionid=602807, session num=1
+2026-03-27 14:29:04,202 - logger - INFO - Creating nerfreal instance with avatar_id: lw002
+2026-03-27 14:29:04,203 - logger - INFO - session=602807 avatar=lw002 custom_actions=1
+2026-03-27 14:29:04,207 - logger - INFO - 从缓存加载资源: wav2lip_lw002
+2026-03-27 14:29:04,208 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:29:04,209 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:29:04,209 - logger - INFO - {'avatar_id': 'lw002', 'audiotype': 1, 'imgpath': 'data/customvideo/lw002/image', 'audiopath': 'data/customvideo/lw002/audio.wav'}
+2026-03-27 14:29:04,216 - logger - INFO - reading images...
+2026-03-27 14:29:12,173 - logger - INFO - Connection state is connecting
+2026-03-27 14:29:12,413 - logger - INFO - Connection state is connected
+2026-03-27 14:29:12,418 - logger - INFO - start inference
+2026-03-27 14:29:12,934 - logger - INFO - video start:1774592952.934126
+2026-03-27 14:29:12,940 - logger - INFO - audio start:1774592952.940113
+2026-03-27 14:29:16,896 - logger - INFO - ------actual avg final fps:10.2425
+2026-03-27 14:29:20,885 - logger - INFO - ------actual avg final fps:25.0708
+2026-03-27 14:29:22,404 - logger - INFO - [trace=82c017148166] chat start session=602807 len=3
+2026-03-27 14:29:22,412 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:29:22,414 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:29:22,511 - logger - INFO - LLM初始化时间: 0.099s
+2026-03-27 14:29:22,512 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:29:24,909 - logger - INFO - ------actual avg final fps:24.8605
+2026-03-27 14:29:24,940 - logger - INFO - LLM首字节时间: 0.002s
+2026-03-27 14:29:25,121 - logger - INFO - RAG cited evidence ids: [E1]
+2026-03-27 14:29:25,123 - logger - INFO - LLM处理完成 - 总时间: 2.710s, 处理chunks: 9
+2026-03-27 14:29:25,124 - logger - INFO - [trace=82c017148166] chat done dt=2.720s
+2026-03-27 14:29:26,462 - logger - INFO - -------edge tts (stream) time:1.2491s
+2026-03-27 14:29:26,938 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:29:26,950 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:29:26,963 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:29:26,982 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:29:26,995 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:29:27,005 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:29:27,249 - logger - INFO - notify:{'status': 'start', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:29:28,133 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:29:28,135 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,145 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,151 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,156 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,159 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,171 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,174 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,179 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,185 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,190 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,194 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,199 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,203 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,213 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:29:28,900 - logger - INFO - ------actual avg final fps:25.0502
+2026-03-27 14:29:28,951 - logger - INFO - notify:{'status': 'end', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:29:33,245 - logger - INFO - lipreal thread stop
+2026-03-27 14:29:33,258 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:29:33,265 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:29:33,289 - logger - INFO - Connection state is closed
+2026-03-27 14:29:33,553 - logger - INFO - ttsreal thread stop
+2026-03-27 14:29:33,714 - logger - INFO - Preloading avatar wav2lip256_avatar1 for session 602807
+2026-03-27 14:29:33,717 - logger - INFO - 资源已在缓存中: wav2lip_wav2lip256_avatar1
+2026-03-27 14:29:35,125 - logger - INFO - sessionid=938129, session num=1
+2026-03-27 14:29:35,126 - logger - INFO - Creating nerfreal instance with avatar_id: wav2lip256_avatar1
+2026-03-27 14:29:35,127 - logger - INFO - session=938129 avatar=wav2lip256_avatar1 custom_actions=1
+2026-03-27 14:29:35,130 - logger - INFO - 从缓存加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:29:35,131 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:29:35,132 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:29:35,132 - logger - INFO - {'avatar_id': 'wav2lip256_avatar1', 'audiotype': 1, 'imgpath': 'data/customvideo/avatar1/image', 'audiopath': 'data/customvideo/avatar1/audio.wav'}
+2026-03-27 14:29:35,136 - logger - INFO - reading images...
+2026-03-27 14:29:41,967 - logger - INFO - sessionid=980966, session num=2
+2026-03-27 14:29:41,968 - logger - INFO - Creating nerfreal instance with avatar_id: wav2lip256_avatar1
+2026-03-27 14:29:41,969 - logger - INFO - session=980966 avatar=wav2lip256_avatar1 custom_actions=1
+2026-03-27 14:29:41,971 - logger - INFO - 从缓存加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:29:41,972 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:29:41,973 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:29:41,974 - logger - INFO - {'avatar_id': 'wav2lip256_avatar1', 'audiotype': 1, 'imgpath': 'data/customvideo/avatar1/image', 'audiopath': 'data/customvideo/avatar1/audio.wav'}
+2026-03-27 14:29:41,978 - logger - INFO - reading images...
+2026-03-27 14:29:42,956 - logger - INFO - Connection state is connecting
+2026-03-27 14:29:49,800 - logger - INFO - Connection state is connecting
+2026-03-27 14:29:56,075 - logger - INFO - sessionid=194831, session num=3
+2026-03-27 14:29:56,076 - logger - INFO - Creating nerfreal instance with avatar_id: wav2lip256_avatar1
+2026-03-27 14:29:56,077 - logger - INFO - session=194831 avatar=wav2lip256_avatar1 custom_actions=1
+2026-03-27 14:29:56,080 - logger - INFO - 从缓存加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:29:56,082 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:29:56,083 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:29:56,083 - logger - INFO - {'avatar_id': 'wav2lip256_avatar1', 'audiotype': 1, 'imgpath': 'data/customvideo/avatar1/image', 'audiopath': 'data/customvideo/avatar1/audio.wav'}
+2026-03-27 14:29:56,087 - logger - INFO - reading images...
+2026-03-27 14:30:04,275 - logger - INFO - Connection state is connecting
+2026-03-27 14:30:04,542 - logger - INFO - Connection state is connected
+2026-03-27 14:30:04,545 - logger - INFO - start inference
+2026-03-27 14:30:05,060 - logger - INFO - video start:1774593005.060826
+2026-03-27 14:30:05,066 - logger - INFO - audio start:1774593005.066749
+2026-03-27 14:30:09,024 - logger - INFO - ------actual avg final fps:10.2050
+2026-03-27 14:30:13,027 - logger - INFO - ------actual avg final fps:24.9806
+2026-03-27 14:30:15,658 - logger - INFO - [trace=7ffe385f6b6a] chat start session=194831 len=3
+2026-03-27 14:30:15,659 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:30:15,660 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:30:15,768 - logger - INFO - LLM初始化时间: 0.109s
+2026-03-27 14:30:15,769 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:30:17,020 - logger - INFO - ------actual avg final fps:25.0454
+2026-03-27 14:30:20,329 - logger - INFO - LLM首字节时间: 0.001s
+2026-03-27 14:30:20,519 - logger - INFO - RAG cited evidence ids: [E1]
+2026-03-27 14:30:20,521 - logger - INFO - LLM处理完成 - 总时间: 4.863s, 处理chunks: 9
+2026-03-27 14:30:20,526 - logger - INFO - [trace=7ffe385f6b6a] chat done dt=4.867s
+2026-03-27 14:30:21,006 - logger - INFO - ------actual avg final fps:25.0930
+2026-03-27 14:30:21,950 - logger - INFO - -------edge tts (stream) time:1.3179s
+2026-03-27 14:30:22,891 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:30:22,893 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,896 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,908 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,914 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,919 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,924 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,929 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,934 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,943 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,957 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:22,965 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:23,100 - logger - INFO - notify:{'status': 'start', 'text': '我是一只猫。'}
+2026-03-27 14:30:23,683 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:30:23,684 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:23,689 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:23,702 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:23,708 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:23,713 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:23,718 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:23,724 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:23,730 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:23,739 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:23,877 - logger - INFO - notify:{'status': 'end', 'text': '我是一只猫。'}
+2026-03-27 14:30:25,031 - logger - INFO - ------actual avg final fps:24.8458
+2026-03-27 14:30:29,042 - logger - INFO - ------actual avg final fps:24.9380
+2026-03-27 14:30:33,021 - logger - INFO - ------actual avg final fps:25.1385
+2026-03-27 14:30:37,043 - logger - INFO - ------actual avg final fps:24.8623
+2026-03-27 14:30:41,014 - logger - INFO - ------actual avg final fps:25.1896
+2026-03-27 14:30:44,876 - logger - INFO - [trace=6fcc11758cab] chat start session=194831 len=3
+2026-03-27 14:30:44,877 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:30:44,877 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:30:44,919 - logger - INFO - LLM初始化时间: 0.042s
+2026-03-27 14:30:44,920 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:30:45,019 - logger - INFO - ------actual avg final fps:24.9671
+2026-03-27 14:30:47,766 - logger - INFO - LLM首字节时间: 0.001s
+2026-03-27 14:30:47,877 - logger - INFO - RAG cited evidence ids: [E1]
+2026-03-27 14:30:47,877 - logger - INFO - LLM处理完成 - 总时间: 3.000s, 处理chunks: 9
+2026-03-27 14:30:47,878 - logger - INFO - [trace=6fcc11758cab] chat done dt=3.002s
+2026-03-27 14:30:48,801 - logger - INFO - -------edge tts (stream) time:0.8805s
+2026-03-27 14:30:49,024 - logger - INFO - ------actual avg final fps:24.9747
+2026-03-27 14:30:49,309 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:30:49,314 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:49,321 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:49,327 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:49,331 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:49,334 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:30:49,674 - logger - INFO - notify:{'status': 'start', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:30:50,093 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:30:50,094 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:50,102 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:50,109 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:50,116 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:50,125 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:50,132 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:50,134 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:50,136 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:50,139 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:30:51,417 - logger - INFO - notify:{'status': 'end', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:30:53,021 - logger - INFO - ------actual avg final fps:25.0244
+2026-03-27 14:30:54,729 - logger - INFO - lipreal thread stop
+2026-03-27 14:30:54,733 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:30:54,737 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:30:54,746 - logger - INFO - Connection state is closed
+2026-03-27 14:30:54,883 - logger - INFO - ttsreal thread stop
+2026-03-27 14:44:09,596 - logger - INFO - 预加载功能: 启用
+2026-03-27 14:44:09,598 - logger - INFO - 启动时预加载全部形象: 启用
+2026-03-27 14:44:09,599 - logger - INFO - 预加载队列大小: 3, 缓存最大大小: 5
+2026-03-27 14:44:09,600 - logger - INFO - 开始启动时全量预加载...
+2026-03-27 14:44:09,603 - logger - INFO - 开始预加载资源: wav2lip_lw002
+2026-03-27 14:44:10,413 - logger - INFO - Load checkpoint from: ./models/wav2lip.pth
+2026-03-27 14:44:14,404 - logger - INFO - reading images...
+2026-03-27 14:44:44,917 - logger - INFO - reading images...
+2026-03-27 14:44:51,699 - logger - INFO - 资源预加载完成: wav2lip_lw002
+2026-03-27 14:44:51,702 - logger - INFO - 开始预加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:44:51,991 - logger - INFO - Load checkpoint from: ./models/wav2lip.pth
+2026-03-27 14:44:52,935 - logger - INFO - reading images...
+2026-03-27 14:45:05,891 - logger - INFO - reading images...
+2026-03-27 14:45:11,187 - logger - INFO - 资源预加载完成: wav2lip_wav2lip256_avatar1
+2026-03-27 14:45:11,188 - logger - INFO - 启动时全量预加载完成，加载数量: 2
+2026-03-27 14:45:11,188 - logger - INFO - 服务器启动完成，模型和头像将在需要时动态加载
+2026-03-27 14:45:11,190 - logger - INFO - start http server; http://<serverip>:8010/webrtcapi.html
+2026-03-27 14:45:11,190 - logger - INFO - 如果使用webrtc，推荐访问webrtc集成前端: http://<serverip>:8010/dashboard.html
+2026-03-27 14:45:23,711 - logger - INFO - Scanning avatars directory: data/avatars
+2026-03-27 14:45:23,713 - logger - INFO - Checking item: lw002, is_dir: True
+2026-03-27 14:45:23,715 - logger - INFO - Checking files for lw002: face_imgs exists: True, coords exists: True
+2026-03-27 14:45:23,718 - logger - INFO - Added avatar: lw002
+2026-03-27 14:45:23,720 - logger - INFO - Checking item: wav2lip256_avatar1, is_dir: True
+2026-03-27 14:45:23,721 - logger - INFO - Checking files for wav2lip256_avatar1: face_imgs exists: True, coords exists: True
+2026-03-27 14:45:23,724 - logger - INFO - Added avatar: wav2lip256_avatar1
+2026-03-27 14:45:23,725 - logger - INFO - Found 2 available avatars: ['lw002', 'wav2lip256_avatar1']
+2026-03-27 14:45:29,306 - logger - INFO - Preloading avatar wav2lip256_avatar1 for session 0
+2026-03-27 14:45:29,310 - logger - INFO - 资源已在缓存中: wav2lip_wav2lip256_avatar1
+2026-03-27 14:46:26,113 - logger - INFO - Preloading avatar lw002 for session 0
+2026-03-27 14:46:26,115 - logger - INFO - 资源已在缓存中: wav2lip_lw002
+2026-03-27 14:46:27,070 - logger - INFO - Preloading avatar wav2lip256_avatar1 for session 0
+2026-03-27 14:46:27,073 - logger - INFO - 资源已在缓存中: wav2lip_wav2lip256_avatar1
+2026-03-27 14:46:27,775 - logger - INFO - Preloading avatar lw002 for session 0
+2026-03-27 14:46:27,776 - logger - INFO - 资源已在缓存中: wav2lip_lw002
+2026-03-27 14:46:28,335 - logger - INFO - Preloading avatar wav2lip256_avatar1 for session 0
+2026-03-27 14:46:28,338 - logger - INFO - 资源已在缓存中: wav2lip_wav2lip256_avatar1
+2026-03-27 14:46:28,966 - logger - INFO - Preloading avatar lw002 for session 0
+2026-03-27 14:46:28,969 - logger - INFO - 资源已在缓存中: wav2lip_lw002
+2026-03-27 14:46:30,734 - logger - INFO - Preloading avatar wav2lip256_avatar1 for session 0
+2026-03-27 14:46:30,737 - logger - INFO - 资源已在缓存中: wav2lip_wav2lip256_avatar1
+2026-03-27 14:46:32,113 - logger - INFO - sessionid=942706, session num=1
+2026-03-27 14:46:32,114 - logger - INFO - Creating nerfreal instance with avatar_id: wav2lip256_avatar1
+2026-03-27 14:46:32,114 - logger - INFO - session=942706 avatar=wav2lip256_avatar1 custom_actions=1
+2026-03-27 14:46:32,115 - logger - INFO - 从缓存加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:46:32,115 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:46:32,116 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:46:32,116 - logger - INFO - {'avatar_id': 'wav2lip256_avatar1', 'audiotype': 1, 'imgpath': 'data/customvideo/avatar1/image', 'audiopath': 'data/customvideo/avatar1/audio.wav'}
+2026-03-27 14:46:32,233 - logger - INFO - reading images...
+2026-03-27 14:46:41,420 - logger - INFO - Connection state is connecting
+2026-03-27 14:46:41,672 - logger - INFO - Connection state is connected
+2026-03-27 14:46:41,682 - logger - INFO - start inference
+2026-03-27 14:46:44,402 - logger - INFO - video start:1774594004.402714
+2026-03-27 14:46:44,435 - logger - INFO - audio start:1774594004.435602
+2026-03-27 14:46:48,378 - logger - INFO - ------actual avg final fps:8.3261
+2026-03-27 14:46:52,348 - logger - INFO - ------actual avg final fps:25.1976
+2026-03-27 14:46:53,056 - logger - INFO - [trace=9c24dd0c38c8] chat start session=942706 len=3
+2026-03-27 14:46:53,057 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:46:53,058 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:46:54,424 - logger - INFO - LLM初始化时间: 1.368s
+2026-03-27 14:46:54,425 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:46:56,329 - logger - INFO - LLM首字节时间: 0.017s
+2026-03-27 14:46:56,361 - logger - INFO - ------actual avg final fps:24.9135
+2026-03-27 14:46:56,422 - logger - INFO - LLM处理完成 - 总时间: 3.366s, 处理chunks: 8
+2026-03-27 14:46:56,425 - logger - INFO - [trace=9c24dd0c38c8] chat done dt=3.369s
+2026-03-27 14:46:57,573 - logger - INFO - -------edge tts (stream) time:1.0972s
+2026-03-27 14:46:59,481 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:46:59,493 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:46:59,513 - logger - INFO - notify:{'status': 'start', 'text': '我是一只猫。'}
+2026-03-27 14:46:59,515 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:46:59,532 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:46:59,543 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:46:59,553 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:46:59,559 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:46:59,829 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:46:59,830 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,835 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,839 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,844 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,848 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,848 - logger - INFO - notify:{'status': 'end', 'text': '我是一只猫。'}
+2026-03-27 14:46:59,851 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,855 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,858 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,865 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,881 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,887 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,890 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,895 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,897 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,903 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:46:59,906 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:00,373 - logger - INFO - ------actual avg final fps:24.9255
+2026-03-27 14:47:04,351 - logger - INFO - ------actual avg final fps:25.1407
+2026-03-27 14:47:08,375 - logger - INFO - ------actual avg final fps:24.8581
+2026-03-27 14:47:12,357 - logger - INFO - ------actual avg final fps:25.1205
+2026-03-27 14:47:16,349 - logger - INFO - ------actual avg final fps:25.0490
+2026-03-27 14:47:18,746 - logger - INFO - [trace=7ac4a042172d] chat start session=942706 len=3
+2026-03-27 14:47:18,750 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:47:18,756 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:47:18,878 - logger - INFO - LLM初始化时间: 0.127s
+2026-03-27 14:47:18,879 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:47:20,344 - logger - INFO - ------actual avg final fps:25.0361
+2026-03-27 14:47:20,996 - logger - INFO - LLM首字节时间: 0.002s
+2026-03-27 14:47:21,095 - logger - INFO - RAG cited evidence ids: [E1]
+2026-03-27 14:47:21,096 - logger - INFO - LLM处理完成 - 总时间: 2.345s, 处理chunks: 9
+2026-03-27 14:47:21,097 - logger - INFO - [trace=7ac4a042172d] chat done dt=2.351s
+2026-03-27 14:47:22,435 - logger - INFO - -------edge tts (stream) time:1.2465s
+2026-03-27 14:47:22,908 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:47:22,911 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:47:22,924 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:47:22,929 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:47:23,363 - logger - INFO - notify:{'status': 'start', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:47:24,178 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:47:24,178 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,184 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,192 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,207 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,214 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,221 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,228 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,242 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,248 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,253 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:47:24,366 - logger - INFO - ------actual avg final fps:24.8658
+2026-03-27 14:47:25,115 - logger - INFO - notify:{'status': 'end', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:47:28,364 - logger - INFO - ------actual avg final fps:25.0153
+2026-03-27 14:47:31,454 - logger - INFO - lipreal thread stop
+2026-03-27 14:47:31,466 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:47:31,473 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:47:31,499 - logger - INFO - Connection state is closed
+2026-03-27 14:47:31,541 - logger - INFO - ttsreal thread stop
+2026-03-27 14:47:32,065 - logger - INFO - Preloading avatar lw002 for session 942706
+2026-03-27 14:47:32,069 - logger - INFO - 资源已在缓存中: wav2lip_lw002
+2026-03-27 14:47:33,119 - logger - INFO - sessionid=935448, session num=1
+2026-03-27 14:47:33,119 - logger - INFO - Creating nerfreal instance with avatar_id: lw002
+2026-03-27 14:47:33,119 - logger - INFO - session=935448 avatar=lw002 custom_actions=1
+2026-03-27 14:47:33,123 - logger - INFO - 从缓存加载资源: wav2lip_lw002
+2026-03-27 14:47:33,125 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:47:33,125 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:47:33,126 - logger - INFO - {'avatar_id': 'lw002', 'audiotype': 1, 'imgpath': 'data/customvideo/lw002/image', 'audiopath': 'data/customvideo/lw002/audio.wav'}
+2026-03-27 14:47:33,272 - logger - INFO - reading images...
+2026-03-27 14:47:42,318 - logger - INFO - Connection state is connecting
+2026-03-27 14:47:42,552 - logger - INFO - Connection state is connected
+2026-03-27 14:47:42,558 - logger - INFO - start inference
+2026-03-27 14:47:43,069 - logger - INFO - video start:1774594063.069995
+2026-03-27 14:47:43,080 - logger - INFO - audio start:1774594063.079507
+2026-03-27 14:47:47,019 - logger - INFO - ------actual avg final fps:10.2467
+2026-03-27 14:47:48,821 - logger - INFO - [trace=d6ac9d2d303c] chat start session=935448 len=3
+2026-03-27 14:47:48,822 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:47:48,823 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:47:48,932 - logger - INFO - LLM初始化时间: 0.110s
+2026-03-27 14:47:50,129 - logger - INFO - LLM首字节时间: 0.002s
+2026-03-27 14:47:50,590 - logger - INFO - RAG cited evidence ids: [E1]
+2026-03-27 14:47:50,596 - logger - INFO - LLM处理完成 - 总时间: 1.774s, 处理chunks: 17
+2026-03-27 14:47:50,600 - logger - INFO - [trace=d6ac9d2d303c] chat done dt=1.779s
+2026-03-27 14:47:51,040 - logger - INFO - ------actual avg final fps:24.8706
+2026-03-27 14:47:52,371 - logger - INFO - -------edge tts (stream) time:1.6298s
+2026-03-27 14:47:52,638 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:47:52,644 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:47:52,653 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:47:52,663 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:47:52,680 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:47:52,689 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:47:52,696 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:47:52,712 - logger - WARNING - transition shape mismatch(silent->speaking): (784, 470, 3) vs (960, 536, 3), fallback to current_frame
+2026-03-27 14:47:52,888 - logger - INFO - notify:{'status': 'start', 'text': '我是一位专业的留学顾问，拥有丰富的留学咨询经验，擅长解答留学申请、院校选择、专业规划等问题。我的回答基于提供的证据库信息，确保信息的准确性和可靠性。'}
+2026-03-27 14:47:54,971 - logger - INFO - ------actual avg infer fps:41.1307
+2026-03-27 14:47:55,018 - logger - INFO - ------actual avg final fps:25.1405
+2026-03-27 14:47:59,031 - logger - INFO - ------actual avg final fps:24.9227
+2026-03-27 14:48:00,423 - logger - INFO - ------actual avg infer fps:62.0580
+2026-03-27 14:48:03,002 - logger - INFO - ------actual avg final fps:25.1810
+2026-03-27 14:48:04,869 - logger - INFO - ------actual avg infer fps:73.4450
+2026-03-27 14:48:07,019 - logger - INFO - ------actual avg final fps:24.8976
+2026-03-27 14:48:07,980 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:48:07,980 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:07,983 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:07,988 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:07,994 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:07,999 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:08,001 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:08,006 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:08,008 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:08,011 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:08,012 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:08,016 - logger - WARNING - transition shape mismatch(speaking->silent): (960, 536, 3) vs (784, 470, 3), fallback to target_frame
+2026-03-27 14:48:08,197 - logger - INFO - notify:{'status': 'end', 'text': '我是一位专业的留学顾问，拥有丰富的留学咨询经验，擅长解答留学申请、院校选择、专业规划等问题。我的回答基于提供的证据库信息，确保信息的准确性和可靠性。'}
+2026-03-27 14:48:11,119 - logger - INFO - lipreal thread stop
+2026-03-27 14:48:11,569 - logger - INFO - ttsreal thread stop
+2026-03-27 14:48:11,912 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:48:11,943 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:48:11,962 - logger - INFO - Connection state is closed
+2026-03-27 14:48:29,701 - logger - INFO - Preloading avatar wav2lip256_avatar1 for session 935448
+2026-03-27 14:48:29,704 - logger - INFO - 资源已在缓存中: wav2lip_wav2lip256_avatar1
+2026-03-27 14:48:32,745 - logger - INFO - sessionid=457335, session num=1
+2026-03-27 14:48:32,746 - logger - INFO - Creating nerfreal instance with avatar_id: wav2lip256_avatar1
+2026-03-27 14:48:32,747 - logger - INFO - session=457335 avatar=wav2lip256_avatar1 custom_actions=1
+2026-03-27 14:48:32,749 - logger - INFO - 从缓存加载资源: wav2lip_wav2lip256_avatar1
+2026-03-27 14:48:32,750 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:48:32,751 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:48:32,752 - logger - INFO - {'avatar_id': 'wav2lip256_avatar1', 'audiotype': 1, 'imgpath': 'data/customvideo/avatar1/image', 'audiopath': 'data/customvideo/avatar1/audio.wav'}
+2026-03-27 14:48:32,756 - logger - INFO - reading images...
+2026-03-27 14:48:40,633 - logger - INFO - Connection state is connecting
+2026-03-27 14:48:40,872 - logger - INFO - Connection state is connected
+2026-03-27 14:48:40,879 - logger - INFO - start inference
+2026-03-27 14:48:41,389 - logger - INFO - video start:1774594121.389211
+2026-03-27 14:48:41,393 - logger - INFO - audio start:1774594121.393579
+2026-03-27 14:48:45,348 - logger - INFO - ------actual avg final fps:10.2390
+2026-03-27 14:48:49,360 - logger - INFO - ------actual avg final fps:24.9277
+2026-03-27 14:48:53,351 - logger - INFO - ------actual avg final fps:25.0592
+2026-03-27 14:48:57,356 - logger - INFO - ------actual avg final fps:24.9695
+2026-03-27 14:49:01,343 - logger - INFO - ------actual avg final fps:25.0874
+2026-03-27 14:49:02,859 - logger - INFO - [trace=99d5d5fc732d] chat start session=457335 len=6
+2026-03-27 14:49:02,860 - logger - INFO - 开始处理用户消息: 美国F1签证... (优化级别: speed)
+2026-03-27 14:49:02,861 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:49:02,978 - logger - INFO - LLM初始化时间: 0.118s
+2026-03-27 14:49:02,979 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:49:05,367 - logger - INFO - ------actual avg final fps:24.8532
+2026-03-27 14:49:07,533 - logger - INFO - LLM首字节时间: 0.001s
+2026-03-27 14:49:08,128 - logger - INFO - LLM处理完成 - 总时间: 5.268s, 处理chunks: 19
+2026-03-27 14:49:08,130 - logger - INFO - [trace=99d5d5fc732d] chat done dt=5.271s
+2026-03-27 14:49:09,333 - logger - INFO - ------actual avg final fps:25.2204
+2026-03-27 14:49:09,746 - logger - INFO - -------edge tts (stream) time:1.5194s
+2026-03-27 14:49:10,209 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:49:10,216 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:10,229 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:10,247 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:10,257 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:10,269 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:10,279 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:10,284 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:10,291 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:10,404 - logger - INFO - notify:{'status': 'start', 'text': '关于美国F1签证，需要准备的材料包括I-20、DS-160、签证预约、照片、资金证明、学习计划等[ E1 ]。具体要求请以美国官方渠道发布的最新信息为准。'}
+2026-03-27 14:49:12,454 - logger - INFO - ------actual avg infer fps:40.5924
+2026-03-27 14:49:13,363 - logger - INFO - ------actual avg final fps:24.8172
+2026-03-27 14:49:17,365 - logger - INFO - ------actual avg final fps:24.9929
+2026-03-27 14:49:18,040 - logger - INFO - ------actual avg infer fps:49.8678
+2026-03-27 14:49:21,333 - logger - INFO - ------actual avg final fps:25.2014
+2026-03-27 14:49:22,535 - logger - INFO - ------actual avg infer fps:49.4622
+2026-03-27 14:49:25,348 - logger - INFO - ------actual avg final fps:24.9020
+2026-03-27 14:49:26,246 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:49:26,247 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:26,252 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:26,258 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:26,268 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:26,274 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:26,281 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:26,288 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:26,292 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:26,481 - logger - INFO - notify:{'status': 'end', 'text': '关于美国F1签证，需要准备的材料包括I-20、DS-160、签证预约、照片、资金证明、学习计划等[ E1 ]。具体要求请以美国官方渠道发布的最新信息为准。'}
+2026-03-27 14:49:29,339 - logger - INFO - ------actual avg final fps:25.0642
+2026-03-27 14:49:33,366 - logger - INFO - ------actual avg final fps:24.8361
+2026-03-27 14:49:36,602 - logger - INFO - [trace=bceea3f74bbb] chat start session=457335 len=3
+2026-03-27 14:49:36,604 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:49:36,606 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:49:36,714 - logger - INFO - LLM初始化时间: 0.110s
+2026-03-27 14:49:36,715 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:49:37,335 - logger - INFO - ------actual avg final fps:25.1934
+2026-03-27 14:49:41,335 - logger - INFO - ------actual avg final fps:25.0059
+2026-03-27 14:49:42,008 - logger - INFO - LLM首字节时间: 0.002s
+2026-03-27 14:49:42,236 - logger - INFO - RAG cited evidence ids: [E1]
+2026-03-27 14:49:42,237 - logger - INFO - LLM处理完成 - 总时间: 5.633s, 处理chunks: 9
+2026-03-27 14:49:42,237 - logger - INFO - [trace=bceea3f74bbb] chat done dt=5.635s
+2026-03-27 14:49:43,333 - logger - INFO - -------edge tts (stream) time:0.9973s
+2026-03-27 14:49:43,991 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:49:43,997 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:44,005 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:44,012 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:44,020 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:44,029 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:44,043 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:44,051 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:44,059 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:44,071 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:49:44,307 - logger - INFO - notify:{'status': 'start', 'text': '我是一只猫。'}
+2026-03-27 14:49:44,673 - logger - INFO - ------actual avg infer fps:45.2476
+2026-03-27 14:49:44,772 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:49:44,773 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:44,783 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:44,790 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:44,797 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:44,802 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:44,807 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:49:45,112 - logger - INFO - notify:{'status': 'end', 'text': '我是一只猫。'}
+2026-03-27 14:49:45,357 - logger - INFO - ------actual avg final fps:24.8702
+2026-03-27 14:49:49,353 - logger - INFO - ------actual avg final fps:25.0259
+2026-03-27 14:49:53,363 - logger - INFO - ------actual avg final fps:24.9373
+2026-03-27 14:49:57,356 - logger - INFO - ------actual avg final fps:25.0511
+2026-03-27 14:49:59,348 - logger - INFO - [trace=73c8f310a147] chat start session=457335 len=3
+2026-03-27 14:49:59,352 - logger - INFO - 开始处理用户消息: 你是谁... (优化级别: speed)
+2026-03-27 14:49:59,353 - logger - INFO - TTS引擎: edgetts, LLM模型: qwen-turbo
+2026-03-27 14:49:59,444 - logger - INFO - LLM初始化时间: 0.093s
+2026-03-27 14:49:59,445 - logger - INFO - 使用预设身份: 你是一只猫...
+2026-03-27 14:50:01,339 - logger - INFO - ------actual avg final fps:25.1114
+2026-03-27 14:50:02,180 - logger - INFO - LLM首字节时间: 0.003s
+2026-03-27 14:50:02,281 - logger - INFO - RAG cited evidence ids: [E1]
+2026-03-27 14:50:02,283 - logger - INFO - LLM处理完成 - 总时间: 2.931s, 处理chunks: 9
+2026-03-27 14:50:02,284 - logger - INFO - [trace=73c8f310a147] chat done dt=2.935s
+2026-03-27 14:50:03,229 - logger - INFO - -------edge tts (stream) time:0.8554s
+2026-03-27 14:50:03,800 - logger - INFO - 状态切换：静音 → 说话
+2026-03-27 14:50:03,804 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:03,815 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:03,823 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:03,829 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:03,836 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:03,841 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:03,847 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:03,855 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:03,861 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:03,875 - logger - WARNING - transition shape mismatch(silent->speaking): (702, 526, 3) vs (768, 576, 3), fallback to current_frame
+2026-03-27 14:50:04,131 - logger - INFO - notify:{'status': 'start', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:50:05,261 - logger - INFO - 状态切换：说话 → 静音
+2026-03-27 14:50:05,262 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,268 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,274 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,282 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,288 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,293 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,297 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,302 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,307 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,319 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,326 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,335 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,336 - logger - INFO - ------actual avg final fps:25.0184
+2026-03-27 14:50:05,340 - logger - WARNING - transition shape mismatch(speaking->silent): (768, 576, 3) vs (702, 526, 3), fallback to target_frame
+2026-03-27 14:50:05,883 - logger - INFO - notify:{'status': 'end', 'text': '我是你的助手，一只猫。'}
+2026-03-27 14:50:09,362 - logger - INFO - ------actual avg final fps:24.8444
+2026-03-27 14:50:13,358 - logger - INFO - ------actual avg final fps:25.0299
+2026-03-27 14:50:13,834 - logger - INFO - Preloading avatar lw002 for session 457335
+2026-03-27 14:50:13,858 - logger - INFO - 资源已在缓存中: wav2lip_lw002
+2026-03-27 14:50:13,884 - logger - INFO - lipreal thread stop
+2026-03-27 14:50:13,892 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:50:13,899 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:50:13,928 - logger - INFO - Connection state is closed
+2026-03-27 14:50:14,373 - logger - INFO - ttsreal thread stop
+2026-03-27 14:50:14,664 - logger - INFO - sessionid=186889, session num=1
+2026-03-27 14:50:14,665 - logger - INFO - Creating nerfreal instance with avatar_id: lw002
+2026-03-27 14:50:14,667 - logger - INFO - session=186889 avatar=lw002 custom_actions=1
+2026-03-27 14:50:14,671 - logger - INFO - 从缓存加载资源: wav2lip_lw002
+2026-03-27 14:50:14,675 - logger - WARNING - [TTS-Fallback] engine not available (missing env): azuretts
+2026-03-27 14:50:14,676 - logger - INFO - [TTS-Fallback] enabled=True, primary=edgetts, fallbacks=['doubao']
+2026-03-27 14:50:14,677 - logger - INFO - {'avatar_id': 'lw002', 'audiotype': 1, 'imgpath': 'data/customvideo/lw002/image', 'audiopath': 'data/customvideo/lw002/audio.wav'}
+2026-03-27 14:50:14,682 - logger - INFO - reading images...
+2026-03-27 14:50:22,667 - logger - INFO - Connection state is connecting
+2026-03-27 14:50:22,924 - logger - INFO - Connection state is connected
+2026-03-27 14:50:22,927 - logger - INFO - start inference
+2026-03-27 14:50:23,441 - logger - INFO - video start:1774594223.441600
+2026-03-27 14:50:23,448 - logger - INFO - audio start:1774594223.448575
+2026-03-27 14:50:27,403 - logger - INFO - ------actual avg final fps:10.2337
+2026-03-27 14:50:31,400 - logger - INFO - ------actual avg final fps:25.0196
+2026-03-27 14:50:32,986 - logger - INFO - lipreal thread stop
+2026-03-27 14:50:33,001 - logger - INFO - ttsreal thread stop
+2026-03-27 14:50:33,843 - logger - INFO - lipreal inference processor stop
+2026-03-27 14:50:33,906 - logger - INFO - basereal process_frames thread stop
+2026-03-27 14:50:33,920 - logger - INFO - Connection state is closed

@@ -57,7 +57,6 @@ def llm_response_with_identity(message, nerfreal, identity=None):
         identity: 身份信息
     """
     import time
-    import os
     from logger import logger
 
     # 获取性能优化配置
@@ -1201,6 +1200,30 @@ if __name__ == '__main__':
     appasync = web.Application(client_max_size=1024 ** 2 * 100)  # 100MB
     appasync.on_shutdown.append(on_shutdown)
 
+    # 头像身份预设持久化（按 avatar_id）
+    avatar_identity_path = str(get_config_value("identity.store_path", "data/avatar_identities.json"))
+    avatar_identities: Dict[str, str] = {}
+    if os.path.exists(avatar_identity_path):
+        try:
+            with open(avatar_identity_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    avatar_identities = {str(k): str(v) for k, v in data.items()}
+        except Exception as e:
+            logger.warning(f"读取头像身份预设失败: {e}")
+
+    def _save_avatar_identities() -> bool:
+        try:
+            parent_dir = os.path.dirname(avatar_identity_path)
+            if parent_dir:
+                os.makedirs(parent_dir, exist_ok=True)
+            with open(avatar_identity_path, "w", encoding="utf-8") as f:
+                json.dump(avatar_identities, f, ensure_ascii=False, indent=2)
+            return True
+        except Exception as e:
+            logger.warning(f"保存头像身份预设失败: {e}")
+            return False
+
     state = AppState(
         opt=opt,
         avatar_manager=avatar_manager,
@@ -1209,6 +1232,8 @@ if __name__ == '__main__':
         rand_sessionid=lambda: randN(6),
         nerfreals=nerfreals,
         identities=identities,
+        avatar_identities=avatar_identities,
+        save_avatar_identities=_save_avatar_identities,
         preload_queue=preload_queue,
         preload_in_progress=preload_in_progress,
         pcs=pcs,
