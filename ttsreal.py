@@ -257,6 +257,10 @@ class EdgeTTS(BaseTTS):
 
             if not audio_received:
                 logger.error("edgetts err!!!!!")
+                try:
+                    self.parent.try_fallback_tts(msg, failed_engine="edgetts")
+                except Exception:
+                    pass
             return
 
         except Exception as e:
@@ -268,6 +272,10 @@ class EdgeTTS(BaseTTS):
         logger.info(f'-------edge tts time:{time.time() - t:.4f}s')
         if self.input_stream.getbuffer().nbytes <= 0:  # edgetts err
             logger.error('edgetts err!!!!!')
+            try:
+                self.parent.try_fallback_tts(msg, failed_engine="edgetts")
+            except Exception:
+                pass
             return
 
         self.input_stream.seek(0)
@@ -742,6 +750,10 @@ class DoubaoTTS(BaseTTS):
         # 从配置中读取火山引擎参数
         self.appid = os.getenv("DOUBAO_APPID")
         self.token = os.getenv("DOUBAO_TOKEN")
+        if not self.appid or not self.token:
+            logger.error(
+                f"[DoubaoTTS] Missing DOUBAO_APPID/DOUBAO_TOKEN. appid is None={not bool(self.appid)}, token is None={not bool(self.token)}"
+            )
         _cluster = 'volcano_tts'
         _host = "openspeech.bytedance.com"
         self.api_url = f"wss://{_host}/api/v1/tts/ws_binary"
@@ -776,7 +788,6 @@ class DoubaoTTS(BaseTTS):
         voice_type = self.opt.REF_FILE
 
         try:
-            # 创建请求对象
             default_header = bytearray(b'\x11\x10\x11\x00')
             submit_request_json = copy.deepcopy(self.request_json)
             submit_request_json["user"]["uid"] = self.parent.sessionid
@@ -784,42 +795,90 @@ class DoubaoTTS(BaseTTS):
             submit_request_json["request"]["text"] = text
             submit_request_json["request"]["reqid"] = str(uuid.uuid4())
             submit_request_json["request"]["operation"] = "submit"
-            payload_bytes = str.encode(json.dumps(submit_request_json))
-            payload_bytes = gzip.compress(payload_bytes)  # if no compression, comment this line
-            full_client_request = bytearray(default_header)
-            full_client_request.extend((len(payload_bytes)).to_bytes(4, 'big'))  # payload size(4 bytes)
-            full_client_request.extend(payload_bytes)  # payload
 
+            raw_payload = str.encode(json.dumps(submit_request_json))
+
+            # 方案优先级：
+            # 1) 不压缩（很多协议本身就要求明文 JSON）
+            # 2) gzip 压缩（兼容部分服务器实现）
+            attempts = [
+                ("no_compress", raw_payload),
+                ("gzip", gzip.compress(raw_payload)),
+            ]
+
+            # 注意：豆包接口对鉴权头格式较敏感，项目原实现使用 "Bearer; <token>"
             header = {"Authorization": f"Bearer; {self.token}"}
-            first = True
-            async with websockets.connect(self.api_url, extra_headers=header, ping_interval=None) as ws:
-                await ws.send(full_client_request)
-                while True:
-                    res = await ws.recv()
-                    header_size = res[0] & 0x0f
-                    message_type = res[1] >> 4
-                    message_type_specific_flags = res[1] & 0x0f
-                    payload = res[header_size * 4:]
 
-                    if message_type == 0xb:  # audio-only server response
-                        if message_type_specific_flags == 0:  # no sequence number as ACK
-                            # print("                Payload size: 0")
-                            continue
-                        else:
-                            if first:
-                                end = time.perf_counter()
-                                logger.info(f"doubao tts Time to first chunk: {end - start}s")
-                                first = False
-                            sequence_number = int.from_bytes(payload[:4], "big", signed=True)
-                            payload_size = int.from_bytes(payload[4:8], "big", signed=False)
-                            payload = payload[8:]
-                            yield payload
-                        if sequence_number < 0:
-                            break
-                    else:
+            first = True
+            for attempt_name, payload_bytes in attempts:
+                got_audio = False
+                try:
+                    full_client_request = bytearray(default_header)
+                    # payload length 字节序尝试：使用 little-endian 以适配部分协议实现
+                    full_client_request.extend((len(payload_bytes)).to_bytes(4, "little"))
+                    full_client_request.extend(payload_bytes)
+
+                    logger.info(f"[DoubaoTTS] submit attempt={attempt_name}, text_len={len(text)}")
+
+                    async with websockets.connect(
+                        self.api_url, extra_headers=header, ping_interval=None
+                    ) as ws:
+                        await ws.send(full_client_request)
+
+                        while True:
+                            res = await ws.recv()
+
+                            # ws.recv should normally return bytes for binary frames.
+                            if isinstance(res, str):
+                                # 如果服务端异常返回文本帧，直接跳过该帧
+                                logger.warning(f"[DoubaoTTS] got text frame unexpectedly, len={len(res)}")
+                                continue
+                            if not isinstance(res, (bytes, bytearray)):
+                                continue
+
+                            if len(res) < 8:
+                                continue
+
+                            header_size = res[0] & 0x0F
+                            message_type = res[1] >> 4
+                            message_type_specific_flags = res[1] & 0x0F
+                            payload = res[header_size * 4 :]
+
+                            if message_type == 0xB:  # audio-only server response
+                                if message_type_specific_flags == 0:
+                                    # ACK frame (no sequence number)
+                                    continue
+
+                                if len(payload) < 8:
+                                    continue
+
+                                sequence_number = int.from_bytes(payload[:4], "big", signed=True)
+                                payload_size = int.from_bytes(payload[4:8], "big", signed=False)
+                                payload = payload[8:]
+
+                                got_audio = True
+
+                                if first:
+                                    end = time.perf_counter()
+                                    logger.info(f"doubao tts Time to first chunk: {end - start}s")
+                                    first = False
+
+                                yield payload
+                                if sequence_number < 0:
+                                    break
+                            else:
+                                break
+
+                    # 如果这次已经拿到音频，直接退出重试循环
+                    if got_audio:
                         break
+                except Exception as e:
+                    logger.warning(f"[DoubaoTTS] attempt={attempt_name} failed: {e}")
+                    continue
+
+            # 允许外层在无音频时打日志降级
         except Exception as e:
-            logger.exception('doubao')
+            logger.exception(f"doubao outer error: {e}")
         # # 检查响应状态码
         # if response.status_code == 200:
         #     # 处理响应数据
@@ -842,8 +901,10 @@ class DoubaoTTS(BaseTTS):
         text, textevent = msg
         first = True
         last_stream = np.array([], dtype=np.float32)
+        audio_received = False
         async for chunk in audio_stream:
             if chunk is not None and len(chunk) > 0:
+                audio_received = True
                 stream = np.frombuffer(chunk, dtype=np.int16).astype(np.float32) / 32767
                 stream = np.concatenate((last_stream, stream))
                 # stream = resampy.resample(x=stream, sr_orig=24000, sr_new=self.sample_rate)
@@ -864,6 +925,14 @@ class DoubaoTTS(BaseTTS):
         eventpoint = {'status': 'end', 'text': text}
         eventpoint.update(**textevent)
         self.parent.put_audio_frame(np.zeros(self.chunk, np.float32), eventpoint)
+        if not audio_received:
+            logger.error(
+                f"[DoubaoTTS] no audio chunks received. voice_type(opt.REF_FILE)='{getattr(self.opt, 'REF_FILE', None)}'"
+            )
+            try:
+                self.parent.try_fallback_tts(msg, failed_engine="doubao")
+            except Exception:
+                pass
 
 
 ###########################################################################################

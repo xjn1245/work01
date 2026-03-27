@@ -1,0 +1,220 @@
+LiveTalking config.json 注释说明（变量/参数一览）
+====================================================
+
+说明：
+- 本项目通过“点路径（dot paths）”读取 `config.json` 中的配置，例如：`server.llm_timeout_seconds`。
+- `config.json` 本身不支持 JSON 注释；该 `.txt` 用于把每个配置项的作用与常见可选参数写清楚。
+
+------------------------------------------------------------
+[server]
+------------------------------------------------------------
+server.listenport (number, default: 8010)
+  - 服务监听端口（HTTP/WebRTC 相关）。
+
+server.max_session (number, default: 1)
+  - 同一进程允许的最大会话数。
+  - 当 `max_session` 较小时，可能出现用户被限制或排队等待。
+
+server.transport (string, default: "rtcpush")
+  - 媒体发送方式/传输模式。
+  - 目前常见值：`"rtcpush"`、`"virtualcam"`。
+
+server.push_url (string, default: "http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream")
+  - 当传输层对接 WHIP/RTC 摄入网关时使用的推流地址。
+
+server.max_inflight_chats (number, default: 2)
+  - `/human`（type=chat）并发上限保护。
+  - 超出时后端返回忙碌状态：`code=-2`。
+
+server.llm_timeout_seconds (number, default: 30)
+  - 单次 `/human`（type=chat）LLM 生成超时阈值。
+  - 超时后：后端会 `flush` 当前播报并改用兜底文本（`code=-3`）。
+
+server.tts_timeout_seconds (number, default: 20)
+  - TTS 流式/解码超时阈值（主要用于 EdgeTTS 真流式路径）。
+  - 超时后：停止解码/推流，避免长时间卡住。
+
+server.llm_fallback_text (string, default: "我正在整理答案，稍后再为你详细说明。")
+  - 当 LLM 超时时，后端会用该文本进行兜底播报（TTS 内容）。
+
+------------------------------------------------------------
+[avatar]
+------------------------------------------------------------
+avatar.default_avatar_id (string, default: "avator_1")
+  - 默认头像目录名：`data/avatars/<avatar_id>/` 下的文件夹名。
+
+avatar.preload_enabled (boolean, default: true)
+  - 为 true 时，AvatarManager 可能预加载/缓存头像资源。
+
+avatar.preload_all_on_start (boolean, default: true)
+  - 为 true 时，服务启动会扫描 `data/avatars/` 并预加载所有有效头像。
+
+avatar.model_infer_from_id (boolean, default: true)
+  - 为 true 时，可从 `avatar_id` 的命名关键词（如 `wav2lip`、`ultralight`）推断模型类型。
+  - 否则会回退到“根据目录里是否存在关键文件来判断”的方式。
+
+avatar.preload_queue_size (number, default: 3)
+  - 预加载队列大小/上限（如果当前实现是“排队预加载”）。
+
+avatar.cache_max_size (number, default: 5)
+  - 计划/目标的缓存资源上限（是否严格淘汰取决于实际缓存策略实现）。
+
+------------------------------------------------------------
+[model]
+------------------------------------------------------------
+model.default_model (string, default: "musetalk")
+  - 当未能从 `avatar_id` 推断模型类型时使用的默认模型类型。
+  - 常见值：`"musetalk"`、`"wav2lip"`、`"ultralight"`。
+
+model.batch_size (number, default: 16)
+  - 推理时的批处理大小（由所选数字人模型实现使用）。
+
+model.fps (number, default: 50)
+  - BaseReal 用于分帧/时间片的 FPS（代码假设每帧音频约 20ms）。
+  - 在本项目里通常保持为 50，以匹配 WebRTC 的 20ms 音频分块。
+
+------------------------------------------------------------
+[tts]
+------------------------------------------------------------
+tts.default_engine (string, default: "edgetts")
+  - 启动时默认 TTS 引擎（会传入 `opt.tts`）。
+  - 代码里 `basereal.py` 支持的 TTS 引擎包括：
+    - edgetts
+    - azuretts
+    - gpt-sovits
+    - xtts
+    - cosyvoice
+    - fishtts
+    - tencent
+    - doubao
+    - indextts2
+
+tts.default_voice (string, default: "zh-CN-YunxiaNeural")
+  - 引擎相关的“音色/模型标识符”。
+  - 常见示例：
+    - EdgeTTS：Edge 语音名称（如 `zh-CN-YunxiaNeural`）。
+    - AzureTTS：Azure neural voice 名称。
+    - DoubaoTTS：声线参数（代码里用 `opt.REF_FILE` 作为 Doubao 的 `voice_type`）。
+
+tts.server (string, default: "http://127.0.0.1:9880")
+  - 给 `IndexTTS2` 使用（gradio 服务地址）。
+
+tts.fallback_enabled (boolean, default: true)
+  - 是否启用“主 TTS 失败后自动回退到可用 TTS 引擎”。
+  - true：启用自动回退；false：关闭自动回退（失败后不再尝试其它引擎）。
+
+tts.fallback_engines (array[string], default: ["azuretts","doubao","edgetts"])
+  - 回退引擎优先级列表（按顺序尝试）。
+  - 会自动跳过主引擎本身、重复项以及当前不可用（缺少鉴权环境变量）的引擎。
+
+tts.fallback_voice_map (object)
+  - 为回退引擎指定对应音色/voice_type（会覆盖 `default_voice` 作为该引擎专用音色）。
+  - 例如：
+    - `edgetts`: `zh-CN-YunxiaNeural`
+    - `azuretts`: `zh-CN-XiaoxiaoMultilingualNeural`
+    - `doubao`: `zh_female_roumeinvyou_emo_v2_mars_bigtts`
+
+------------------------------------------------------------
+[rag]
+------------------------------------------------------------
+rag.enabled (boolean, default: true)
+  - 为 true 时，`/human`（type=chat）会把知识库检索证据注入到 LLM 提示词中。
+
+rag.retrieval_mode (string, default: "hybrid")
+  - `"keyword"`：仅关键词检索（`StudyAbroadKnowledgeBase.search_knowledge`）。
+  - `"hybrid"`：TF-IDF 向量相似度 + 关键词启发式融合。
+
+rag.top_k (number, default: 5)
+  - 注入到提示词里的证据条数（top_k）。
+
+rag.min_credibility (number, default: 0.7)
+  - 过滤条件：`credibility_score >= min_credibility`。
+
+rag.category (string or null, default: null)
+  - 可选的类别过滤条件；必须匹配 `knowledge_entries.category`。
+
+rag.max_content_chars (number, default: 600)
+  - 证据文本内容摘要长度（裁剪以减少 prompt 体积）。
+
+rag.hybrid_alpha (number, default: 0.5)
+  - 融合权重（仅用于 hybrid 模式）：
+    - `combined = alpha * vector_norm + (1-alpha) * keyword_norm`
+
+------------------------------------------------------------
+[performance]
+------------------------------------------------------------
+performance.level (string, default: "speed")
+  - 性能预设档名：`"speed"`、`"quality"`、`"balanced"`。
+  - 注意：下面的 `performance.*` 配置项可以覆盖预设值。
+
+代码允许覆盖的 performance.* 配置项（来自 `performance_config.py`）：
+- performance.tts_engine (string)
+  - 选择传入 `opt.tts` 的 TTS 引擎（只有在具备 Azure 凭据时才会安全切到 `azuretts`）。
+  - 常见：`"edgetts"`、`"azuretts"`、`"doubao"`。
+
+- performance.llm_model (string, optional)
+  - LLM 模型名（OpenAI-compatible 客户端用；当前用于 prompt 配置）。
+
+- performance.max_response_length (number)
+  - 生成最大 token 数（用于限制回答长度）。
+
+- performance.fps (number)
+  - 定时/分帧相关，通常保持为 `50` 以保证 WebRTC 音频时序正确。
+
+- performance.video_quality (string, optional)
+  - 视觉质量设置（如果 BaseReal 实现中支持）。
+
+- performance.enable_cache (boolean, optional)
+  - 是否启用缓存（是否影响头像/其它缓存取决于实现）。
+
+- performance.parallel_processing (boolean)
+  - 是否启用部分并行处理逻辑（用于提升吞吐/降低延迟）。
+
+- performance.stream_tts (boolean)
+  - 是否以流式方式输出 TTS（影响 TTS 配置）。
+
+- performance.text_chunk_size (number)
+  - LLM->TTS 分段 chunk 大小（影响“首次开口延迟”）。
+
+- performance.enable_smart_segmentation (boolean)
+  - 为 true 时，会在识别到标点/语句边界后再把 chunk 送去 TTS（更自然但可能略增加一点延迟）。
+
+- performance.temperature (number)
+  - LLM 采样温度。
+
+- performance.max_tokens (number, optional)
+  - 额外可覆盖字段（如未来逻辑使用；建议与 `max_response_length` 保持一致）。
+
+你当前 `config.json` 里其它已有的配置项：
+- performance.enable_streaming (boolean)
+  - 流水线开关（用于部分优化模块）。
+
+------------------------------------------------------------
+[gui]
+------------------------------------------------------------
+gui.width (number, default: 450)
+  - 前端 UI/视窗宽度（用于页面布局假设）。
+
+gui.height (number, default: 450)
+  - 前端 UI/视窗高度（用于页面布局假设）。
+
+------------------------------------------------------------
+[sliding_window]
+------------------------------------------------------------
+sliding_window.left (number, default: 10)
+  - ASR/特征窗口的左侧步长（单位：20ms 一块）。
+
+sliding_window.middle (number, default: 8)
+  - ASR/特征窗口的中间步长。
+
+sliding_window.right (number, default: 10)
+  - ASR/特征窗口的右侧步长。
+
+------------------------------------------------------------
+快速切换 TTS 引擎
+------------------------------------------------------------
+1) 修改：
+   - `performance.tts_engine`（例如：`"doubao"`）
+   - `tts.default_voice`（例如：Doubao 的 `voice_type` / 或其它引擎对应的 `REF_FILE`）
+2) 重启 `app.py`，并在页面重新“开始连接”，让新 session 使用新的配置。
+

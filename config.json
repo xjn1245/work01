@@ -25,7 +25,18 @@
   "tts": {
     "default_engine": "edgetts",
     "default_voice": "zh-CN-YunxiaNeural",
-    "server": "http://127.0.0.1:9880"
+    "server": "http://127.0.0.1:9880",
+    "fallback_enabled": true,
+    "fallback_engines": [
+      "azuretts",
+      "doubao",
+      "edgetts"
+    ],
+    "fallback_voice_map": {
+      "edgetts": "zh-CN-YunxiaNeural",
+      "azuretts": "zh-CN-XiaoxiaoMultilingualNeural",
+      "doubao": "zh_female_roumeinvyou_emo_v2_mars_bigtts"
+    }
   },
   "rag": {
     "enabled": true,
@@ -42,7 +53,7 @@
     "enable_streaming": true,
     "tts_engine": "edgetts",
     "fps": 50,
-    "text_chunk_size": 20,
+    "text_chunk_size": 220,
     "enable_smart_segmentation": false,
     "max_response_length": 220,
     "temperature": 0.6,

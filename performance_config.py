@@ -115,6 +115,15 @@ class PerformanceConfig:
                     "AzureTTS credentials not found (need AZURE_SPEECH_KEY & AZURE_TTS_REGION). "
                     "Keep current opt.tts=" + str(getattr(opt, "tts", None))
                 )
+        elif tts_engine == "doubao":
+            has_doubao_creds = bool(os.getenv("DOUBAO_APPID")) and bool(os.getenv("DOUBAO_TOKEN"))
+            if has_doubao_creds:
+                opt.tts = "doubao"
+            else:
+                print(
+                    "DoubaoTTS credentials not found (need DOUBAO_APPID & DOUBAO_TOKEN). "
+                    "Keep current opt.tts=" + str(getattr(opt, "tts", None))
+                )
         else:
             # 默认情况下只做直接覆盖（当前配置主要就是 azuretts）
             if tts_engine:

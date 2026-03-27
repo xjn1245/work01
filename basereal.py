@@ -22,6 +22,7 @@ import numpy as np
 import subprocess
 import os
 import time
+import copy
 import cv2
 import glob
 import resampy
@@ -40,6 +41,7 @@ from fractions import Fraction
 
 from ttsreal import EdgeTTS,SovitsTTS,XTTS,CosyVoiceTTS,FishTTS,TencentTTS,DoubaoTTS,IndexTTS2,AzureTTS
 from logger import logger
+from config_loader import get_config_value
 
 from tqdm import tqdm
 def read_imgs(img_list):
@@ -74,24 +76,9 @@ class BaseReal:
         self.chunk = self.sample_rate // opt.fps # 320 samples per chunk (20ms * 16000 / 1000)
         self.sessionid = self.opt.sessionid
 
-        if opt.tts == "edgetts":
-            self.tts = EdgeTTS(opt,self)
-        elif opt.tts == "gpt-sovits":
-            self.tts = SovitsTTS(opt,self)
-        elif opt.tts == "xtts":
-            self.tts = XTTS(opt,self)
-        elif opt.tts == "cosyvoice":
-            self.tts = CosyVoiceTTS(opt,self)
-        elif opt.tts == "fishtts":
-            self.tts = FishTTS(opt,self)
-        elif opt.tts == "tencent":
-            self.tts = TencentTTS(opt,self)
-        elif opt.tts == "doubao":
-            self.tts = DoubaoTTS(opt,self)
-        elif opt.tts == "indextts2":
-            self.tts = IndexTTS2(opt,self)
-        elif opt.tts == "azuretts":
-            self.tts = AzureTTS(opt,self)
+        self._fallback_in_progress = False
+        self.fallback_tts_list = []
+        self.tts = self._build_tts_with_fallback()
 
         self.speaking = False
 
@@ -107,6 +94,122 @@ class BaseReal:
         self.custom_index = {}
         self.custom_opt = {}
         self.__loadcustom()
+
+    def _get_tts_class(self, engine_name: str):
+        mapping = {
+            "edgetts": EdgeTTS,
+            "gpt-sovits": SovitsTTS,
+            "xtts": XTTS,
+            "cosyvoice": CosyVoiceTTS,
+            "fishtts": FishTTS,
+            "tencent": TencentTTS,
+            "doubao": DoubaoTTS,
+            "indextts2": IndexTTS2,
+            "azuretts": AzureTTS,
+        }
+        return mapping.get(engine_name)
+
+    def _is_engine_available(self, engine_name: str) -> bool:
+        if engine_name == "azuretts":
+            return bool(os.getenv("AZURE_SPEECH_KEY")) and bool(os.getenv("AZURE_TTS_REGION"))
+        if engine_name == "doubao":
+            return bool(os.getenv("DOUBAO_APPID")) and bool(os.getenv("DOUBAO_TOKEN"))
+        return True
+
+    def _get_voice_for_engine(self, engine_name: str, default_voice: str) -> str:
+        voice_map = get_config_value("tts.fallback_voice_map", {}) or {}
+        if isinstance(voice_map, dict) and engine_name in voice_map and voice_map[engine_name]:
+            return str(voice_map[engine_name])
+        return default_voice
+
+    def _make_tts_instance(self, engine_name: str):
+        tts_cls = self._get_tts_class(engine_name)
+        if tts_cls is None:
+            return None
+        if not self._is_engine_available(engine_name):
+            logger.warning(f"[TTS-Fallback] engine not available (missing env): {engine_name}")
+            return None
+
+        local_opt = copy.copy(self.opt)
+        local_opt.tts = engine_name
+        local_opt.REF_FILE = self._get_voice_for_engine(engine_name, getattr(self.opt, "REF_FILE", ""))
+        try:
+            inst = tts_cls(local_opt, self)
+            # attach helper tag for logging
+            setattr(inst, "_engine_name", engine_name)
+            return inst
+        except Exception as e:
+            logger.warning(f"[TTS-Fallback] init failed for {engine_name}: {e}")
+            return None
+
+    def _build_tts_with_fallback(self):
+        primary_engine = getattr(self.opt, "tts", "edgetts")
+        primary = self._make_tts_instance(primary_engine)
+        fallback_enabled = bool(get_config_value("tts.fallback_enabled", True))
+
+        fallback_engines = get_config_value("tts.fallback_engines", ["azuretts", "doubao", "edgetts"]) or []
+        if not isinstance(fallback_engines, list):
+            fallback_engines = ["azuretts", "doubao", "edgetts"]
+
+        # keep order, remove duplicates, exclude primary
+        seen = set()
+        normalized = []
+        for e in fallback_engines:
+            en = str(e).strip().lower()
+            if not en or en == primary_engine or en in seen:
+                continue
+            seen.add(en)
+            normalized.append(en)
+
+        if fallback_enabled:
+            for en in normalized:
+                inst = self._make_tts_instance(en)
+                if inst is not None:
+                    self.fallback_tts_list.append(inst)
+        else:
+            self.fallback_tts_list = []
+
+        if primary is not None:
+            logger.info(
+                f"[TTS-Fallback] enabled={fallback_enabled}, primary={primary_engine}, "
+                f"fallbacks={[getattr(x, '_engine_name', '?') for x in self.fallback_tts_list]}"
+            )
+            return primary
+
+        # primary unavailable: choose first fallback as active
+        if self.fallback_tts_list:
+            promoted = self.fallback_tts_list.pop(0)
+            logger.warning(
+                f"[TTS-Fallback] primary '{primary_engine}' unavailable, promote fallback '{getattr(promoted, '_engine_name', '?')}'"
+            )
+            return promoted
+
+        raise RuntimeError("No available TTS engine after fallback checks.")
+
+    def try_fallback_tts(self, msg, failed_engine: str = "") -> bool:
+        if not bool(get_config_value("tts.fallback_enabled", True)):
+            return False
+        if self._fallback_in_progress:
+            return False
+        if not self.fallback_tts_list:
+            return False
+
+        self._fallback_in_progress = True
+        try:
+            for fb in self.fallback_tts_list:
+                engine = getattr(fb, "_engine_name", "")
+                if failed_engine and engine == failed_engine:
+                    continue
+                try:
+                    logger.warning(f"[TTS-Fallback] try fallback engine: {engine}")
+                    fb.txt_to_audio(msg)
+                    return True
+                except Exception as e:
+                    logger.warning(f"[TTS-Fallback] fallback engine failed {engine}: {e}")
+                    continue
+            return False
+        finally:
+            self._fallback_in_progress = False
 
     def put_msg_txt(self,msg,datainfo:dict={}):
         self.tts.put_msg_txt(msg,datainfo)
@@ -298,12 +401,14 @@ class BaseReal:
             self.custom_index[audiotype] = 0
 
     def process_frames(self,quit_event,loop=None,audio_track=None,video_track=None):
-        enable_transition = False  # 设置为False禁用过渡效果，True启用
+        # 启用静音/说话切换过渡，让画面更自然、减少“僵硬卡顿感”
+        enable_transition = True
         
         if enable_transition:
             _last_speaking = False
             _transition_start = time.time()
-            _transition_duration = 0.1  # 过渡时间
+            # 过渡时间（越短越不影响实时性，但融合更弱；越长越柔和但延迟更明显）
+            _transition_duration = 0.08
             _last_silent_frame = None  # 静音帧缓存
             _last_speaking_frame = None  # 说话帧缓存
         
@@ -350,7 +455,15 @@ class BaseReal:
                     # 说话→静音过渡
                     if time.time() - _transition_start < _transition_duration and _last_speaking_frame is not None:
                         alpha = min(1.0, (time.time() - _transition_start) / _transition_duration)
-                        combine_frame = cv2.addWeighted(_last_speaking_frame, 1-alpha, target_frame, alpha, 0)
+                        # 过渡融合要求两帧 shape 完全一致；不一致时退化为当前帧，避免线程崩溃
+                        if _last_speaking_frame.shape == target_frame.shape:
+                            combine_frame = cv2.addWeighted(_last_speaking_frame, 1-alpha, target_frame, alpha, 0)
+                        else:
+                            logger.warning(
+                                f"transition shape mismatch(speaking->silent): "
+                                f"{_last_speaking_frame.shape} vs {target_frame.shape}, fallback to target_frame"
+                            )
+                            combine_frame = target_frame
                     else:
                         combine_frame = target_frame
                     # 缓存静音帧
@@ -368,7 +481,15 @@ class BaseReal:
                     # 静音→说话过渡
                     if time.time() - _transition_start < _transition_duration and _last_silent_frame is not None:
                         alpha = min(1.0, (time.time() - _transition_start) / _transition_duration)
-                        combine_frame = cv2.addWeighted(_last_silent_frame, 1-alpha, current_frame, alpha, 0)
+                        # 过渡融合要求两帧 shape 完全一致；不一致时退化为当前帧，避免线程崩溃
+                        if _last_silent_frame.shape == current_frame.shape:
+                            combine_frame = cv2.addWeighted(_last_silent_frame, 1-alpha, current_frame, alpha, 0)
+                        else:
+                            logger.warning(
+                                f"transition shape mismatch(silent->speaking): "
+                                f"{_last_silent_frame.shape} vs {current_frame.shape}, fallback to current_frame"
+                            )
+                            combine_frame = current_frame
                     else:
                         combine_frame = current_frame
                     # 缓存说话帧
