@@ -76,6 +76,27 @@ class BaseTTS:
         if len(msg) > 0:
             self.msgqueue.put((msg, datainfo))
 
+    def _emit_pre_speech_padding(self, eventpoint: dict | None = None):
+        """
+        在每段语音前补一小段静音，避免 WebRTC/播放器起播阶段吞掉首音节。
+        """
+        try:
+            from config_loader import get_config_value
+            import math
+
+            pre_silence_ms = int(get_config_value("tts.pre_speech_silence_ms", 120))
+            if pre_silence_ms <= 0:
+                return
+
+            frame_ms = max(1.0, 1000.0 / float(self.fps))
+            pad_frames = max(1, int(math.ceil(pre_silence_ms / frame_ms)))
+            for i in range(pad_frames):
+                ep = eventpoint if i == 0 else None
+                self.parent.put_audio_frame(np.zeros(self.chunk, np.float32), ep)
+        except Exception:
+            # padding 失败不影响主流程
+            pass
+
     def render(self, quit_event):
         process_thread = Thread(target=self.process_tts, args=(quit_event,))
         process_thread.start()
@@ -87,7 +108,12 @@ class BaseTTS:
                 self.state = State.RUNNING
             except queue.Empty:
                 continue
+            t0 = time.perf_counter()
             self.txt_to_audio(msg)
+            try:
+                self.parent.add_tts_metric(int((time.perf_counter() - t0) * 1000))
+            except Exception:
+                pass
         logger.info('ttsreal thread stop')
 
     def txt_to_audio(self, msg: tuple[str, dict]):
@@ -97,8 +123,94 @@ class BaseTTS:
 ###########################################################################################
 class EdgeTTS(BaseTTS):
     def txt_to_audio(self, msg: tuple[str, dict]):
-        voicename = self.opt.REF_FILE  # "zh-CN-YunxiaNeural"
         text, textevent = msg
+        # BaseReal.opt 为会话真源；TTS 内部 opt 是 copy.copy 的副本，可能与 SET 不同步
+        session_opt = getattr(getattr(self, "parent", None), "opt", None)
+        voicename = (
+            str(getattr(session_opt, "REF_FILE", "") or "").strip()
+            or str(getattr(self.opt, "REF_FILE", "") or "").strip()
+        )
+        try:
+            from config_loader import get_config_value
+            ui_lang = str((textevent or {}).get("ui_lang", "") or "").strip().lower()
+            # 支持配置覆盖；未配置时使用内置兜底
+            voice_by_lang = get_config_value("tts.edge_voice_by_lang", {}) or {}
+            if not isinstance(voice_by_lang, dict):
+                voice_by_lang = {}
+            fallback_map = {
+                "zh-cn": "zh-CN-YunxiaNeural",
+                "en": "en-US-JennyNeural",
+                "ja": "ja-JP-NanamiNeural",
+                "ko": "ko-KR-SunHiNeural",
+            }
+            selected = ""
+            if ui_lang.startswith("ja"):
+                selected = str(voice_by_lang.get("ja") or fallback_map["ja"])
+            elif ui_lang.startswith("ko"):
+                selected = str(voice_by_lang.get("ko") or fallback_map["ko"])
+            elif ui_lang.startswith("en"):
+                selected = str(voice_by_lang.get("en") or fallback_map["en"])
+            elif ui_lang.startswith("zh"):
+                selected = str(voice_by_lang.get("zh-CN") or fallback_map["zh-cn"])
+
+            # 规则（与「语言听感」强相关）：
+            # - Edge 的 zh-* 神经网络读日文/韩文文本时，听感会像中文或发音错误，这是模型限制。
+            # - edge_voice_force_locale_match=true（默认）：当本段对话 ui_lang 与所选音色语种不一致时，
+            #   合成时临时改用 edge_voice_by_lang 对应语种（会话 REF_FILE / 下拉框仍保留，不写回）。
+            # - edge_voice_force_locale_match=false：即使用户锁了音色也绝不按语种覆盖（听感可能「语言不对」）。
+            # 默认 false：优先使用会话里 /set_tts_voice 与后台配置的音色，避免被 edge_voice_by_lang「顶掉」。
+            # 需要日文界面仍强制用日语音色合成时，再在 config 里设为 true。
+            force_locale = bool(get_config_value("tts.edge_voice_force_locale_match", False))
+            current_voice = str(voicename or "").strip()
+            user_locked = bool(
+                getattr(session_opt, "_tts_voice_user_locked", False)
+                if session_opt is not None
+                else getattr(self.opt, "_tts_voice_user_locked", False)
+            )
+
+            target_family = ""
+            if ui_lang.startswith("ja"):
+                target_family = "ja"
+            elif ui_lang.startswith("ko"):
+                target_family = "ko"
+            elif ui_lang.startswith("en"):
+                target_family = "en"
+            elif ui_lang.startswith("zh"):
+                target_family = "zh"
+
+            voice_lower = current_voice.lower()
+            current_family = ""
+            if voice_lower.startswith("ja-"):
+                current_family = "ja"
+            elif voice_lower.startswith("ko-"):
+                current_family = "ko"
+            elif voice_lower.startswith("en-"):
+                current_family = "en"
+            elif voice_lower.startswith("zh-"):
+                current_family = "zh"
+
+            # 当前音色语种与对话 ui_lang 不一致（含无前缀、跨语种）
+            auto_fix_lang = bool(
+                selected
+                and target_family
+                and (not current_family or current_family != target_family)
+            )
+
+            if auto_fix_lang and ((not user_locked) or force_locale):
+                voicename = selected
+
+            logger.info(
+                f"EdgeTTS language={ui_lang or 'n/a'}, user_locked={user_locked}, "
+                f"force_locale={force_locale}, using voice={voicename}"
+            )
+            # 仅更新 TTS 实例上的 opt，避免把「临时按 UI 语种切出的 voice」写回会话 opt，
+            # 否则从日韩切回中文时会丢失用户/后台配置的中文音色。
+            try:
+                self.opt.REF_FILE = voicename
+            except Exception:
+                pass
+        except Exception:
+            pass
         # True streaming path: EdgeTTS mp3 chunks -> ffmpeg decode -> 20ms PCM frames
         try:
             import shutil
@@ -171,7 +283,9 @@ class EdgeTTS(BaseTTS):
                             if not started:
                                 eventpoint = {"status": "start", "text": text}
                                 eventpoint.update(**textevent)
+                                self._emit_pre_speech_padding(eventpoint)
                                 started = True
+                                eventpoint = None
                             self.parent.put_audio_frame(frame, eventpoint)
                 except Exception as e:
                     logger.warning(f"EdgeTTS stdout reader error: {e}")
@@ -187,14 +301,21 @@ class EdgeTTS(BaseTTS):
                     logger.error("EdgeTTS: 文本内容为空")
                     return False
 
-                valid_voices = ["zh-CN-YunxiaNeural", "zh-CN-XiaoxiaoNeural", "zh-CN-YunyangNeural"]
-                vn = voicename if voicename in valid_voices else "zh-CN-YunxiaNeural"
-                if vn != voicename:
-                    logger.warning(f"EdgeTTS: 语音名称 {voicename} 可能无效，使用默认语音")
+                # 不再使用硬编码白名单（会误伤如 zh-CN-YunjianNeural 等合法音色）。
+                # 直接使用配置音色，若无效由 edge_tts/回退链路处理。
+                vn = voicename
+                logger.info(f"EdgeTTS streaming using voice={vn}")
 
                 connect_timeout = int(get_config_value("tts.edgetts.connect_timeout", 10))
                 receive_timeout = int(get_config_value("tts.edgetts.receive_timeout", 60))
-                communicate = edge_tts.Communicate(text, vn, connect_timeout=connect_timeout, receive_timeout=receive_timeout)
+                rate = str(getattr(self.opt, "TTS_RATE", "+0%"))
+                communicate = edge_tts.Communicate(
+                    text,
+                    vn,
+                    rate=rate,
+                    connect_timeout=connect_timeout,
+                    receive_timeout=receive_timeout,
+                )
 
                 async for chunk in communicate.stream():
                     if self.state != State.RUNNING:
@@ -288,6 +409,8 @@ class EdgeTTS(BaseTTS):
             if idx == 0:
                 eventpoint = {'status': 'start', 'text': text}
                 eventpoint.update(**textevent)
+                self._emit_pre_speech_padding(eventpoint)
+                eventpoint = {}
             elif streamlen < self.chunk:
                 eventpoint = {'status': 'end', 'text': text}
                 eventpoint.update(**textevent)
@@ -320,16 +443,15 @@ class EdgeTTS(BaseTTS):
                 return
 
             # 修复2: 验证语音名称有效性
-            valid_voices = ["zh-CN-YunxiaNeural", "zh-CN-XiaoxiaoNeural", "zh-CN-YunyangNeural"]
-            if voicename not in valid_voices:
-                logger.warning(f"EdgeTTS: 语音名称 {voicename} 可能无效，使用默认语音")
-                voicename = "zh-CN-YunxiaNeural"
+            # 不限制为硬编码白名单，避免把合法新音色错误回退为默认女声
+            logger.info(f"EdgeTTS fallback path using voice={voicename}")
 
             # 修复3: 添加超时和重试机制
             import asyncio
             from edge_tts.exceptions import NoAudioReceived
 
-            communicate = edge_tts.Communicate(text, voicename)
+            rate = str(getattr(self.opt, "TTS_RATE", "+0%"))
+            communicate = edge_tts.Communicate(text, voicename, rate=rate)
 
             # with open(OUTPUT_FILE, "wb") as file:
             first = True

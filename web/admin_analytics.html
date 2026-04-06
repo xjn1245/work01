@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数据分析 - 留学咨询数字人管理平台</title>
+    <link rel="stylesheet" href="/admin_common.css" />
+    <script src="/admin_common.js"></script>
+    <script src="/vendor/echarts.min.js"></script>
+    <style>
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 12px;
+      }
+      .card {
+        border-radius: 16px;
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .card .k { color: #b9c7e6; font-size: 14px; }
+      .card .v { font-weight: 900; font-size: 24px; margin-top: 6px; }
+      .chart {
+        height: 280px;
+        border-radius: 16px;
+        border: 1px dashed rgba(255, 255, 255, 0.22);
+        background: rgba(0,0,0,0.12);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <div class="logo"></div>
+          <div>数据分析</div>
+        </div>
+
+        <div class="admin-menu">
+          <button id="menu-digitals" onclick="window.__navTo('digitals')">数字人管理</button>
+          <button id="menu-kb" onclick="window.__navTo('kb')">知识库管理</button>
+          <button id="menu-sessions" onclick="window.__navTo('sessions')">会话记录</button>
+          <button id="menu-analytics" onclick="window.__navTo('analytics')">数据分析</button>
+          <button id="menu-students" onclick="window.__navTo('students')">学生账号管理</button>
+        </div>
+
+        <div style="margin-top: 18px;">
+          <button class="btn" onclick="logoutAdmin()">退出登录</button>
+        </div>
+      </aside>
+
+      <main class="admin-content">
+        <div class="panel">
+          <div style="font-weight: 800; font-size: 17px; margin-bottom: 10px;">数据概览（卡片）</div>
+          <div class="cards">
+            <div class="card">
+              <div class="k">今日会话数</div>
+              <div class="v" id="v-today">-</div>
+            </div>
+            <div class="card">
+              <div class="k">总会话数</div>
+              <div class="v" id="v-total">-</div>
+            </div>
+            <div class="card">
+              <div class="k">总用户数</div>
+              <div class="v" id="v-users">-</div>
+            </div>
+            <div class="card">
+              <div class="k">平均响应时间(ms)</div>
+              <div class="v" id="v-avgdt">-</div>
+            </div>
+            <div class="card">
+              <div class="k">平均满意度(1–5)</div>
+              <div class="v" id="v-avgsat">-</div>
+            </div>
+            <div class="card">
+              <div class="k">实时连接 / 推理槽</div>
+              <div class="v" id="v-online">-</div>
+            </div>
+            <div class="card">
+              <div class="k">已注册形象数</div>
+              <div class="v" id="v-avatars">-</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+            <div style="font-weight: 800; font-size: 17px;">图表统计</div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <label class="muted" style="font-size:14px;">周期</label>
+              <select id="period" class="btn" style="padding:8px 10px;">
+                <option value="day">按日</option>
+                <option value="week">按周</option>
+                <option value="month">按月</option>
+              </select>
+              <button class="btn" id="btn-download-charts">下载图表PNG</button>
+              <button class="btn" id="btn-download-report">导出统计报告(JSON)</button>
+            </div>
+          </div>
+          <div class="row" style="flex-wrap: wrap;">
+            <div class="col">
+              <div class="chart" id="chart-trend">咨询量趋势图加载中...</div>
+            </div>
+            <div class="col">
+              <div class="chart" id="chart-categories"></div>
+            </div>
+          </div>
+          <div style="height: 12px;"></div>
+          <div class="row" style="flex-wrap: wrap;">
+            <div class="col">
+              <div class="chart" id="chart-wordcloud"></div>
+            </div>
+            <div class="col">
+              <div class="chart" id="chart-by-avatar"></div>
+            </div>
+          </div>
+          <div style="height: 12px;"></div>
+          <div class="chart" id="chart-perf"></div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight: 800; font-size: 17px; margin-bottom: 10px;">性能与运行时</div>
+          <table class="table" id="perf-table">
+            <thead>
+              <tr>
+                <th>指标</th>
+                <th>当前值</th>
+                <th>说明</th>
+              </tr>
+            </thead>
+            <tbody id="perf-table-body"></tbody>
+          </table>
+          <div class="notice" id="notice" style="display:none;margin-top:12px;"></div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight: 800; font-size: 17px; margin-bottom: 10px;">满意度分析</div>
+          <div class="row" style="flex-wrap: wrap;">
+            <div class="col">
+              <div class="chart" id="chart-satisfaction"></div>
+            </div>
+            <div class="col">
+              <table class="table">
+                <thead><tr><th>会话ID</th><th>用户</th><th>时间</th><th>问题摘要</th><th>操作</th></tr></thead>
+                <tbody id="low-score-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      window.__navTo = function (page) {
+        if (page === "digitals") window.location.href = "/admin_digitals.html";
+        if (page === "kb") window.location.href = "/admin_kb.html";
+        if (page === "sessions") window.location.href = "/admin_sessions.html";
+        if (page === "analytics") window.location.href = "/admin_analytics.html";
+        if (page === "students") window.location.href = "/admin_students.html";
+      };
+
+      requireAdminLoginOrRedirect();
+      requireRoleOrRedirect("admin");
+      bindMenu("analytics");
+
+      const noticeEl = document.getElementById("notice");
+      function showNotice(msg, kind) {
+        noticeEl.style.display = "block";
+        noticeEl.textContent = msg;
+        noticeEl.className = "notice";
+        if (kind === "error") noticeEl.classList.add("error");
+        if (kind === "success") noticeEl.classList.add("success");
+      }
+
+      function setChartText(domId, text) {
+        const el = document.getElementById(domId);
+        if (!el) return;
+        el.textContent = text || "";
+      }
+
+      function ensureEcharts(domId) {
+        if (typeof echarts !== "undefined" && echarts && typeof echarts.init === "function") return true;
+        setChartText(domId, "图表组件 ECharts 加载失败（可能是网络/CDN 被拦截）");
+        return false;
+      }
+
+      function renderEmptyChart(domId, titleText, subText) {
+        const el = document.getElementById(domId);
+        if (!el) return;
+        if (!ensureEcharts(domId)) return;
+        const chart = echarts.init(el);
+        chart.setOption({
+          title: {
+            text: titleText || "暂无数据",
+            subtext: subText || "",
+            left: "center",
+            top: "middle",
+            textStyle: { color: "#9fb0d5", fontSize: 14, fontWeight: 700 },
+            subtextStyle: { color: "rgba(159,176,213,0.7)", fontSize: 12 },
+          },
+        });
+      }
+
+      async function loadOverview() {
+        const resp = await apiGet("/admin/analytics/overview");
+        if (!resp || resp.code !== 0) {
+          showNotice((resp && resp.msg) ? resp.msg : "加载失败", "error");
+          return;
+        }
+        const ov = resp.data.overview || {};
+        document.getElementById("v-today").textContent = ov.today_sessions ?? "-";
+        document.getElementById("v-total").textContent = ov.total_sessions ?? "-";
+        document.getElementById("v-users").textContent = ov.total_users ?? "-";
+        document.getElementById("v-avgdt").textContent = ov.avg_dt_ms ?? "-";
+        document.getElementById("v-avgsat").textContent =
+          ov.avg_satisfaction != null && ov.avg_satisfaction !== undefined ? Number(ov.avg_satisfaction).toFixed(2) : "-";
+        document.getElementById("v-online").textContent =
+          `${ov.webrtc_connections ?? "-"} / ${ov.active_real_slots ?? "-"}`;
+        document.getElementById("v-avatars").textContent = ov.registered_avatars ?? "-";
+      }
+
+      async function loadTrend() {
+        try {
+          const resp = await apiGet("/admin/analytics/trend");
+          if (!resp || resp.code !== 0) {
+            renderEmptyChart("chart-trend", "趋势图加载失败", (resp && resp.msg) ? resp.msg : "");
+            return;
+          }
+          const arr = aggregateByPeriod(resp.data || [], document.getElementById("period").value);
+          if (!arr.length) {
+            renderEmptyChart("chart-trend", "咨询量趋势", "暂无会话数据");
+            return;
+          }
+          if (!ensureEcharts("chart-trend")) return;
+          const chart = echarts.init(document.getElementById("chart-trend"));
+          chart.setOption({
+            tooltip: { trigger: "axis" },
+            xAxis: { type: "category", data: arr.map(x => x.day), axisLabel: { color: "#c9d6f2" } },
+            yAxis: { type: "value", axisLabel: { color: "#c9d6f2" } },
+            series: [{ type: "line", data: arr.map(x => x.count), smooth: true, areaStyle: {} }],
+            grid: { left: 40, right: 20, top: 30, bottom: 40 }
+          });
+        } catch (e) {
+          setChartText("chart-trend", "趋势图渲染异常（请查看控制台错误）");
+        }
+      }
+
+      async function loadWordcloud() {
+        try {
+          const resp = await apiGet("/admin/analytics/wordcloud");
+          if (!resp || resp.code !== 0) {
+            renderEmptyChart("chart-wordcloud", "高频词统计加载失败", (resp && resp.msg) ? resp.msg : "");
+            return;
+          }
+          const arr = resp.data || [];
+          const top = arr.slice(0, 25);
+          if (!top.length) {
+            renderEmptyChart("chart-wordcloud", "用户提问高频词", "暂无词频数据");
+            return;
+          }
+          if (!ensureEcharts("chart-wordcloud")) return;
+          const el = document.getElementById("chart-wordcloud");
+          const chart = echarts.init(el);
+          chart.setOption({
+            title: { text: "用户提问高频词", left: "center", textStyle: { color: "#b9c7e6", fontSize: 13 } },
+            tooltip: { trigger: "axis" },
+            xAxis: { type: "category", data: top.map((x) => x.word), axisLabel: { color: "#c9d6f2", rotate: 40 } },
+            yAxis: { type: "value", axisLabel: { color: "#c9d6f2" } },
+            series: [{ type: "bar", data: top.map((x) => x.count), itemStyle: { color: "#22d3ee" } }],
+            grid: { left: 44, right: 16, top: 36, bottom: 72 }
+          });
+        } catch (e) {
+          setChartText("chart-wordcloud", "高频词图表渲染异常（请查看控制台错误）");
+        }
+      }
+
+      async function loadByAvatar() {
+        try {
+          const resp = await apiGet("/admin/analytics/by_avatar");
+          if (!resp || resp.code !== 0) {
+            renderEmptyChart("chart-by-avatar", "按形象统计加载失败", (resp && resp.msg) ? resp.msg : "");
+            return;
+          }
+          const arr = resp.data || [];
+          if (!arr.length) {
+            renderEmptyChart("chart-by-avatar", "会话量按数字人形象", "暂无会话数据");
+            return;
+          }
+          if (!ensureEcharts("chart-by-avatar")) return;
+          const chart = echarts.init(document.getElementById("chart-by-avatar"));
+          chart.setOption({
+            title: { text: "会话量按数字人形象", left: "center", textStyle: { color: "#b9c7e6", fontSize: 13 } },
+            tooltip: { trigger: "axis" },
+            xAxis: { type: "category", data: arr.map((x) => x.avatar_id), axisLabel: { color: "#c9d6f2", rotate: 35 } },
+            yAxis: { type: "value", axisLabel: { color: "#c9d6f2" } },
+            series: [{ type: "bar", data: arr.map((x) => x.count), itemStyle: { color: "#6366f1" } }],
+            grid: { left: 44, right: 16, top: 36, bottom: 72 }
+          });
+        } catch (e) {
+          setChartText("chart-by-avatar", "按形象图表渲染异常（请查看控制台错误）");
+        }
+      }
+
+      async function loadCategories() {
+        try {
+          const resp = await apiGet("/admin/analytics/categories");
+          if (!resp || resp.code !== 0) {
+            renderEmptyChart("chart-categories", "分类统计加载失败", (resp && resp.msg) ? resp.msg : "");
+            return;
+          }
+          const arr = resp.data || [];
+          if (!arr.length) {
+            renderEmptyChart("chart-categories", "问题类别分布", "暂无数据");
+            return;
+          }
+          if (!ensureEcharts("chart-categories")) return;
+          const chart = echarts.init(document.getElementById("chart-categories"));
+          chart.setOption({
+            tooltip: { trigger: "item" },
+            legend: { bottom: 0, textStyle: { color: "#c9d6f2" } },
+            series: [{
+              type: "pie",
+              radius: ["35%", "70%"],
+              data: arr
+            }]
+          });
+        } catch (e) {
+          setChartText("chart-categories", "分类图表渲染异常（请查看控制台错误）");
+        }
+      }
+
+      async function loadPerf() {
+        const [perfResp, rtResp, ttsResp] = await Promise.all([
+          apiGet("/admin/analytics/performance"),
+          apiGet("/admin/analytics/response_time"),
+          apiGet("/admin/analytics/tts_success"),
+        ]);
+        const perf = perfResp && perfResp.code === 0 ? perfResp.data : {};
+        const rt = aggregateByPeriod(rtResp && rtResp.code === 0 ? rtResp.data : [], document.getElementById("period").value, "avg_dt_ms");
+        const tts = ttsResp && ttsResp.code === 0 ? ttsResp.data : {};
+        if (!rt.length) {
+          renderEmptyChart("chart-perf", "平均响应耗时", "暂无数据");
+        }
+        if (!ensureEcharts("chart-perf")) return;
+        const chart = echarts.init(document.getElementById("chart-perf"));
+        chart.setOption({
+          title: { text: "平均响应耗时（按周期聚合）", left: "center", textStyle: { color: "#b9c7e6", fontSize: 13 } },
+          tooltip: { trigger: "axis" },
+          xAxis: { type: "category", data: rt.map((x) => x.day), axisLabel: { color: "#c9d6f2" } },
+          yAxis: { type: "value", name: "ms", axisLabel: { color: "#c9d6f2" } },
+          series: [
+            {
+              name: "平均响应(ms)",
+              type: "line",
+              smooth: true,
+              data: rt.map((x) => x.avg_dt_ms || 0),
+              areaStyle: { opacity: 0.12 },
+            },
+          ],
+          grid: { left: 48, right: 20, top: 40, bottom: 40 },
+        });
+        const gpu = perf.gpu_usage_percent;
+        const tbody = document.getElementById("perf-table-body");
+        if (tbody) {
+          tbody.innerHTML = `
+            <tr><td>WebRTC 并发连接</td><td>${perf.concurrent_connections ?? "—"}</td><td class="muted">当前 RTCPeerConnection 数量</td></tr>
+            <tr><td>推理槽（BaseReal）</td><td>${perf.active_sessions ?? "—"}</td><td class="muted">已创建的会话槽位</td></tr>
+            <tr><td>GPU 利用率</td><td>${gpu != null && gpu !== undefined ? gpu + "%" : "—"}</td><td class="muted">需本机可用 nvidia-smi</td></tr>
+            <tr><td>LLM 成功率(近似)</td><td>${tts.success_rate != null ? tts.success_rate + "%" : "—"}</td><td class="muted">非超时会话 / 总会话</td></tr>
+          `;
+        }
+      }
+
+      async function loadSatisfaction() {
+        let resp = null;
+        try {
+          resp = await apiGet("/admin/analytics/satisfaction");
+          if (!resp || resp.code !== 0) {
+            renderEmptyChart("chart-satisfaction", "满意度加载失败", (resp && resp.msg) ? resp.msg : "");
+            return;
+          }
+          const tr = resp.data.trend || [];
+          if (!tr.length) {
+            renderEmptyChart("chart-satisfaction", "满意度趋势", "暂无评分数据");
+            return;
+          }
+          if (!ensureEcharts("chart-satisfaction")) return;
+          const chart = echarts.init(document.getElementById("chart-satisfaction"));
+          chart.setOption({
+            tooltip: { trigger: "axis" },
+            xAxis: { type: "category", data: tr.map(x => x.day), axisLabel: { color: "#c9d6f2" } },
+            yAxis: { type: "value", min: 1, max: 5, axisLabel: { color: "#c9d6f2" } },
+            series: [{ type: "line", data: tr.map(x => x.avg_satisfaction || 0), smooth: true }],
+            grid: { left: 46, right: 20, top: 30, bottom: 40 }
+          });
+        } catch (e) {
+          setChartText("chart-satisfaction", "满意度图表渲染异常（请查看控制台错误）");
+        }
+        const lowBody = document.getElementById("low-score-body");
+        lowBody.innerHTML = "";
+        ((resp && resp.data && resp.data.low_score_sessions) || []).forEach((x) => {
+          const trEl = document.createElement("tr");
+          const t = x.created_at_ms ? new Date(x.created_at_ms).toLocaleString() : "-";
+          trEl.innerHTML = `
+            <td>${x.id}</td>
+            <td>${x.user_id || "-"}</td>
+            <td>${t}</td>
+            <td class="muted">${(x.question_summary||"").slice(0, 40)}</td>
+            <td><button class="btn" data-act="jump" data-id="${x.id}">查看详情</button></td>
+          `;
+          lowBody.appendChild(trEl);
+        });
+        lowBody.querySelectorAll("button[data-act='jump']").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const sid = btn.dataset.id;
+            window.location.href = `/admin_sessions.html?sid=${encodeURIComponent(sid)}`;
+          });
+        });
+      }
+
+      loadOverview();
+      loadTrend();
+      loadCategories();
+      loadWordcloud();
+      loadByAvatar();
+      loadPerf();
+      loadSatisfaction();
+
+      window.addEventListener("resize", () => {
+        if (typeof echarts === "undefined" || !echarts || typeof echarts.getInstanceByDom !== "function") return;
+        ["chart-trend", "chart-categories", "chart-wordcloud", "chart-by-avatar", "chart-perf", "chart-satisfaction"].forEach((id) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          const c = echarts.getInstanceByDom(el);
+          if (c) c.resize();
+        });
+      });
+
+      function aggregateByPeriod(arr, period, valueKey = "count") {
+        if (!Array.isArray(arr)) return [];
+        if (period === "day") return arr;
+        const bucket = {};
+        for (const x of arr) {
+          const d = new Date(x.day + "T00:00:00");
+          let k = x.day;
+          if (period === "week") {
+            const onejan = new Date(d.getFullYear(), 0, 1);
+            const week = Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+            k = `${d.getFullYear()}-W${String(week).padStart(2, "0")}`;
+          } else if (period === "month") {
+            k = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+          }
+          if (!bucket[k]) bucket[k] = { day: k, __sum: 0, __n: 0 };
+          const v = Number(x[valueKey] ?? x.count ?? 0);
+          bucket[k].__sum += v;
+          bucket[k].__n += 1;
+        }
+        return Object.values(bucket).sort((a,b)=>String(a.day).localeCompare(String(b.day))).map((x)=>({
+          day: x.day,
+          count: Math.round(x.__sum),
+          avg_dt_ms: x.__n > 0 ? Math.round(x.__sum / x.__n) : 0
+        }));
+      }
+
+      document.getElementById("period").addEventListener("change", () => {
+        loadTrend();
+        loadPerf();
+      });
+
+      document.getElementById("btn-download-charts").addEventListener("click", () => {
+        if (typeof echarts === "undefined" || !echarts || typeof echarts.getInstanceByDom !== "function") {
+          showNotice("ECharts 未加载，无法导出图表。请检查网络或改用本地 echarts 文件。", "error");
+          return;
+        }
+        const ids = ["chart-trend", "chart-categories", "chart-wordcloud", "chart-by-avatar", "chart-perf", "chart-satisfaction"];
+        ids.forEach((id, idx) => {
+          const chart = echarts.getInstanceByDom(document.getElementById(id));
+          if (!chart) return;
+          const url = chart.getDataURL({ type: "png", pixelRatio: 2, backgroundColor: "#0b1220" });
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `analytics_${id}_${idx+1}.png`;
+          a.click();
+        });
+      });
+
+      document.getElementById("btn-download-report").addEventListener("click", async () => {
+        const resp = await apiGet("/admin/analytics/report");
+        if (!resp || resp.code !== 0) return showNotice((resp && resp.msg) ? resp.msg : "导出报告失败", "error");
+        const blob = new Blob([JSON.stringify(resp.data || {}, null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "analytics_report.json";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+    </script>
+  <script src="/i18n3.js"></script>
+</body>
+</html>
+

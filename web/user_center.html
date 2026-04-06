@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用户中心</title>
+    <link rel="stylesheet" href="/admin_common.css" />
+    <script src="/admin_common.js"></script>
+  </head>
+  <body>
+    <div class="admin-content" style="max-width: 980px; margin: 0 auto;">
+      <div class="panel">
+        <h3 style="margin-top:0;" data-i18n="auto.dashboard.3a0821ae0e">用户中心</h3>
+        <div id="me" class="muted" data-i18n="auto.user_center.26b5bd4947">加载中...</div>
+        <div style="margin-top:10px;">
+          <button class="btn" onclick="window.location.href='/dashboard.html'" data-i18n="auto.help.2e3eaa52ed">返回主页</button>
+          <button class="btn" onclick="window.location.href='/history.html'" data-i18n="auto.history.f741ac62d7">我的历史会话</button>
+          <button class="btn danger" onclick="logoutAdmin()" data-i18n="auto.admin_digitals.44efd179aa">退出登录</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h4 style="margin-top:0;" data-i18n="auto.user_center.7fc88aeeda">修改密码</h4>
+        <div class="row" style="flex-wrap:wrap;">
+          <div class="col"><label data-i18n="auto.user_center.1b3355e831">旧密码</label><input id="old-pwd" type="password" /></div>
+          <div class="col"><label data-i18n="auto.user_center.bf7da0bf02">新密码</label><input id="new-pwd" type="password" /></div>
+          <div style="display:flex;align-items:flex-end;"><button class="btn primary" id="btn-change-pwd" data-i18n="auto.user_center.8347a927c0">修改</button></div>
+        </div>
+        <div id="pwd-msg" class="muted" style="margin-top:8px;"></div>
+      </div>
+      <div class="panel">
+        <h4 style="margin-top:0;" data-i18n="auto.user_center.f812099222">最近会话</h4>
+        <table class="table">
+          <thead><tr><th>ID</th><th data-i18n="auto.history.19fcb9eb25">时间</th><th data-i18n="auto.history.914c334a15">问题摘要</th><th data-i18n="auto.history.c20c81bcd8">响应(ms)</th></tr></thead>
+          <tbody id="recent"></tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+      function fmt(ms) { try { return new Date(ms).toLocaleString(); } catch { return String(ms); } }
+      async function load() {
+        // Compatible with both remember-me (localStorage) and non-remember-me (sessionStorage)
+        const token = localStorage.getItem("adminToken") || sessionStorage.getItem("adminToken") || "";
+        if (!token) return (window.location.href = "/login.html");
+        const me = await fetch("/auth/me", { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json());
+        if (!me || me.code !== 0) return (window.location.href = "/login.html");
+        document.getElementById("me").textContent = `用户名：${me.data.username}  角色：${me.data.role}`;
+        const sessions = await fetch("/my/sessions?page=1&page_size=10", { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json());
+        const tbody = document.getElementById("recent");
+        tbody.innerHTML = "";
+        (sessions.data.items || []).forEach((it) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${it.id}</td><td>${fmt(it.created_at_ms)}</td><td class="muted">${(it.question_summary||"").slice(0, 60)}</td><td>${it.dt_ms ?? "-"}</td>`;
+          tbody.appendChild(tr);
+        });
+      }
+      document.getElementById("btn-change-pwd").addEventListener("click", async () => {
+        const token = localStorage.getItem("adminToken") || sessionStorage.getItem("adminToken") || "";
+        const oldPwd = document.getElementById("old-pwd").value;
+        const newPwd = document.getElementById("new-pwd").value;
+        const msg = document.getElementById("pwd-msg");
+        if (!oldPwd || !newPwd) {
+          msg.textContent = "请输入旧密码和新密码";
+          return;
+        }
+        const resp = await fetch("/auth/change_password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ old_password: oldPwd, new_password: newPwd }),
+        }).then(r => r.json());
+        if (resp && resp.code === 0) {
+          msg.textContent = "密码修改成功";
+          document.getElementById("old-pwd").value = "";
+          document.getElementById("new-pwd").value = "";
+        } else {
+          msg.textContent = (resp && resp.msg) ? resp.msg : "密码修改失败";
+        }
+      });
+      load();
+    </script>
+  <script src="/i18n3.js"></script>
+</body>
+</html>
+

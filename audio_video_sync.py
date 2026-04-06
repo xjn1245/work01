@@ -5,7 +5,7 @@
 
 import numpy as np
 import time
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
 from logger import logger
 
 class AudioVideoSynchronizer:
@@ -95,8 +95,10 @@ class EmotionalExpressionGenerator:
                 "eye_expression": "bright"
             },
             "专业": {
-                "facial_expression": "neutral",
-                "intensity": 0.6,
+                # 原先 professional 映射为 neutral，导致多数 LLM 回复（“建议/分析/规划”）
+                # 都会落到 neutral，看不到表情变化。这里改为 encouraging，提高可见度。
+                "facial_expression": "encouraging",
+                "intensity": 0.65,
                 "lip_movement": "precise",
                 "eye_expression": "focused"
             },
@@ -126,11 +128,22 @@ class EmotionalExpressionGenerator:
         
         emotion_scores = {emotion: 0.0 for emotion in emotion_keywords.keys()}
         
-        # 计算情感得分
+        # 计算情感得分（关键词 + 标点/常见短语兜底）
         for emotion, keywords in emotion_keywords.items():
             for keyword in keywords:
                 if keyword in text:
                     emotion_scores[emotion] += 1.0
+
+        # 标点/语气强制倾向：让自动表情更容易“看得见”
+        # 注意：最终 facial_expression 仍由 emotion_mapping 决定。
+        if "！" in text or "太棒" in text or "太好了" in text or "好极了" in text:
+            emotion_scores["高兴"] += 2.5
+        if "？" in text or "吗" in text or "要不要" in text:
+            emotion_scores["关切"] += 1.2
+        if "别担心" in text or "没问题" in text or "不用担心" in text:
+            emotion_scores["鼓励"] += 1.8
+        if "风险" in text or "注意" in text or "小心" in text:
+            emotion_scores["关切"] += 1.0
         
         # 归一化得分
         total_score = sum(emotion_scores.values())

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学生注册 - 留学咨询数字人管理平台</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Microsoft YaHei", sans-serif;
+        font-size: 17px;
+        line-height: 1.7;
+        background: #0b1220;
+        color: #e6edf3;
+      }
+      .wrap { max-width: 760px; margin: 30px auto; padding: 0 16px; }
+      .card {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        padding: 16px;
+      }
+      .row { display: flex; gap: 12px; flex-wrap: wrap; }
+      .col { flex: 1; min-width: 220px; }
+      label { display: block; margin-bottom: 6px; font-size: 15px; color: #b9c7e6; }
+      input, select {
+        width: 100%; box-sizing: border-box; border-radius: 10px;
+        padding: 10px; border: 1px solid rgba(255,255,255,0.15);
+        background: rgba(0,0,0,0.2); color: #e6edf3;
+        font-size: 16px;
+      }
+      .btnbar { display: flex; gap: 10px; margin-top: 14px; }
+      button {
+        border-radius: 10px; padding: 10px 14px; cursor: pointer;
+        border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: #e6edf3;
+        font-size: 16px;
+      }
+      .primary { background: rgba(79,70,229,0.28); border-color: rgba(79,70,229,0.6); }
+      .notice { margin-top: 12px; padding: 10px; border-radius: 10px; display: none; }
+      .ok { background: rgba(34,197,94,0.16); border: 1px solid rgba(34,197,94,0.45); }
+      .err { background: rgba(239,68,68,0.16); border: 1px solid rgba(239,68,68,0.45); }
+      .title { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+      .sub { color: #9fb0d5; margin-bottom: 14px; font-size: 15px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <div class="title">学生账号注册</div>
+        <div class="sub">注册后可使用学生身份登录并查看个人会话历史</div>
+        <form id="register-form">
+          <div class="row">
+            <div class="col">
+              <label>学号 *</label>
+              <input id="student_id" type="text" required />
+            </div>
+            <div class="col">
+              <label>姓名</label>
+              <input id="real_name" type="text" />
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px;">
+            <div class="col">
+              <label>性别</label>
+              <select id="gender">
+                <option value="">未填写</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+              </select>
+            </div>
+            <div class="col">
+              <label>学院</label>
+              <input id="college" type="text" />
+            </div>
+            <div class="col">
+              <label>专业</label>
+              <input id="major" type="text" />
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px;">
+            <div class="col">
+              <label>登录账号 *</label>
+              <input id="username" type="text" required />
+            </div>
+            <div class="col">
+              <label>登录密码 *</label>
+              <input id="password" type="password" minlength="6" required />
+            </div>
+          </div>
+          <div class="btnbar">
+            <button type="submit" class="primary">提交注册</button>
+            <button type="button" id="back-login">返回登录</button>
+          </div>
+          <div class="notice" id="notice"></div>
+        </form>
+      </div>
+    </div>
+    <script>
+      function show(msg, ok) {
+        const el = document.getElementById("notice");
+        el.style.display = "block";
+        el.className = "notice " + (ok ? "ok" : "err");
+        el.textContent = msg;
+      }
+      document.getElementById("back-login").addEventListener("click", () => {
+        window.location.href = "/login.html";
+      });
+      document.getElementById("register-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const body = {
+          student_id: document.getElementById("student_id").value.trim(),
+          real_name: document.getElementById("real_name").value.trim(),
+          gender: document.getElementById("gender").value,
+          college: document.getElementById("college").value.trim(),
+          major: document.getElementById("major").value.trim(),
+          username: document.getElementById("username").value.trim(),
+          password: document.getElementById("password").value
+        };
+        if (!body.student_id || !body.username || !body.password) {
+          show("学号、登录账号、登录密码为必填项", false);
+          return;
+        }
+        if (body.password.length < 6) {
+          show("密码至少 6 位", false);
+          return;
+        }
+        try {
+          const resp = await fetch("/student/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          });
+          const data = await resp.json();
+          if (data && data.code === 0) {
+            show("注册成功，请返回登录页使用学生账号登录", true);
+            return;
+          }
+          show((data && data.msg) ? data.msg : "注册失败", false);
+        } catch (_) {
+          show("注册失败：无法连接后端", false);
+        }
+      });
+    </script>
+    <script src="/i18n3.js"></script>
+  </body>
+</html>

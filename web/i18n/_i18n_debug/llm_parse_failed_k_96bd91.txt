@@ -1,0 +1,6 @@
+chunk_size=1
+error=parse_failed
+
+RAW_CONTENT_START
+{"en": {"会话量按数字人形象": "Conversation volume by digital human image"}, "ja": {"会話量はデジタル人間のイメージに基づいて"}, "ko": {"디지털 인간 이미지에 따른 대화량"}}
+RAW_CONTENT_END

@@ -4,7 +4,7 @@ import copy
 import os
 import time
 from dataclasses import dataclass
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Optional, List, Callable
 
 from logger import logger
 
@@ -33,6 +33,14 @@ class AvatarManager:
 
         # key: "{model_type}_{avatar_id}"
         self.avatar_cache: Dict[str, AvatarResources] = {}
+        self._custom_action_provider: Optional[Callable[[str], List[Dict[str, Any]]]] = None
+        self._tts_config_provider: Optional[Callable[[str], Dict[str, Any]]] = None
+
+    def set_custom_action_provider(self, provider: Callable[[str], List[Dict[str, Any]]]) -> None:
+        self._custom_action_provider = provider
+
+    def set_tts_config_provider(self, provider: Callable[[str], Dict[str, Any]]) -> None:
+        self._tts_config_provider = provider
 
     def configure(self, preload_enabled: bool, preload_all_on_start: bool) -> None:
         self.preload_enabled = bool(preload_enabled)
@@ -81,6 +89,43 @@ class AvatarManager:
         1) 旧格式（list，条目无 avatar_id）：视为“全局动作”，对所有头像生效
         2) 新格式（list，条目可带 avatar_id）：只对匹配头像生效
         """
+        if self._custom_action_provider is not None:
+            try:
+                provided = self._custom_action_provider(target_avatar_id)
+                if isinstance(provided, list):
+                    # Map admin action config -> legacy customopt format if needed
+                    mapped = []
+                    for idx, p in enumerate(provided):
+                        if not isinstance(p, dict):
+                            continue
+                        if not bool(p.get("enabled", True)):
+                            continue
+                        at = int(p.get("audiotype", 0))
+                        if at <= 0:
+                            continue
+                        # Keep compatibility: action media paths still come from existing customopt
+                        mapped.append({"audiotype": at})
+                    if mapped:
+                        raw = getattr(self._opt, "customopt", [])
+                        # filter existing customopt by chosen audiotypes
+                        allowed = set(int(x["audiotype"]) for x in mapped)
+                        if isinstance(raw, list):
+                            resolved_items: List[Dict[str, Any]] = []
+                            for item in raw:
+                                if not isinstance(item, dict):
+                                    continue
+                                if int(item.get("audiotype", -1)) not in allowed:
+                                    continue
+                                # 关键修复：
+                                # 若 customopt 自身带 avatar_id，必须匹配当前头像，避免加载到其他头像素材（会出现“连错数字人”的视觉错觉）
+                                aid = item.get("avatar_id", None)
+                                if aid is not None and str(aid).strip() != "" and str(aid) != str(target_avatar_id):
+                                    continue
+                                resolved_items.append(item)
+                            return resolved_items
+            except Exception:
+                pass
+
         raw = getattr(self._opt, "customopt", [])
         if not raw:
             return []
@@ -153,6 +198,21 @@ class AvatarManager:
 
         target_avatar_id = avatar_id if avatar_id is not None else getattr(self._opt, "avatar_id", None)
         session_opt.customopt = self._resolve_custom_actions(target_avatar_id)
+        if self._tts_config_provider is not None:
+            try:
+                tts_cfg = self._tts_config_provider(target_avatar_id) or {}
+                voice = str(tts_cfg.get("voice", "") or "").strip()
+                vbl = tts_cfg.get("voices_by_lang")
+                if isinstance(vbl, dict):
+                    for k in ("zh-CN", "zh-cn"):
+                        zhv = str(vbl.get(k) or "").strip()
+                        if zhv:
+                            voice = zhv
+                            break
+                if voice:
+                    session_opt.REF_FILE = voice
+            except Exception:
+                pass
         logger.info(
             f"session={sessionid} avatar={target_avatar_id} custom_actions={len(getattr(session_opt, 'customopt', []))}"
         )

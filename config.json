@@ -11,8 +11,8 @@
   },
   "avatar": {
     "default_avatar_id": "avator_1",
-    "preload_enabled": true,
-    "preload_all_on_start": true,
+    "preload_enabled": false,
+    "preload_all_on_start": false,
     "model_infer_from_id": true,
     "preload_queue_size": 3,
     "cache_max_size": 5
@@ -25,6 +25,9 @@
   "tts": {
     "default_engine": "edgetts",
     "default_voice": "zh-CN-YunxiaNeural",
+    "pre_speech_silence_ms": 160,
+    "first_chunk_replay_enabled": true,
+    "first_chunk_replay_chars": 6,
     "server": "http://127.0.0.1:9880",
     "fallback_enabled": true,
     "fallback_engines": [
@@ -36,7 +39,14 @@
       "edgetts": "zh-CN-YunxiaNeural",
       "azuretts": "zh-CN-XiaoxiaoMultilingualNeural",
       "doubao": "zh_female_roumeinvyou_emo_v2_mars_bigtts"
-    }
+    },
+    "edge_voice_by_lang": {
+      "zh-CN": "zh-CN-YunxiaNeural",
+      "en": "en-US-JennyNeural",
+      "ja": "ja-JP-NanamiNeural",
+      "ko": "ko-KR-SunHiNeural"
+    },
+    "edge_voice_force_locale_match": false
   },
   "rag": {
     "enabled": true,
@@ -63,9 +73,24 @@
     "width": 450,
     "height": 450
   },
+  "auth": {
+    "db_path": "data/auth.db",
+    "token_secret": "dev-only-change-me",
+    "token_ttl_seconds": 86400
+  },
+  "history": {
+    "db_path": "data/chat_history.db"
+  },
+  "avatar_admin": {
+    "db_path": "data/avatar_admin.db"
+  },
   "sliding_window": {
     "left": 10,
     "middle": 8,
     "right": 10
+  },
+  "liveportrait": {
+    "expression_enabled": false,
+    "mouth_from_liveportrait": false
   }
 }

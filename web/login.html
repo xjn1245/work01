@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>留学咨询数字人管理平台 - 登录</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg-base: #060a12;
+        --text: #e8edf7;
+        --text-muted: rgba(232, 237, 247, 0.68);
+        --border: rgba(255, 255, 255, 0.09);
+        --accent: #6366f1;
+        --accent-dark: #4f46e5;
+        --cyan: #22d3ee;
+        --danger-bg: rgba(239, 68, 68, 0.14);
+        --danger-border: rgba(248, 113, 113, 0.35);
+        --radius-lg: 20px;
+        --radius-md: 12px;
+        --shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 24px 56px -16px rgba(0, 0, 0, 0.55);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+          Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        font-size: 16px;
+        line-height: 1.65;
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg-base);
+        background-image:
+          radial-gradient(ellipse 100% 80% at 50% -30%, rgba(99, 102, 241, 0.18), transparent 55%),
+          radial-gradient(ellipse 70% 50% at 100% 0%, rgba(34, 211, 238, 0.1), transparent 45%),
+          radial-gradient(ellipse 60% 40% at 0% 20%, rgba(79, 70, 229, 0.12), transparent 50%);
+      }
+
+      .topbar {
+        position: relative;
+        min-height: clamp(200px, 30vh, 300px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(22px, 4vh, 40px) clamp(20px, 4vw, 36px);
+        border-bottom: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .topbar::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.65) 0%, rgba(6, 10, 18, 0.15) 100%);
+        pointer-events: none;
+      }
+
+      .topbar::after {
+        content: "";
+        position: absolute;
+        width: min(520px, 90vw);
+        height: min(520px, 90vw);
+        left: 50%;
+        top: -40%;
+        transform: translateX(-50%);
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 65%);
+        pointer-events: none;
+      }
+
+      .topbar-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(16px, 3vw, 32px);
+        flex-wrap: wrap;
+        max-width: 880px;
+        width: 100%;
+      }
+
+      .logo {
+        width: clamp(64px, 11vw, 96px);
+        height: clamp(64px, 11vw, 96px);
+        border-radius: 22px;
+        background: linear-gradient(145deg, #6366f1 0%, #4f46e5 45%, #0891b2 100%);
+        flex-shrink: 0;
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+          0 16px 40px rgba(15, 23, 42, 0.65),
+          0 0 40px rgba(99, 102, 241, 0.2);
+      }
+
+      .topbar-text {
+        text-align: left;
+        min-width: 0;
+      }
+
+      .title {
+        font-size: clamp(1.35rem, 3.6vw, 2.1rem);
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        line-height: 1.25;
+        color: #f8fafc;
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+      }
+
+      .sub {
+        color: var(--text-muted);
+        font-size: clamp(0.95rem, 1.9vw, 1.1rem);
+        font-weight: 500;
+        margin-top: 10px;
+        line-height: 1.55;
+        max-width: 28em;
+      }
+
+      @media (max-width: 560px) {
+        .topbar-inner {
+          flex-direction: column;
+        }
+        .topbar-text {
+          text-align: center;
+        }
+        .sub {
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+
+      .wrap {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px 18px 32px;
+      }
+
+      .card {
+        width: 420px;
+        max-width: 100%;
+        padding: 28px 26px 24px;
+        border-radius: var(--radius-lg);
+        background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 100%);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+
+      .card-header {
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .card-kicker {
+        margin: 0 0 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(165, 180, 252, 0.85);
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #f1f5f9;
+      }
+
+      .field {
+        margin-bottom: 16px;
+      }
+
+      label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.22);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        border-radius: var(--radius-md);
+        padding: 12px 14px;
+        outline: none;
+        font-size: 1rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        border-color: rgba(99, 102, 241, 0.55);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 4px;
+        flex-wrap: wrap;
+      }
+
+      .check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .check input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--accent);
+      }
+
+      .role-select {
+        background: rgba(0, 0, 0, 0.28);
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius-md);
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+
+      .role-select:focus {
+        border-color: rgba(99, 102, 241, 0.5);
+      }
+
+      .btnbar {
+        display: flex;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .linkbar {
+        margin-top: 18px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .linkbar a {
+        color: #a5b4fc;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .linkbar a:hover {
+        color: #c7d2fe;
+      }
+
+      button {
+        flex: 1;
+        padding: 12px 16px;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        font-family: inherit;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+
+      button:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      button:active:not(:disabled) {
+        transform: translateY(1px);
+      }
+
+      button.primary {
+        border: none;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+        color: #fff;
+        box-shadow: 0 8px 24px rgba(79, 70, 229, 0.35);
+      }
+
+      button.primary:hover:not(:disabled) {
+        filter: brightness(1.06);
+        box-shadow: 0 10px 28px rgba(79, 70, 229, 0.42);
+      }
+
+      .notice {
+        margin-top: 16px;
+        padding: 12px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--danger-border);
+        background: var(--danger-bg);
+        color: #fecaca;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      .captcha {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      }
+
+      .captcha-hint {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        margin: 0 0 8px;
+      }
+
+      .captcha-note {
+        font-size: 0.8125rem;
+        color: rgba(232, 237, 247, 0.5);
+      }
+
+      .captcha-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .captcha input {
+        width: min(200px, 100%);
+      }
+
+
+      .footer {
+        padding: 16px 22px 22px;
+        text-align: center;
+        font-size: 0.8125rem;
+        color: rgba(232, 237, 247, 0.45);
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+      }
+    </style>
+    <script src="/admin_common.js"></script>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="topbar-text">
+          <div class="title">留学咨询数字人管理平台</div>
+          <div class="sub">管理员 / 学生专用登录入口</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="card">
+        <div class="card-header">
+          <p class="card-kicker">欢迎回来</p>
+          <h3>系统入口登录</h3>
+        </div>
+
+        <form id="login-form">
+          <div class="field">
+            <label for="username">用户名</label>
+            <input id="username" type="text" placeholder="请输入用户名" autocomplete="username" />
+          </div>
+
+          <div class="field">
+            <label for="password">密码</label>
+            <input id="password" type="password" placeholder="请输入密码" autocomplete="current-password" />
+          </div>
+
+          <div class="row">
+            <div class="check">
+              <input id="remember" type="checkbox" />
+              <label for="remember" style="margin:0; cursor:pointer;">记住我</label>
+            </div>
+            <div class="check">
+              <label for="role" style="margin:0;">角色</label>
+              <select id="role" class="role-select">
+                <option value="admin">管理员</option>
+                <option value="student">学生</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="captcha">
+            <p class="captcha-hint">验证码（当前版本仅展示占位）</p>
+            <div class="captcha-row">
+              <input id="captcha" type="text" placeholder="输入验证码" />
+              <span class="captcha-note">(可留空)</span>
+            </div>
+          </div>
+
+          <div class="btnbar">
+            <button class="primary" type="submit" id="btn-login">登录</button>
+            <button type="button" id="btn-reset">重置</button>
+          </div>
+          <div class="linkbar">
+            还没有学生账号？<a href="/student_register.html">点击注册</a>
+          </div>
+
+          <div class="notice" id="notice"></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer">
+      版权信息 © 2026，某某大学留学咨询团队
+    </div>
+
+    <script>
+      // Frontend-only fallback credentials (if backend login is not implemented yet)
+      const MOCK_ADMIN = { username: "admin", password: "123456" };
+      const MOCK_STUDENT = { username: "student", password: "123456" };
+
+      function showError(msg) {
+        const el = document.getElementById("notice");
+        el.textContent = msg;
+        el.style.display = "block";
+      }
+
+      function hideError() {
+        const el = document.getElementById("notice");
+        el.style.display = "none";
+        el.textContent = "";
+      }
+
+      async function tryBackendLogin(username, password, role) {
+        // Expected response: { code: 0, data: { token: "..." } }
+        const path = role === "student" ? "/student/login" : "/admin/login";
+        const resp = await fetch(path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+        return resp.json();
+      }
+
+      document.getElementById("btn-reset").addEventListener("click", () => {
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("captcha").value = "";
+        document.getElementById("remember").checked = false;
+        hideError();
+      });
+
+      document.getElementById("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideError();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+        const remember = document.getElementById("remember").checked;
+        const role = document.getElementById("role").value;
+        const captcha = document.getElementById("captcha").value.trim();
+
+        if (!username) return showError("用户名不能为空");
+        if (!password) return showError("密码不能为空");
+
+        try {
+          const data = await tryBackendLogin(username, password, role);
+          if (data && data.code === 0 && data.data && data.data.token) {
+            setAdminLogin(data.data.token, username, remember);
+            const params = new URLSearchParams(location.search);
+            const nextRaw = params.get("next");
+            const dest =
+              authSafeNextUrl(role, nextRaw) || defaultHomeForRole(role);
+            window.location.href = dest;
+            return;
+          }
+          // backend rejected
+          showError(data && data.msg ? data.msg : "账号 / 密码错误");
+          return;
+        } catch (err) {
+          // Backend not ready -> frontend mock
+          if (role === "admin" && username === MOCK_ADMIN.username && password === MOCK_ADMIN.password) {
+            setAdminLogin("mock-token", username, remember);
+            const params = new URLSearchParams(location.search);
+            const nextRaw = params.get("next");
+            window.location.href =
+              authSafeNextUrl("admin", nextRaw) || defaultHomeForRole("admin");
+          } else if (role === "student" && username === MOCK_STUDENT.username && password === MOCK_STUDENT.password) {
+            setAdminLogin("mock-student-token", username, remember);
+            const params = new URLSearchParams(location.search);
+            const nextRaw = params.get("next");
+            window.location.href =
+              authSafeNextUrl("student", nextRaw) || defaultHomeForRole("student");
+          } else {
+            showError("账号 / 密码错误、验证码错误");
+          }
+        }
+      });
+
+      (async function redirectIfAlreadyLoggedIn() {
+        if (!isAdminLoggedIn()) return;
+        const me = await apiGet("/auth/me");
+        if (!me || me.code !== 0 || !me.data) return;
+        const role = me.data.role;
+        const params = new URLSearchParams(location.search);
+        const nextRaw = params.get("next");
+        const dest = authSafeNextUrl(role, nextRaw) || defaultHomeForRole(role);
+        window.location.replace(dest);
+      })();
+    </script>
+  <script src="/i18n3.js"></script>
+</body>
+</html>
+

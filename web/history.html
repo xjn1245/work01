@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的历史会话</title>
+    <link rel="stylesheet" href="/admin_common.css" />
+    <script src="/admin_common.js"></script>
+  </head>
+  <body>
+    <div class="admin-content" style="max-width: 1100px; margin: 0 auto;">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+          <h3 style="margin:0;">我的历史会话</h3>
+          <div>
+            <button class="btn" onclick="window.location.href='/dashboard.html'">返回主页</button>
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px;flex-wrap:wrap;">
+          <div class="col"><input id="keyword" type="text" placeholder="关键词检索" /></div>
+          <div><button class="btn primary" id="btn-search">查询</button></div>
+          <div><button class="btn" id="btn-export">导出我的会话(JSON)</button></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>会话ID</th>
+              <th>时间</th>
+              <th>问题摘要</th>
+              <th>回答摘要</th>
+              <th>响应(ms)</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="list"></tbody>
+        </table>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div id="page-info" class="muted" style="font-size:12px;"></div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn" id="prev">上一页</button>
+            <button class="btn" id="next">下一页</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="detail" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <h4 style="margin:0;">会话详情</h4>
+          <button class="btn" id="close-detail">关闭</button>
+        </div>
+        <div id="detail-meta" class="muted" style="margin-top:8px;"></div>
+        <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+          <span class="muted">满意度评分：</span>
+          <select id="rate-score" class="btn" style="padding:6px 8px;">
+            <option value="5">5 - 非常满意</option>
+            <option value="4">4 - 满意</option>
+            <option value="3">3 - 一般</option>
+            <option value="2">2 - 不满意</option>
+            <option value="1">1 - 很不满意</option>
+          </select>
+          <button class="btn primary" id="btn-rate">提交评分</button>
+          <span id="rate-msg" class="muted"></span>
+        </div>
+        <div id="detail-msgs" style="margin-top:10px;"></div>
+      </div>
+    </div>
+
+    <script>
+      let page = 1;
+      const pageSize = 20;
+      let total = 0;
+      let currentDetailId = 0;
+
+      function fmt(ms) {
+        if (!ms) return "-";
+        try { return new Date(ms).toLocaleString(); } catch { return String(ms); }
+      }
+
+      async function loadList() {
+        const token = localStorage.getItem("adminToken") || "";
+        if (!token) return (window.location.href = "/login.html");
+        const kw = document.getElementById("keyword").value.trim();
+        const qs = new URLSearchParams({ page: String(page), page_size: String(pageSize) });
+        if (kw) qs.set("keyword", kw);
+        const resp = await fetch(`/my/sessions?${qs.toString()}`, { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json());
+        if (!resp || resp.code !== 0) return;
+        total = resp.data.total || 0;
+        const tbody = document.getElementById("list");
+        tbody.innerHTML = "";
+        (resp.data.items || []).forEach((it) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${it.id}</td>
+            <td>${fmt(it.created_at_ms)}</td>
+            <td class="muted">${(it.question_summary||"").slice(0, 40)}</td>
+            <td class="muted">${(it.answer_summary||"").slice(0, 40)}</td>
+            <td>${it.dt_ms ?? "-"}</td>
+            <td><button class="btn" data-id="${it.id}">查看</button></td>
+          `;
+          tbody.appendChild(tr);
+        });
+        document.getElementById("page-info").textContent = `第 ${page} 页，共 ${total} 条`;
+        document.getElementById("prev").disabled = page <= 1;
+        document.getElementById("next").disabled = page * pageSize >= total;
+        tbody.querySelectorAll("button[data-id]").forEach((b) => b.addEventListener("click", () => loadDetail(parseInt(b.dataset.id, 10))));
+      }
+
+      async function loadDetail(id) {
+        const token = localStorage.getItem("adminToken") || "";
+        const resp = await fetch(`/my/sessions/${id}`, { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json());
+        if (!resp || resp.code !== 0) return;
+        const d = resp.data;
+        currentDetailId = d.session.id;
+        document.getElementById("detail").style.display = "block";
+        document.getElementById("detail-meta").textContent = `会话ID=${d.session.id}，时间=${fmt(d.session.created_at_ms)}，响应=${d.session.dt_ms ?? "-"}ms，LLM=${d.session.llm_ms ?? "-"}ms，TTS=${d.session.tts_ms ?? "-"}ms，动作=${d.session.action_ms ?? "-"}ms`;
+        if (d.session.satisfaction) {
+          document.getElementById("rate-score").value = String(d.session.satisfaction);
+        }
+        document.getElementById("rate-msg").textContent = "";
+        const wrap = document.getElementById("detail-msgs");
+        wrap.innerHTML = "";
+        if (d.session && Array.isArray(d.session.rag_evidence) && d.session.rag_evidence.length > 0) {
+          const rag = document.createElement("div");
+          rag.className = "panel";
+          rag.style.marginBottom = "8px";
+          rag.innerHTML = `<div style="font-weight:700;margin-bottom:8px;">知识库命中证据</div>`;
+          (d.session.rag_evidence || []).forEach((ev, idx) => {
+            const line = document.createElement("div");
+            line.className = "muted";
+            line.style.marginBottom = "6px";
+            line.textContent = `[E${idx+1}] ${ev.title || "-"} | 来源:${ev.source || "-"} | 更新时间:${ev.last_updated || "-"}`;
+            rag.appendChild(line);
+          });
+          wrap.appendChild(rag);
+        }
+        (d.messages || []).forEach((m) => {
+          const div = document.createElement("div");
+          div.className = "panel";
+          div.style.marginBottom = "8px";
+          div.innerHTML = `<div class="muted" style="font-size:12px;">${m.role} · ${fmt(m.created_at_ms)}</div><div style="white-space:pre-wrap;">${(m.content||"").replace(/</g, "&lt;")}</div>`;
+          wrap.appendChild(div);
+        });
+      }
+
+      document.getElementById("btn-search").addEventListener("click", () => { page = 1; loadList(); });
+      document.getElementById("btn-export").addEventListener("click", async () => {
+        const token = localStorage.getItem("adminToken") || "";
+        const kw = document.getElementById("keyword").value.trim();
+        const qs = new URLSearchParams({ page: "1", page_size: "10000" });
+        if (kw) qs.set("keyword", kw);
+        const resp = await fetch(`/my/sessions?${qs.toString()}`, { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json());
+        if (!resp || resp.code !== 0) return;
+        const blob = new Blob([JSON.stringify(resp.data.items || [], null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "my_sessions.json";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+      document.getElementById("prev").addEventListener("click", () => { if (page > 1) page -= 1; loadList(); });
+      document.getElementById("next").addEventListener("click", () => { if (page * pageSize < total) page += 1; loadList(); });
+      document.getElementById("close-detail").addEventListener("click", () => { document.getElementById("detail").style.display = "none"; });
+      document.getElementById("btn-rate").addEventListener("click", async () => {
+        const token = localStorage.getItem("adminToken") || "";
+        if (!currentDetailId) return;
+        const score = parseInt(document.getElementById("rate-score").value, 10);
+        const resp = await fetch("/my/sessions/rate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ id: currentDetailId, score })
+        }).then(r => r.json());
+        document.getElementById("rate-msg").textContent = (resp && resp.code === 0) ? "评分已提交" : ((resp && resp.msg) || "评分失败");
+      });
+      loadList();
+    </script>
+  <script src="/i18n3.js"></script>
+</body>
+</html>
+

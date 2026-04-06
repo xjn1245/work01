@@ -130,6 +130,23 @@ wav2lip256显卡3060以上即可，musetalk需要3080Ti以上。
 ## 7. 声明
 基于本项目开发并发布在B站、视频号、抖音等网站上的视频需带上LiveTalking水印和标识。
 
+## 8. 目录结构与归档规则
+
+为降低根目录复杂度，项目采用“源码 / 文档 / 运行产物”分层管理：
+
+- `livetalking/`：后端核心业务代码（路由、服务、状态等）。
+- `web/`：前端页面与静态资源（含 i18n 词条）。
+- `scripts/`：离线脚本与数据处理工具。
+- `docs/`：文档与归档说明（含 `docs/archive/`）。
+- `assets/samples/`：演示与测试样例资源。
+- `runtime/logs/`：运行日志输出目录（默认 `livetalking.log`）。
+- `results/`、`temp/`：推理/临时产物目录，默认可再生、可清理。
+
+归档建议：
+- 新增样例文件优先放 `assets/samples/`，避免堆积在根目录。
+- 新增运行期文件优先放 `runtime/`、`results/`、`temp/`，并附简要说明。
+- 历史说明与迁移记录放入 `docs/archive/`。
+
 ## 赞助企业
 <table><tr><tb>
 <a href="https://www.ucloud.cn/site/active/gpu.html?cps_code=3dbaYol6yIuCwfUspnunTJ"><img src="./assets/ucloud.png" width="100"></a>

@@ -6,6 +6,7 @@ import re
 
 from logger import logger
 from performance_config import get_performance_config, optimize_llm_response, optimize_tts_config
+from config_loader import get_config_value
 
 
 def _strip_citations_for_speech(text: str) -> str:
@@ -30,7 +31,51 @@ def _clean_text_for_tts(text: str) -> str:
     return text
 
 
-def llm_response_with_identity(message, nerfreal, identity=None, is_current=None, rag_evidence=None):
+def _apply_first_chunk_replay_guard(text: str, enabled: bool, replay_chars: int) -> str:
+    """
+    首段保底：把开头若干字符重复一次，缓解播放链路首段被吞的问题。
+    例如：'您好，我是顾问' -> '您好，您好，我是顾问'
+    """
+    if not enabled:
+        return text
+    if not text:
+        return text
+    n = max(0, int(replay_chars))
+    if n <= 0:
+        return text
+    prefix = text[:n].strip()
+    if not prefix:
+        return text
+    # 避免过短文本重复后过于突兀
+    if len(text) <= n + 1:
+        return text
+    return f"{prefix}，{text}"
+
+
+def _normalize_ui_lang(ui_lang: str | None) -> str:
+    raw = (ui_lang or "").strip().lower()
+    if raw.startswith("zh"):
+        return "zh-CN"
+    if raw.startswith("en"):
+        return "en"
+    if raw.startswith("ja"):
+        return "ja"
+    if raw.startswith("ko"):
+        return "ko"
+    return "zh-CN"
+
+
+def _language_instruction(ui_lang: str) -> str:
+    if ui_lang == "en":
+        return "请使用英文回答用户，除非用户明确要求其他语言。"
+    if ui_lang == "ja":
+        return "日本語で回答してください。ユーザーが明示的に別言語を要求した場合のみ従ってください。"
+    if ui_lang == "ko":
+        return "한국어로 답변하세요. 사용자가 다른 언어를 명시적으로 요청한 경우에만 따르세요."
+    return "请使用简体中文回答用户，除非用户明确要求其他语言。"
+
+
+def llm_response_with_identity(message, nerfreal, identity=None, is_current=None, rag_evidence=None, ui_lang=None):
     """
     支持身份信息的LLM响应函数（从 app.py 抽离，便于模块化）。
     """
@@ -50,6 +95,14 @@ def llm_response_with_identity(message, nerfreal, identity=None, is_current=None
         base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
     )
 
+    # 表情=C：把分段的文本映射为 facial_expression（将其作为 expression_id 传给 TTS -> eventpoint）
+    try:
+        from audio_video_sync import EmotionalExpressionGenerator  # project local
+
+        emotion_generator = EmotionalExpressionGenerator()
+    except Exception:
+        emotion_generator = None
+
     init_end = time.perf_counter()
     logger.info(f"LLM初始化时间: {init_end - start_total:.3f}s")
 
@@ -58,6 +111,10 @@ def llm_response_with_identity(message, nerfreal, identity=None, is_current=None
         logger.info(f"使用预设身份: {system_message[:100]}...")
     else:
         system_message = "您是一位专业的留学顾问，拥有丰富的留学咨询经验，擅长解答留学申请、院校选择、专业规划等问题。"
+
+    resolved_lang = _normalize_ui_lang(ui_lang)
+    system_message += "\n\n" + _language_instruction(resolved_lang)
+    logger.info(f"本次对话语言: {resolved_lang}")
 
     # Keyword RAG evidence injection (MVP)
     if rag_evidence:
@@ -99,17 +156,20 @@ def llm_response_with_identity(message, nerfreal, identity=None, is_current=None
     )
 
     if is_current is not None and not is_current():
-        return
+        return ""
 
     result = ""
     full_result = ""
     first = True
+    first_speech_chunk = True
     chunk_count = 0
     start_llm = time.perf_counter()
+    first_chunk_replay_enabled = bool(get_config_value("tts.first_chunk_replay_enabled", True))
+    first_chunk_replay_chars = int(get_config_value("tts.first_chunk_replay_chars", 6))
 
     for chunk in completion:
         if is_current is not None and not is_current():
-            return
+            return full_result
         chunk_count += 1
         if len(chunk.choices) > 0 and chunk.choices[0].delta.content:
             if first:
@@ -154,16 +214,60 @@ def llm_response_with_identity(message, nerfreal, identity=None, is_current=None
                 if is_current is None or is_current():
                     speech_text = _strip_citations_for_speech(send_text)
                     speech_text = _clean_text_for_tts(speech_text)
+                    if first_speech_chunk and speech_text:
+                        speech_text = _apply_first_chunk_replay_guard(
+                            speech_text,
+                            enabled=first_chunk_replay_enabled,
+                            replay_chars=first_chunk_replay_chars,
+                        )
                     if speech_text:
-                        nerfreal.put_msg_txt(speech_text)
+                        expression_id = None
+                        if emotion_generator is not None:
+                            try:
+                                scores = emotion_generator.analyze_text_emotion(speech_text)
+                                params = emotion_generator.generate_facial_expression(scores, speech_text)
+                                expression_id = params.get("facial_expression")
+                            except Exception:
+                                expression_id = None
+                        nerfreal.put_msg_txt(
+                            speech_text,
+                            {
+                                "expression_mode": "C",
+                                "expression_id": expression_id or "neutral",
+                                "ui_lang": resolved_lang,
+                            },
+                        )
+                        first_speech_chunk = False
                 else:
                     return
 
     if result and (is_current is None or is_current()):
         speech_text = _strip_citations_for_speech(result)
         speech_text = _clean_text_for_tts(speech_text)
+        if first_speech_chunk and speech_text:
+            speech_text = _apply_first_chunk_replay_guard(
+                speech_text,
+                enabled=first_chunk_replay_enabled,
+                replay_chars=first_chunk_replay_chars,
+            )
         if speech_text:
-            nerfreal.put_msg_txt(speech_text)
+            expression_id = None
+            if emotion_generator is not None:
+                try:
+                    scores = emotion_generator.analyze_text_emotion(speech_text)
+                    params = emotion_generator.generate_facial_expression(scores, speech_text)
+                    expression_id = params.get("facial_expression")
+                except Exception:
+                    expression_id = None
+            nerfreal.put_msg_txt(
+                speech_text,
+                {
+                    "expression_mode": "C",
+                    "expression_id": expression_id or "neutral",
+                    "ui_lang": resolved_lang,
+                },
+            )
+            first_speech_chunk = False
             result = ""
 
     # Log which evidence ids were cited (useful for debugging RAG)
@@ -178,3 +282,4 @@ def llm_response_with_identity(message, nerfreal, identity=None, is_current=None
     total_time = llm_end - start_total
     logger.info(f"LLM处理完成 - 总时间: {total_time:.3f}s, 处理chunks: {chunk_count}")
 
+    return full_result

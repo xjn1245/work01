@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数字人管理 - 留学咨询数字人管理平台</title>
+    <link rel="stylesheet" href="/admin_common.css" />
+    <script src="/admin_common.js"></script>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <div class="logo"></div>
+          <div>数字人管理</div>
+        </div>
+
+        <div class="admin-menu">
+          <button id="menu-digitals" onclick="window.__navTo('digitals')">数字人管理</button>
+          <button id="menu-kb" onclick="window.__navTo('kb')">知识库管理</button>
+          <button id="menu-sessions" onclick="window.__navTo('sessions')">会话记录</button>
+          <button id="menu-analytics" onclick="window.__navTo('analytics')">数据分析</button>
+          <button id="menu-students" onclick="window.__navTo('students')">学生账号管理</button>
+        </div>
+
+        <div style="margin-top: 18px;">
+          <button class="btn" onclick="logoutAdmin()">退出登录</button>
+        </div>
+      </aside>
+
+      <main class="admin-content">
+        <div class="panel">
+          <div class="row">
+            <div class="col">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+                <div style="font-weight: 800; font-size: 17px;">数字人列表</div>
+                <button type="button" class="btn primary" id="btn-sync-disk" title="扫描 data/avatars 并同步到管理库">同步磁盘形象</button>
+              </div>
+              <table class="table" id="avatars-table">
+                <thead>
+                  <tr>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>身份类型</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              <div class="muted" style="font-size: 14px; margin-top: 10px;">
+                列表与「同步磁盘形象」均会扫描 <code>data/avatars</code> 下含 <code>face_imgs</code> 与 <code>coords.pkl</code> 的目录并写入管理库。身份预设走 <code>/set_avatar_identity</code>；动作与 TTS 已落库 SQLite。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="row">
+            <div class="col">
+              <div style="font-weight: 800; font-size: 17px; margin-bottom: 10px;">新增 / 编辑</div>
+
+              <input type="hidden" id="selected-avatar-id" value="" />
+
+              <div style="margin-bottom: 12px;">
+                <label for="avatar-name">名称</label>
+                <input type="text" id="avatar-name" placeholder="选择左侧数字人后自动填充" />
+              </div>
+
+              <div style="margin-bottom: 12px;">
+                <label for="avatar-type">模型类型</label>
+                <input type="text" id="avatar-type" placeholder="从资源目录推断" readonly style="opacity:0.9;" />
+              </div>
+
+              <div style="margin-bottom: 12px;">
+                <label for="identity-type">业务身份标签</label>
+                <input type="text" id="identity-type" placeholder="如：留学顾问、签证官、院校介绍" />
+              </div>
+
+              <div style="margin-bottom: 12px;">
+                <label for="identity-desc">展示说明（可选）</label>
+                <input type="text" id="identity-desc" placeholder="后台列表中补充说明" />
+              </div>
+
+              <div style="margin-bottom: 12px;">
+                <label for="identity-preset">身份预设（将作为系统提示注入给大模型）</label>
+                <textarea id="identity-preset" placeholder="输入数字人的身份预设描述..."></textarea>
+              </div>
+
+              <div class="row" style="margin-top: 8px; flex-wrap: wrap;">
+                <button class="btn primary" id="btn-save-profile">保存档案</button>
+                <button class="btn primary" id="btn-save-identity">保存身份预设</button>
+                <button class="btn" id="btn-clear-identity">清空身份预设</button>
+                <button class="btn" id="btn-preview">预览</button>
+              </div>
+
+              <div class="notice" id="notice" style="display:none;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight: 800; font-size: 17px; margin-bottom: 10px;">动作编排（拖拽排序，前端占位）</div>
+          <div class="row">
+            <div class="col">
+              <div class="drop-list" id="action-drop-list">
+                <!-- filled by JS -->
+              </div>
+              <div class="muted" style="font-size: 14px; margin-top: 10px;">
+                拖拽排序目前仅保存到本地（localStorage）。若要让动作实时生效，需要后端增加“动作编排配置”的落盘与推送逻辑。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight: 800; font-size: 17px; margin-bottom: 10px;">TTS 配置（按形象落库）</div>
+          <div class="row">
+            <div class="col">
+              <label for="tts-speed">语速</label>
+              <input type="text" id="tts-speed" placeholder="例如：1.0（占位）" />
+              <div style="height: 10px;"></div>
+              <label for="tts-tone">语调</label>
+              <input type="text" id="tts-tone" placeholder="例如：0.8（占位）" />
+              <div style="height: 10px;"></div>
+              <div class="muted" style="font-size:13px;margin-bottom:8px;">各界面语言默认音色（选项来自下方「允许音色」中对应语种池；locale 为空的条目会出现在全部池）</div>
+              <label for="tts-voice-zh">中文（zh-CN）默认音色</label>
+              <select id="tts-voice-zh" style="width:100%;max-width:520px;padding:8px;"></select>
+              <div style="height: 10px;"></div>
+              <label for="tts-voice-ja">日语（ja）默认音色</label>
+              <select id="tts-voice-ja" style="width:100%;max-width:520px;padding:8px;"></select>
+              <div style="height: 10px;"></div>
+              <label for="tts-voice-ko">韩语（ko）默认音色</label>
+              <select id="tts-voice-ko" style="width:100%;max-width:520px;padding:8px;"></select>
+              <div style="height: 10px;"></div>
+              <label for="tts-voice-en">英语（en）默认音色</label>
+              <select id="tts-voice-en" style="width:100%;max-width:520px;padding:8px;"></select>
+              <div style="height: 10px;"></div>
+              <label for="tts-kw-pron">专业词汇发音规则（占位）</label>
+              <textarea id="tts-kw-pron" placeholder="例如：XX=...（占位）"></textarea>
+              <div class="row" style="margin-top: 8px;">
+                <button class="btn primary" id="btn-save-tts">保存 TTS 配置</button>
+                <button class="btn" id="btn-apply-tts-all">一键应用到全部</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight: 800; font-size: 17px; margin-bottom: 10px;">允许音色列表（学生端下拉框来源）</div>
+          <div class="row">
+            <div class="col">
+              <label for="allowed-voices-text">每行一个音色：voice|label|语种池（后两段可省略）。语种池填 zh-CN / ja / ko / en；留空表示「全池通用」</label>
+              <textarea id="allowed-voices-text" placeholder="zh-CN-YunxiaNeural|中文女声|zh-CN&#10;zh-CN-YunhaoNeural|中文男声|zh-CN&#10;ja-JP-NanamiNeural|日语女声|ja&#10;ko-KR-SunHiNeural|韩语女声|ko&#10;ko-KR-InJoonNeural|韩语男声|ko&#10;en-US-JennyNeural|英语女声|en&#10;en-US-GuyNeural|英语男声|en"></textarea>
+              <div style="font-size:12px;color:#64748b;margin-top:6px;">管理端按池筛选下拉选项；学生端音色下拉仅显示与当前界面语言一致的 Edge 音色（如 zh-* / ja-*）。数字人四个语言默认音色仍从对应池中选取。</div>
+              <div class="row" style="margin-top: 8px;">
+                <button class="btn primary" id="btn-save-allowed-voices">保存允许音色列表</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      window.__navTo = function (page) {
+        if (page === "digitals") window.location.href = "/admin_digitals.html";
+        if (page === "kb") window.location.href = "/admin_kb.html";
+        if (page === "sessions") window.location.href = "/admin_sessions.html";
+        if (page === "analytics") window.location.href = "/admin_analytics.html";
+        if (page === "students") window.location.href = "/admin_students.html";
+      };
+
+      requireAdminLoginOrRedirect();
+      // 管理后台仅允许 admin 访问
+      requireRoleOrRedirect("admin");
+      bindMenu("digitals");
+
+      const avatarsTableBody = document.querySelector("#avatars-table tbody");
+      const selectedAvatarIdEl = document.getElementById("selected-avatar-id");
+      const noticeEl = document.getElementById("notice");
+
+      function showNotice(msg, kind) {
+        noticeEl.style.display = "block";
+        noticeEl.textContent = msg;
+        noticeEl.className = "notice";
+        if (kind === "error") noticeEl.classList.add("error");
+        else if (kind === "success") noticeEl.classList.add("success");
+      }
+
+      function hideNotice() {
+        noticeEl.style.display = "none";
+        noticeEl.textContent = "";
+      }
+
+      let avatarProfiles = [];
+      let actionState = [];
+
+      function parseAllowedVoicesText(raw) {
+        const poolToken = (s) => {
+          const t = String(s || "").trim();
+          const low = t.toLowerCase();
+          if (low === "zh-cn" || low === "zh_cn") return "zh-CN";
+          if (low === "ja" || low === "ja-jp") return "ja";
+          if (low === "ko" || low === "ko-kr") return "ko";
+          if (low === "en" || low === "en-us") return "en";
+          return "";
+        };
+        const lines = String(raw || "")
+          .split(/\r?\n/)
+          .map((x) => x.trim())
+          .filter(Boolean);
+        const out = [];
+        lines.forEach((line, idx) => {
+          const parts = line.split("|").map((x) => x.trim());
+          const voice = parts[0] || "";
+          if (!voice) return;
+          let label = voice;
+          let locale_tag = "";
+          if (parts.length === 2) {
+            const p1 = parts[1];
+            const asPool = poolToken(p1);
+            if (asPool) {
+              locale_tag = asPool;
+            } else {
+              label = p1 || voice;
+            }
+          } else if (parts.length >= 3) {
+            label = (parts[1] || "").trim() || voice;
+            locale_tag = poolToken(parts[2]) || String(parts[2] || "").trim();
+          }
+          out.push({ voice, label, enabled: true, sort_order: idx, locale_tag: locale_tag || "" });
+        });
+        return out;
+      }
+
+      function fillTtsLocaleSelects() {
+        const list = Array.isArray(window.__allowedVoicesList) ? window.__allowedVoicesList : [];
+        const pools = [
+          { id: "tts-voice-zh", pool: "zh-CN" },
+          { id: "tts-voice-ja", pool: "ja" },
+          { id: "tts-voice-ko", pool: "ko" },
+          { id: "tts-voice-en", pool: "en" },
+        ];
+        pools.forEach(({ id, pool }) => {
+          const sel = document.getElementById(id);
+          if (!sel) return;
+          const cur = sel.value;
+          sel.innerHTML = '<option value="">（未指定）</option>';
+          list.forEach((it) => {
+            if (!it || !it.enabled) return;
+            const tag = String(it.locale_tag || "").trim();
+            if (tag && tag !== pool) return;
+            const voice = String(it.voice || "").trim();
+            if (!voice) return;
+            const opt = document.createElement("option");
+            opt.value = voice;
+            opt.textContent = String(it.label || voice);
+            sel.appendChild(opt);
+          });
+          if (cur && Array.from(sel.options).some((o) => o.value === cur)) sel.value = cur;
+        });
+      }
+
+      function applyTtsLocaleValues(voicesByLang, legacyVoice) {
+        const vbl = voicesByLang && typeof voicesByLang === "object" ? voicesByLang : {};
+        const z = document.getElementById("tts-voice-zh");
+        const j = document.getElementById("tts-voice-ja");
+        const k = document.getElementById("tts-voice-ko");
+        const e = document.getElementById("tts-voice-en");
+        const setIf = (sel, val) => {
+          if (!sel) return;
+          const v = String(val || "").trim();
+          if (v && Array.from(sel.options).some((o) => o.value === v)) sel.value = v;
+          else sel.value = "";
+        };
+        setIf(z, vbl["zh-CN"] || legacyVoice);
+        setIf(j, vbl["ja"]);
+        setIf(k, vbl["ko"]);
+        setIf(e, vbl["en"]);
+      }
+
+      async function loadAllowedVoices() {
+        const resp = await apiGet("/admin/tts/allowed_voices");
+        if (!(resp && resp.code === 0 && Array.isArray(resp.data))) return;
+        window.__allowedVoicesList = resp.data;
+        const box = document.getElementById("allowed-voices-text");
+        if (box) {
+          const lines = resp.data.map((it) => {
+            const voice = String((it && it.voice) || "").trim();
+            const label = String((it && it.label) || "").trim();
+            const lt = String((it && it.locale_tag) || "").trim();
+            if (!voice) return "";
+            if (lt) {
+              const lab = label && label !== voice ? label : "";
+              return lab ? `${voice}|${lab}|${lt}` : `${voice}|${lt}`;
+            }
+            return label && label !== voice ? `${voice}|${label}` : voice;
+          }).filter(Boolean);
+          box.value = lines.join("\n");
+        }
+        fillTtsLocaleSelects();
+      }
+
+      function defaultActions() {
+        // Keep keys aligned with your customvide audiotype usage later.
+        return [
+          { key: "idle", label: "idle", audiotype: 1, note: "默认静态/闲置动作" },
+          { key: "lecture", label: "讲解", audiotype: 2, note: "讲解强调动作" },
+          { key: "listen", label: "倾听", audiotype: 3, note: "听用户讲话动作" },
+          { key: "emphasis", label: "强调", audiotype: 4, note: "强调重点动作" },
+        ];
+      }
+
+      function renderActionDropList(avatarId) {
+        const dropList = document.getElementById("action-drop-list");
+        dropList.innerHTML = "";
+        let actions = actionState.length > 0 ? actionState.slice() : defaultActions();
+
+        actions.forEach((a, idx) => {
+          const item = document.createElement("div");
+          item.className = "drop-item";
+          item.draggable = true;
+          item.dataset.index = String(idx);
+          item.innerHTML = `
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;">
+              <div><b>${a.label}</b> <span class="muted">(audiotype: ${a.audiotype})</span></div>
+              <div class="muted" style="font-size:14px;">拖拽排序</div>
+            </div>
+          `;
+          item.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text/plain", item.dataset.index);
+            item.style.opacity = "0.6";
+          });
+          item.addEventListener("dragend", () => {
+            item.style.opacity = "1";
+          });
+          item.addEventListener("dragover", (e) => {
+            e.preventDefault();
+          });
+          item.addEventListener("drop", (e) => {
+            e.preventDefault();
+            const from = parseInt(e.dataTransfer.getData("text/plain"), 10);
+            const to = parseInt(item.dataset.index, 10);
+            if (Number.isNaN(from) || Number.isNaN(to) || from === to) return;
+            const next = actions.slice();
+            const tmp = next[from];
+            next[from] = next[to];
+            next[to] = tmp;
+            next.forEach((x, i) => (x.sort_order = i));
+            actions = next;
+            actionState = next.slice();
+            apiPost("/admin/avatar/actions", { avatar_id: avatarId, actions: next })
+              .catch(() => showNotice("动作排序保存失败", "error"));
+            renderActionDropList(avatarId);
+          });
+          dropList.appendChild(item);
+        });
+      }
+
+      async function loadIdentity(avatarId) {
+        if (!avatarId) return;
+        const resp = await apiGet(`/get_avatar_identity?avatar_id=${encodeURIComponent(avatarId)}`);
+        if (resp && resp.code === 0 && resp.data) {
+          document.getElementById("identity-preset").value = resp.data.identity || "";
+        } else {
+          document.getElementById("identity-preset").value = "";
+        }
+      }
+
+      async function loadAvatars() {
+        const data = await apiGet("/admin/avatar/list");
+        if (!data || data.code !== 0) {
+          showNotice("加载数字人列表失败", "error");
+          return;
+        }
+
+        avatarsTableBody.innerHTML = "";
+        avatarProfiles = data.data || [];
+        const list = avatarProfiles;
+        list.forEach((avatar, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${avatar.name || avatar.avatar_id}</td>
+            <td class="muted">${avatar.identity_type || avatar.model_type || "-"}</td>
+            <td>
+              <input type="checkbox" data-action="toggle" data-avatar-id="${avatar.avatar_id}" ${avatar.enabled ? "checked" : ""} />
+            </td>
+            <td>
+              <button class="btn" data-action="edit" data-avatar-id="${avatar.avatar_id}">编辑</button>
+              <button class="btn" data-action="copy" data-avatar-id="${avatar.avatar_id}">复制</button>
+              <button class="btn danger" data-action="delete" data-avatar-id="${avatar.avatar_id}">删除</button>
+              <button class="btn" data-action="preview" data-avatar-id="${avatar.avatar_id}">预览</button>
+            </td>
+          `;
+          avatarsTableBody.appendChild(tr);
+        });
+
+        avatarsTableBody.querySelectorAll('button[data-action="edit"]').forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const avatarId = btn.dataset.avatarId;
+            await selectAvatar(avatarId);
+          });
+        });
+
+        avatarsTableBody.querySelectorAll('button[data-action="copy"]').forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const src = btn.dataset.avatarId;
+            const target = prompt("请输入新数字人ID（复制目标）", `${src}_copy`);
+            if (!target) return;
+            const name = prompt("请输入新数字人名称", target) || target;
+            const r = await apiPost("/admin/avatar/copy", { source_avatar_id: src, target_avatar_id: target, target_name: name });
+            if (r && r.code === 0) {
+              showNotice("复制成功", "success");
+              await loadAvatars();
+            } else {
+              showNotice((r && r.msg) ? r.msg : "复制失败", "error");
+            }
+          });
+        });
+
+        avatarsTableBody.querySelectorAll('button[data-action="delete"]').forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const aid = btn.dataset.avatarId;
+            if (!confirm(`确认删除数字人管理配置 ${aid} ？`)) return;
+            const r = await apiPost("/admin/avatar/delete", { avatar_id: aid });
+            if (r && r.code === 0) {
+              showNotice("删除成功", "success");
+              await loadAvatars();
+            } else {
+              showNotice((r && r.msg) ? r.msg : "删除失败", "error");
+            }
+          });
+        });
+
+        avatarsTableBody.querySelectorAll('input[data-action="toggle"]').forEach((el) => {
+          el.addEventListener("change", async () => {
+            const aid = el.dataset.avatarId;
+            const profile = avatarProfiles.find((x) => x.avatar_id === aid);
+            if (!profile) return;
+            const r = await apiPost("/admin/avatar/save", {
+              avatar_id: aid,
+              name: profile.name || aid,
+              model_type: profile.model_type || "musetalk",
+              identity_type: profile.identity_type || "",
+              identity_desc: profile.identity_desc || "",
+              enabled: !!el.checked,
+            });
+            if (!(r && r.code === 0)) showNotice((r && r.msg) ? r.msg : "状态保存失败", "error");
+          });
+        });
+
+        avatarsTableBody.querySelectorAll('button[data-action="preview"]').forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const avatarId = btn.dataset.avatarId;
+            window.open(`/dashboard.html?avatar_id=${encodeURIComponent(avatarId)}`, "_blank");
+          });
+        });
+      }
+
+      async function selectAvatar(avatarId) {
+        if (!avatarId) return;
+        selectedAvatarIdEl.value = avatarId;
+        hideNotice();
+
+        if (!window.__allowedVoicesList || !window.__allowedVoicesList.length) {
+          await loadAllowedVoices();
+        }
+
+        const avatar = avatarProfiles.find((x) => x.avatar_id === avatarId);
+        document.getElementById("avatar-name").value = avatar ? (avatar.name || avatar.avatar_id) : avatarId;
+        document.getElementById("avatar-type").value = avatar ? (avatar.model_type || "") : "";
+        document.getElementById("identity-type").value = avatar ? (avatar.identity_type || "") : "";
+        document.getElementById("identity-desc").value = avatar ? (avatar.identity_desc || "") : "";
+
+        await loadIdentity(avatarId);
+
+        const actionsResp = await apiGet(`/admin/avatar/actions?avatar_id=${encodeURIComponent(avatarId)}`);
+        actionState = (actionsResp && actionsResp.code === 0 && Array.isArray(actionsResp.data) && actionsResp.data.length > 0)
+          ? actionsResp.data
+          : defaultActions();
+        renderActionDropList(avatarId);
+
+        const ttsResp = await apiGet(`/admin/avatar/tts?avatar_id=${encodeURIComponent(avatarId)}`);
+        if (ttsResp && ttsResp.code === 0) {
+          document.getElementById("tts-speed").value = (ttsResp.data.speed ?? "");
+          document.getElementById("tts-tone").value = (ttsResp.data.tone ?? "");
+          document.getElementById("tts-kw-pron").value = ttsResp.data.keyword_pron || "";
+          fillTtsLocaleSelects();
+          applyTtsLocaleValues(ttsResp.data.voices_by_lang, ttsResp.data.voice || "");
+        } else {
+          document.getElementById("tts-speed").value = "";
+          document.getElementById("tts-tone").value = "";
+          document.getElementById("tts-kw-pron").value = "";
+          fillTtsLocaleSelects();
+          applyTtsLocaleValues({}, "");
+        }
+      }
+
+      document.getElementById("btn-save-identity").addEventListener("click", async () => {
+        const avatarId = selectedAvatarIdEl.value;
+        const identityText = document.getElementById("identity-preset").value.trim();
+        if (!avatarId) return showNotice("请先选择一个数字人", "error");
+        if (!identityText) return showNotice("身份预设不能为空", "error");
+
+        try {
+          const resp = await apiPost("/set_avatar_identity", {
+            avatar_id: avatarId,
+            identity: identityText,
+            sessionid: 0,
+          });
+          if (resp && resp.code === 0) {
+            showNotice("身份预设已保存到后端 JSON", "success");
+          } else {
+            showNotice(resp && resp.msg ? resp.msg : "保存失败", "error");
+          }
+        } catch (e) {
+          showNotice("保存请求失败，请检查后端是否已部署接口", "error");
+        }
+      });
+
+      document.getElementById("btn-clear-identity").addEventListener("click", async () => {
+        const avatarId = selectedAvatarIdEl.value;
+        if (!avatarId) return showNotice("请先选择一个数字人", "error");
+        try {
+          const resp = await apiPost("/clear_avatar_identity", { avatar_id: avatarId, sessionid: 0 });
+          if (resp && resp.code === 0) {
+            document.getElementById("identity-preset").value = "";
+            showNotice("已清空身份预设（并写回后端 JSON）", "success");
+          } else {
+            showNotice(resp && resp.msg ? resp.msg : "清空失败", "error");
+          }
+        } catch (e) {
+          showNotice("清空请求失败", "error");
+        }
+      });
+
+      document.getElementById("btn-preview").addEventListener("click", () => {
+        const avatarId = selectedAvatarIdEl.value;
+        if (!avatarId) return showNotice("请先选择一个数字人", "error");
+        window.open(`/dashboard.html?avatar_id=${encodeURIComponent(avatarId)}`, "_blank");
+      });
+
+      document.getElementById("btn-save-tts").addEventListener("click", async () => {
+        const avatarId = selectedAvatarIdEl.value;
+        if (!avatarId) return showNotice("请先选择一个数字人", "error");
+
+        const zhV = (document.getElementById("tts-voice-zh") && document.getElementById("tts-voice-zh").value) || "";
+        const resp = await apiPost("/admin/avatar/tts", {
+          avatar_id: avatarId,
+          speed: document.getElementById("tts-speed").value,
+          tone: document.getElementById("tts-tone").value,
+          voice: zhV,
+          keyword_pron: document.getElementById("tts-kw-pron").value,
+          voices_by_lang: {
+            "zh-CN": zhV,
+            ja: (document.getElementById("tts-voice-ja") && document.getElementById("tts-voice-ja").value) || "",
+            ko: (document.getElementById("tts-voice-ko") && document.getElementById("tts-voice-ko").value) || "",
+            en: (document.getElementById("tts-voice-en") && document.getElementById("tts-voice-en").value) || "",
+          },
+        });
+        if (resp && resp.code === 0) {
+          showNotice("TTS 配置已保存到后端", "success");
+        } else {
+          showNotice((resp && resp.msg) ? resp.msg : "TTS 保存失败", "error");
+        }
+      });
+
+      document.getElementById("btn-apply-tts-all").addEventListener("click", async () => {
+        const avatarId = selectedAvatarIdEl.value;
+        if (!avatarId) return showNotice("请先选择一个数字人", "error");
+        const resp = await apiPost("/admin/avatar/tts/apply_all", { avatar_id: avatarId });
+        if (resp && resp.code === 0) {
+          showNotice("已应用到全部数字人", "success");
+        } else {
+          showNotice((resp && resp.msg) ? resp.msg : "一键应用失败", "error");
+        }
+      });
+
+      async function saveAvatarProfile(showToast) {
+        const avatarId = selectedAvatarIdEl.value;
+        if (!avatarId) return showNotice("请先选择一个数字人", "error");
+        const profile = avatarProfiles.find((x) => x.avatar_id === avatarId) || {};
+        const resp = await apiPost("/admin/avatar/save", {
+          avatar_id: avatarId,
+          name: document.getElementById("avatar-name").value.trim() || avatarId,
+          model_type: document.getElementById("avatar-type").value.trim() || profile.model_type || "musetalk",
+          identity_type: document.getElementById("identity-type").value.trim() || "",
+          identity_desc: document.getElementById("identity-desc").value.trim() || "",
+          enabled: profile.enabled !== false,
+        });
+        if (resp && resp.code === 0) {
+          if (showToast) showNotice("档案已保存", "success");
+          await loadAvatars();
+          await selectAvatar(avatarId);
+        } else {
+          showNotice((resp && resp.msg) ? resp.msg : "档案保存失败", "error");
+        }
+      }
+
+      document.getElementById("btn-save-profile").addEventListener("click", () => saveAvatarProfile(true));
+
+      document.getElementById("btn-save-allowed-voices").addEventListener("click", async () => {
+        const raw = document.getElementById("allowed-voices-text").value;
+        const items = parseAllowedVoicesText(raw);
+        if (!items.length) return showNotice("请至少填写一个音色", "error");
+        const resp = await apiPost("/admin/tts/allowed_voices", { items });
+        if (resp && resp.code === 0) {
+          showNotice("允许音色列表已保存", "success");
+          await loadAllowedVoices();
+        } else {
+          showNotice((resp && resp.msg) ? resp.msg : "保存失败", "error");
+        }
+      });
+
+      document.getElementById("btn-sync-disk").addEventListener("click", async () => {
+        const keep = selectedAvatarIdEl.value;
+        await loadAvatars();
+        if (keep && avatarProfiles.some((x) => x.avatar_id === keep)) await selectAvatar(keep);
+        else if (avatarProfiles[0]) await selectAvatar(avatarProfiles[0].avatar_id);
+        showNotice("已从磁盘同步数字人列表", "success");
+      });
+
+      // init：先拉允许音色（含 locale_tag），再选数字人填充各语言下拉
+      loadAvatars().then(async () => {
+        await loadAllowedVoices();
+        const data = await apiGet("/admin/avatar/list");
+        const first = data && data.code === 0 && data.data && data.data[0] ? data.data[0].avatar_id : "";
+        if (first) await selectAvatar(first);
+      });
+    </script>
+  <script src="/i18n3.js"></script>
+</body>
+</html>
+

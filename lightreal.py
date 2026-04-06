@@ -248,17 +248,30 @@ class LightReal(BaseReal):
     # def __del__(self):
     #     logger.info(f'lightreal({self.sessionid}) delete')
 
-    def paste_back_frame(self,pred_frame,idx:int):
+    def paste_back_frame(self, pred_frame, idx: int, base_frame=None, expression_face_crop=None):
         bbox = self.coord_list_cycle[idx]
-        combine_frame = copy.deepcopy(self.frame_list_cycle[idx])
         x1, y1, x2, y2 = bbox
+
+        combine_frame = base_frame if base_frame is not None else copy.deepcopy(self.frame_list_cycle[idx])
+
+        # 先把 LivePortrait 表情底图贴到整个人脸 bbox（口型会在 crop 内部覆盖）
+        if expression_face_crop is not None:
+            exp_resized = cv2.resize(
+                expression_face_crop.astype(np.uint8),
+                (x2 - x1, y2 - y1),
+            )
+            combine_frame[y1:y2, x1:x2] = exp_resized
+
+        # 口型也用 LivePortrait：pred_frame 允许为 None（此时只贴 expression_face_crop）
+        if pred_frame is None:
+            return combine_frame
 
         crop_img = self.face_list_cycle[idx]
         crop_img_ori = crop_img.copy()
-        #res_frame = np.array(res_frame, dtype=np.uint8)
 
+        # 在 face crop 的局部区域覆盖 lip-sync 结果
         crop_img_ori[4:164, 4:164] = pred_frame.astype(np.uint8)
-        crop_img_ori = cv2.resize(crop_img_ori, (x2-x1,y2-y1))
+        crop_img_ori = cv2.resize(crop_img_ori, (x2 - x1, y2 - y1))
         combine_frame[y1:y2, x1:x2] = crop_img_ori
         return combine_frame
             

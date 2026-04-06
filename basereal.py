@@ -93,7 +93,50 @@ class BaseReal:
         self.custom_audio_index = {}
         self.custom_index = {}
         self.custom_opt = {}
+        self._metric_tts_ms = 0
+        self._metric_action_ms = 0
+
+        # 运行时开关：B 模式默认关闭 LivePortrait 表情驱动
+        self._enable_liveportrait_expression = bool(
+            get_config_value("liveportrait.expression_enabled", False)
+        )
+        # 当启用 LivePortrait 时，是否连嘴部也用 LivePortrait（忽略口型模型输出）
+        self._liveportrait_mouth_from_liveportrait = bool(
+            get_config_value("liveportrait.mouth_from_liveportrait", True)
+        )
+
+        # 表情=C：LivePortrait 表情引擎（按需懒加载）
+        self._liveportrait_engine = None
+        self._current_expression_id = None
+        # speaking 时复用的表情底图（只在 eventpoint.start 时生成一次）
+        self._liveportrait_expr_face_crop = None
+        # 防止 LivePortrait 引擎初始化阻塞渲染/音频链路
+        self._liveportrait_engine_init_thread = None
+        # 表情+C/口型=1：用 TTS 的 eventpoint start/end 来判定 speaking，避免 ASR 队列空导致频繁切换编排动作
+        self._tts_segment_active: bool = False
         self.__loadcustom()
+
+    def reset_runtime_metrics(self):
+        self._metric_tts_ms = 0
+        self._metric_action_ms = 0
+
+    def add_tts_metric(self, elapsed_ms: int):
+        try:
+            self._metric_tts_ms += max(0, int(elapsed_ms))
+        except Exception:
+            pass
+
+    def add_action_metric(self, elapsed_ms: int):
+        try:
+            self._metric_action_ms += max(0, int(elapsed_ms))
+        except Exception:
+            pass
+
+    def snapshot_runtime_metrics(self):
+        return {
+            "tts_ms": int(self._metric_tts_ms),
+            "action_ms": int(self._metric_action_ms),
+        }
 
     def _get_tts_class(self, engine_name: str):
         mapping = {
@@ -132,7 +175,16 @@ class BaseReal:
 
         local_opt = copy.copy(self.opt)
         local_opt.tts = engine_name
-        local_opt.REF_FILE = self._get_voice_for_engine(engine_name, getattr(self.opt, "REF_FILE", ""))
+        base_voice = str(getattr(self.opt, "REF_FILE", "") or "")
+        primary_engine = str(getattr(self.opt, "tts", "edgetts") or "edgetts").strip().lower()
+        # 优先级：
+        # 1) 当前会话/数字人显式 voice（self.opt.REF_FILE）
+        # 2) fallback_voice_map（主要给回退引擎）
+        if engine_name == primary_engine and base_voice.strip():
+            local_opt.REF_FILE = base_voice
+        else:
+            local_opt.REF_FILE = self._get_voice_for_engine(engine_name, base_voice)
+        logger.info(f"[TTS] init engine={engine_name}, voice={getattr(local_opt, 'REF_FILE', '')}")
         try:
             inst = tts_cls(local_opt, self)
             # attach helper tag for logging
@@ -428,10 +480,23 @@ class BaseReal:
             
             if enable_transition:
                 # 检测状态变化
-                current_speaking = not (audio_frames[0][1]!=0 and audio_frames[1][1]!=0)
+                # speaking 判定与主分支保持一致：用 TTS segment + res_frame 是否可用
+                # 只要 TTS segment 处于 start/end 之间，就尽量保持“说话状态”，
+                # 即使中间偶发 res_frame 为 None，也用上一帧缓存避免跳回编排动作。
+                current_speaking = bool(self._tts_segment_active) and (
+                    (res_frame is not None)
+                    or (
+                        self._enable_liveportrait_expression
+                        and self._liveportrait_mouth_from_liveportrait
+                    )
+                )
                 if current_speaking != _last_speaking:
                     logger.info(f"状态切换：{'说话' if _last_speaking else '静音'} → {'说话' if current_speaking else '静音'}")
                     _transition_start = time.time()
+                    try:
+                        self.add_action_metric(int(_transition_duration * 1000))
+                    except Exception:
+                        pass
                 _last_speaking = current_speaking
 
             # 统一做索引归一化，避免并发切换形象时偶发越界
@@ -441,9 +506,76 @@ class BaseReal:
                 continue
             safe_idx = idx % frame_count
 
-            if audio_frames[0][1]!=0 and audio_frames[1][1]!=0: #全为静音数据，只需要取fullimg
+            # 更新当前 speaking 的表情 id（由 TTS 的 eventpoint.start 携带）
+            try:
+                eps = []
+                if len(audio_frames) > 0:
+                    eps.append(audio_frames[0][2])
+                if len(audio_frames) > 1:
+                    eps.append(audio_frames[1][2])
+
+                # 兼容 eventpoint 可能落在前两帧中的任意一帧
+                for ep in eps:
+                    if not isinstance(ep, dict):
+                        continue
+                    if ep.get("status") == "start":
+                        self._tts_segment_active = True
+                        self._current_expression_id = ep.get("expression_id") or ep.get("facial_expression") or "neutral"
+                        # 只在 start 时生成一次表情底图，后续 speaking 帧复用，避免每帧 LivePortrait 推理导致 GPU 99%
+                        expr_id_now = str(self._current_expression_id)
+                        if (
+                            self._enable_liveportrait_expression
+                            and self._liveportrait_engine is None
+                            and hasattr(self, "face_list_cycle")
+                        ):
+                            faces = getattr(self, "face_list_cycle", None)
+                            if isinstance(faces, list) and len(faces) > 0:
+                                # 非阻塞：引擎初始化放到后台线程
+                                if (
+                                    self._liveportrait_engine_init_thread is None
+                                    or not self._liveportrait_engine_init_thread.is_alive()
+                                ):
+                                    def _init_engine():
+                                        try:
+                                            from livetalking.services.liveportrait_expression_engine import (
+                                                LivePortraitExpressionEngine,
+                                            )
+                                            self._liveportrait_engine = LivePortraitExpressionEngine(faces)
+                                        except Exception as e:
+                                            logger.warning(f"[LivePortraitExpressionEngine] init failed: {e}")
+                                            self._liveportrait_engine = None
+
+                                    self._liveportrait_engine_init_thread = Thread(
+                                        target=_init_engine,
+                                        daemon=True,
+                                        name="liveportrait_init",
+                                    )
+                                    self._liveportrait_engine_init_thread.start()
+                            # 引擎尚未就绪：先不要阻塞音频输出
+                            self._liveportrait_expr_face_crop = None
+                        else:
+                            if self._liveportrait_engine is not None:
+                                # 引擎就绪后再生成一次表情底图
+                                self._liveportrait_expr_face_crop = self._liveportrait_engine.get_expression_face(
+                                    safe_idx, expr_id_now
+                                )
+                    elif ep.get("status") == "end":
+                        self._current_expression_id = None
+                        self._liveportrait_expr_face_crop = None
+                        self._tts_segment_active = False
+            except Exception:
+                pass
+
+            # 新的 speaking 判断：只有当在 TTS segment 内且推理输出帧有效（res_frame != None）时才认为“说话”
+            # 这样可以避免一旦 eventpoint 丢失/延迟导致 segment active 卡住时，永远不播放预设静音动作。
+            should_speak = bool(self._tts_segment_active) and (
+                (res_frame is not None)
+                or (self._enable_liveportrait_expression and self._liveportrait_mouth_from_liveportrait)
+            )
+
+            if not should_speak:  # 静音 / 或推理认为全静音 => 取 fullimg（可能是编排动作）
                 self.speaking = False
-                audiotype = audio_frames[0][1]
+                audiotype = audio_frames[0][1] if len(audio_frames) > 0 else 1
                 if self.custom_index.get(audiotype) is not None: #有自定义视频
                     mirindex = self.mirror_index(len(self.custom_img_cycle[audiotype]),self.custom_index[audiotype])
                     target_frame = self.custom_img_cycle[audiotype][mirindex]
@@ -459,7 +591,9 @@ class BaseReal:
                         if _last_speaking_frame.shape == target_frame.shape:
                             combine_frame = cv2.addWeighted(_last_speaking_frame, 1-alpha, target_frame, alpha, 0)
                         else:
-                            logger.warning(
+                            # 形状不一致通常来自不同来源帧分辨率差异。
+                            # 这里仅做降级，不要高频 warning 影响实时线程稳定性。
+                            logger.debug(
                                 f"transition shape mismatch(speaking->silent): "
                                 f"{_last_speaking_frame.shape} vs {target_frame.shape}, fallback to target_frame"
                             )
@@ -473,7 +607,52 @@ class BaseReal:
             else:
                 self.speaking = True
                 try:
-                    current_frame = self.paste_back_frame(res_frame,safe_idx)
+                    if res_frame is None:
+                        # 推理偶发输出 None，但我们仍在 TTS segment 内：使用上一帧说话内容兜底
+                        if (
+                            _last_speaking_frame is not None
+                            and _last_speaking_frame.shape == self.frame_list_cycle[safe_idx].shape
+                        ):
+                            current_frame = _last_speaking_frame.copy()
+                        else:
+                            current_frame = self.frame_list_cycle[safe_idx]
+                    else:
+                        # LivePortrait 表情底图：
+                        # - mouth_from_liveportrait=True：按帧生成，避免整段复用导致“嘴不动”
+                        # - 否则：沿用分段缓存，降低 GPU 开销
+                        expression_face_crop = self._liveportrait_expr_face_crop
+                        if (
+                            self._enable_liveportrait_expression
+                            and self._liveportrait_engine is not None
+                            and self._current_expression_id is not None
+                        ):
+                            if self._liveportrait_mouth_from_liveportrait:
+                                expression_face_crop = self._liveportrait_engine.get_expression_face(
+                                    safe_idx, str(self._current_expression_id)
+                                )
+                            elif expression_face_crop is None:
+                                expression_face_crop = self._liveportrait_engine.get_expression_face(
+                                    safe_idx, str(self._current_expression_id)
+                                )
+                                self._liveportrait_expr_face_crop = expression_face_crop
+
+                        # 口型也用 LivePortrait：忽略 res_frame（口型模型输出）
+                        if (
+                            self._enable_liveportrait_expression
+                            and self._liveportrait_mouth_from_liveportrait
+                            and expression_face_crop is not None
+                        ):
+                            current_frame = self.paste_back_frame(
+                                None,
+                                safe_idx,
+                                expression_face_crop=expression_face_crop,
+                            )
+                        else:
+                            current_frame = self.paste_back_frame(
+                                res_frame,
+                                safe_idx,
+                                expression_face_crop=expression_face_crop,
+                            )
                 except Exception as e:
                     logger.warning(f"paste_back_frame error: {e}")
                     continue
@@ -485,7 +664,8 @@ class BaseReal:
                         if _last_silent_frame.shape == current_frame.shape:
                             combine_frame = cv2.addWeighted(_last_silent_frame, 1-alpha, current_frame, alpha, 0)
                         else:
-                            logger.warning(
+                            # 仅降级，不做高频 warning
+                            logger.debug(
                                 f"transition shape mismatch(silent->speaking): "
                                 f"{_last_silent_frame.shape} vs {current_frame.shape}, fallback to current_frame"
                             )

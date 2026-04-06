@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>知识库管理 - 留学咨询数字人管理平台</title>
+    <link rel="stylesheet" href="/admin_common.css" />
+    <script src="/admin_common.js"></script>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <div class="logo"></div>
+          <div>知识库管理</div>
+        </div>
+
+        <div class="admin-menu">
+          <button id="menu-digitals" onclick="window.__navTo('digitals')">数字人管理</button>
+          <button id="menu-kb" onclick="window.__navTo('kb')">知识库管理</button>
+          <button id="menu-sessions" onclick="window.__navTo('sessions')">会话记录</button>
+          <button id="menu-analytics" onclick="window.__navTo('analytics')">数据分析</button>
+          <button id="menu-students" onclick="window.__navTo('students')">学生账号管理</button>
+        </div>
+
+        <div style="margin-top: 18px;">
+          <button class="btn" onclick="logoutAdmin()">退出登录</button>
+        </div>
+      </aside>
+
+      <main class="admin-content">
+        <div class="panel">
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <div style="flex: 1; min-width: 240px;">
+              <input type="text" id="kb-search" placeholder="搜索标题/关键词/问题..." />
+            </div>
+            <button class="btn primary" id="kb-btn-add">新增</button>
+            <button class="btn" id="kb-btn-import">批量导入</button>
+            <button class="btn" id="kb-btn-export">批量导出</button>
+          </div>
+          <div class="muted" style="font-size:14px;margin-top:10px;">
+            注：当前为前端管理界面占位（本地 localStorage 模拟数据）。如你要接入 SQLite KB 的真实增删改查/导入导出，我可以在后续补后端 API。
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="row">
+            <div class="col" style="flex: 0 0 260px; max-width: 260px;">
+              <div style="font-weight:800;margin-bottom:10px;">知识分类</div>
+              <div id="kb-categories" class="drop-list" style="min-height: 240px;"></div>
+            </div>
+            <div class="col">
+              <div style="font-weight:800;margin-bottom:10px;">知识条目列表 + 编辑区</div>
+              <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+                <div style="flex: 1; min-width: 340px;">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>标题</th>
+                        <th>分类</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                      </tr>
+                    </thead>
+                    <tbody id="kb-list"></tbody>
+                  </table>
+                </div>
+                <div style="flex: 1; min-width: 340px;">
+                  <div style="margin-bottom: 10px;">
+                    <div class="muted" style="font-size:14px;">编辑区（点击左侧条目加载）</div>
+                  </div>
+
+                  <input type="hidden" id="kb-selected-id" value="" />
+
+                  <div style="margin-bottom: 12px;">
+                    <label for="kb-title">标题</label>
+                    <input type="text" id="kb-title" />
+                  </div>
+
+                  <div style="margin-bottom: 12px;">
+                    <label for="kb-question">问题（用户问法）</label>
+                    <textarea id="kb-question" placeholder="支持换行..." style="min-height: 90px;"></textarea>
+                  </div>
+
+                  <div style="margin-bottom: 12px;">
+                    <label for="kb-answer">答案（标准回答）</label>
+                    <textarea id="kb-answer" placeholder="支持富文本（当前用 textarea 占位）" style="min-height: 140px;"></textarea>
+                  </div>
+
+                  <div style="margin-bottom: 12px;">
+                    <label for="kb-category">分类</label>
+                    <select id="kb-category"></select>
+                  </div>
+
+                  <div style="margin-bottom: 12px;">
+                    <label for="kb-tags">关键词标签（用于检索匹配，逗号分隔）</label>
+                    <input type="text" id="kb-tags" placeholder="例如：签证, 资金证明, 学费" />
+                  </div>
+
+                  <div class="row" style="margin-top: 8px;">
+                    <button class="btn primary" id="kb-btn-save">保存</button>
+                    <button class="btn" id="kb-btn-delete">删除</button>
+                    <button class="btn" id="kb-btn-clear-editor">清空编辑区</button>
+                  </div>
+
+                  <div class="notice" id="kb-notice" style="display:none;margin-top:12px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      window.__navTo = function (page) {
+        if (page === "digitals") window.location.href = "/admin_digitals.html";
+        if (page === "kb") window.location.href = "/admin_kb.html";
+        if (page === "sessions") window.location.href = "/admin_sessions.html";
+        if (page === "analytics") window.location.href = "/admin_analytics.html";
+        if (page === "students") window.location.href = "/admin_students.html";
+      };
+
+      requireAdminLoginOrRedirect();
+      // 管理后台仅允许 admin 访问
+      requireRoleOrRedirect("admin");
+      bindMenu("kb");
+
+      // 前端分类必须与 SQLite knowledge_entries.category 完全一致，
+      // 否则 /admin/kb/list 的 category=xxx 过滤会返回空。
+      const categories = [
+        "院校信息",
+        "专业介绍",
+        "申请要求",
+        "签证政策",
+        "奖学金",
+        "生活指南",
+        "就业前景",
+        "最新政策",
+        "未分类",
+      ];
+
+      function showNotice(msg, kind) {
+        const el = document.getElementById("kb-notice");
+        el.style.display = "block";
+        el.textContent = msg;
+        el.className = "notice";
+        if (kind === "error") el.classList.add("error");
+        if (kind === "success") el.classList.add("success");
+      }
+
+      function hideNotice() {
+        const el = document.getElementById("kb-notice");
+        el.style.display = "none";
+        el.textContent = "";
+      }
+
+      function renderCategories() {
+        const wrap = document.getElementById("kb-categories");
+        wrap.innerHTML = "";
+        categories.forEach((c) => {
+          const btn = document.createElement("button");
+          btn.className = "btn";
+          btn.style.width = "100%";
+          btn.style.marginBottom = "10px";
+          btn.textContent = c;
+          btn.addEventListener("click", () => {
+            document.getElementById("kb-category").value = c;
+            renderList();
+          });
+          wrap.appendChild(btn);
+        });
+      }
+
+      function initCategorySelect() {
+        const sel = document.getElementById("kb-category");
+        categories.forEach((c) => {
+          const opt = document.createElement("option");
+          opt.value = c;
+          opt.textContent = c;
+          sel.appendChild(opt);
+        });
+        sel.value = categories[0];
+      }
+
+      let page = 1;
+      const pageSize = 20;
+      let total = 0;
+
+      async function renderList() {
+        const kw = document.getElementById("kb-search").value.trim();
+        const cat = document.getElementById("kb-category").value;
+
+        const qs = new URLSearchParams();
+        if (kw) qs.set("query", kw);
+        if (cat) qs.set("category", cat);
+        qs.set("page", String(page));
+        qs.set("page_size", String(pageSize));
+
+        const resp = await apiGet(`/admin/kb/list?${qs.toString()}`);
+        if (!resp || resp.code !== 0) {
+          showNotice((resp && resp.msg) ? resp.msg : "加载失败", "error");
+          return;
+        }
+
+        total = resp.data.total || 0;
+        const tbody = document.getElementById("kb-list");
+        tbody.innerHTML = "";
+
+        (resp.data.items || []).forEach((it) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><span data-i18n-skip-kb="1">${it.title || "-"}</span></td>
+            <td class="muted"><span data-i18n-skip-kb="1">${it.category || "-"}</span></td>
+            <td class="muted"><span data-i18n-skip-kb="1">${(it.tags || []).slice(0, 3).join(",")}</span></td>
+            <td>
+              <button class="btn" data-action="edit" data-id="${it.id}">编辑</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        tbody.querySelectorAll('button[data-action="edit"]').forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const id = btn.dataset.id;
+            const d = await apiGet(`/admin/kb/detail/${id}`);
+            if (!d || d.code !== 0) return showNotice((d && d.msg) ? d.msg : "加载失败", "error");
+            const it = d.data;
+            document.getElementById("kb-selected-id").value = String(it.id);
+            document.getElementById("kb-title").value = it.title || "";
+            document.getElementById("kb-question").value = ""; // 当前后端 schema 未单独存“问题问法”，先留空
+            document.getElementById("kb-answer").value = it.content || "";
+            document.getElementById("kb-category").value = it.category || categories[0];
+            document.getElementById("kb-tags").value = (it.tags || []).join(",");
+            hideNotice();
+          });
+        });
+      }
+
+      function clearEditor() {
+        hideNotice();
+        document.getElementById("kb-selected-id").value = "";
+        document.getElementById("kb-title").value = "";
+        document.getElementById("kb-question").value = "";
+        document.getElementById("kb-answer").value = "";
+        document.getElementById("kb-tags").value = "";
+      }
+
+      document.getElementById("kb-btn-clear-editor").addEventListener("click", clearEditor);
+
+      document.getElementById("kb-search").addEventListener("input", renderList);
+
+      document.getElementById("kb-btn-add").addEventListener("click", () => {
+        clearEditor();
+        showNotice("已打开新增模式，请填写信息后点保存。", "success");
+      });
+
+      document.getElementById("kb-btn-save").addEventListener("click", () => {
+        const id = document.getElementById("kb-selected-id").value.trim();
+        const title = document.getElementById("kb-title").value.trim();
+        const question = document.getElementById("kb-question").value.trim();
+        const answer = document.getElementById("kb-answer").value.trim();
+        const category = document.getElementById("kb-category").value;
+        const tags = document.getElementById("kb-tags").value
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
+
+        if (!title) return showNotice("标题不能为空", "error");
+        if (!answer) return showNotice("答案不能为空", "error");
+
+        if (id) {
+          apiPost("/admin/kb/update", { id: parseInt(id, 10), content: answer, reason: "admin_edit" })
+            .then((r) => {
+              if (r && r.code === 0) {
+                showNotice("保存成功（已写入数据库）", "success");
+                renderList();
+              } else {
+                showNotice((r && r.msg) ? r.msg : "保存失败", "error");
+              }
+            })
+            .catch(() => showNotice("保存失败", "error"));
+        } else {
+          apiPost("/admin/kb/add", { title, content: answer, category, tags, source: "用户贡献" })
+            .then((r) => {
+              if (r && r.code === 0) {
+                showNotice("新增成功（已写入数据库）", "success");
+                clearEditor();
+                renderList();
+              } else {
+                showNotice((r && r.msg) ? r.msg : "新增失败", "error");
+              }
+            })
+            .catch(() => showNotice("新增失败", "error"));
+        }
+      });
+
+      document.getElementById("kb-btn-delete").addEventListener("click", () => {
+        const id = document.getElementById("kb-selected-id").value.trim();
+        if (!id) return showNotice("请先选择一个条目", "error");
+        apiPost("/admin/kb/delete", { id: parseInt(id, 10) })
+          .then((r) => {
+            if (r && r.code === 0) {
+              renderList();
+              clearEditor();
+              showNotice("删除成功", "success");
+            } else {
+              showNotice((r && r.msg) ? r.msg : "删除失败", "error");
+            }
+          })
+          .catch(() => showNotice("删除失败", "error"));
+      });
+
+      document.getElementById("kb-btn-export").addEventListener("click", () => {
+        apiGet("/admin/kb/export").then((r) => {
+          if (!r || r.code !== 0) return showNotice((r && r.msg) ? r.msg : "导出失败", "error");
+          const blob = new Blob([JSON.stringify(r.data || [], null, 2)], { type: "application/json" });
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "kb_export.json";
+          a.click();
+          URL.revokeObjectURL(a.href);
+        }).catch(() => showNotice("导出失败", "error"));
+      });
+
+      document.getElementById("kb-btn-import").addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "application/json";
+        input.onchange = async () => {
+          const f = input.files && input.files[0] ? input.files[0] : null;
+          if (!f) return;
+          const txt = await f.text();
+          try {
+            const arr = JSON.parse(txt);
+            if (!Array.isArray(arr)) throw new Error("invalid");
+            const resp = await apiPost("/admin/kb/import", { items: arr });
+            if (resp && resp.code === 0) {
+              showNotice(`导入成功：${resp.data.imported} 条`, "success");
+              renderList();
+            } else {
+              showNotice((resp && resp.msg) ? resp.msg : "导入失败", "error");
+            }
+          } catch (e) {
+            showNotice("导入失败：JSON 格式错误", "error");
+          }
+        };
+        input.click();
+      });
+
+      // init
+      initCategorySelect();
+      renderCategories();
+      renderList();
+    </script>
+  <script src="/i18n3.js"></script>
+</body>
+</html>
+

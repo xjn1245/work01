@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学生账号管理 - 留学咨询数字人管理平台</title>
+    <link rel="stylesheet" href="/admin_common.css" />
+    <script src="/admin_common.js"></script>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <div class="logo"></div>
+          <div>学生账号管理</div>
+        </div>
+        <div class="admin-menu">
+          <button id="menu-digitals" onclick="window.__navTo('digitals')">数字人管理</button>
+          <button id="menu-kb" onclick="window.__navTo('kb')">知识库管理</button>
+          <button id="menu-sessions" onclick="window.__navTo('sessions')">会话记录</button>
+          <button id="menu-analytics" onclick="window.__navTo('analytics')">数据分析</button>
+          <button id="menu-students" onclick="window.__navTo('students')">学生账号管理</button>
+        </div>
+        <div style="margin-top:18px;">
+          <button class="btn" onclick="logoutAdmin()">退出登录</button>
+        </div>
+      </aside>
+      <main class="admin-content">
+        <div class="panel">
+          <div class="row" style="align-items:end;flex-wrap:wrap;">
+            <div class="col" style="max-width:180px;">
+              <label>学号</label>
+              <input id="q_student_id" type="text" />
+            </div>
+            <div class="col" style="max-width:180px;">
+              <label>姓名</label>
+              <input id="q_real_name" type="text" />
+            </div>
+            <div class="col" style="max-width:180px;">
+              <label>学院</label>
+              <input id="q_college" type="text" />
+            </div>
+            <div class="col" style="max-width:180px;">
+              <label>专业</label>
+              <input id="q_major" type="text" />
+            </div>
+            <div class="col" style="max-width:180px;">
+              <label>状态</label>
+              <select id="q_status">
+                <option value="">全部</option>
+                <option value="enabled">正常</option>
+                <option value="disabled">禁用</option>
+              </select>
+            </div>
+            <button class="btn primary" id="btn-query">搜索</button>
+            <button class="btn" id="btn-reset-query">重置</button>
+          </div>
+          <div class="row" style="margin-top:10px;align-items:center;">
+            <button class="btn primary" id="btn-add">新增学生</button>
+            <button class="btn" id="btn-template">下载导入模板</button>
+            <button class="btn" id="btn-import">批量导入(CSV/XLSX)</button>
+            <button class="btn" id="btn-export">批量导出(JSON)</button>
+            <button class="btn" id="btn-export-xlsx">导出Excel(.xlsx)</button>
+            <button class="btn" id="btn-batch-enable">批量启用</button>
+            <button class="btn" id="btn-batch-disable">批量禁用</button>
+            <button class="btn" id="btn-batch-reset-pass">批量重置密码</button>
+            <button class="btn danger" id="btn-batch-delete">批量删除</button>
+          </div>
+          <div class="notice" id="notice" style="display:none;"></div>
+        </div>
+
+        <div class="panel">
+          <table class="table">
+            <thead>
+              <tr>
+                <th><input id="ck_all" type="checkbox" /></th>
+                <th>用户ID</th>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>学院/专业</th>
+                <th>登录账号</th>
+                <th>账号状态</th>
+                <th>注册时间</th>
+                <th>最后登录</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <div class="row" style="margin-top:10px;align-items:center;justify-content:space-between;">
+            <div class="muted" id="page-info">第 1 页</div>
+            <div>
+              <button class="btn" id="btn-prev-page">上一页</button>
+              <button class="btn" id="btn-next-page">下一页</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight:700;margin-bottom:10px;">新增 / 编辑学生账号</div>
+          <input id="f_id" type="hidden" />
+          <div class="row">
+            <div class="col"><label>学号 *</label><input id="f_student_id" type="text" /></div>
+            <div class="col"><label>姓名</label><input id="f_real_name" type="text" /></div>
+            <div class="col"><label>性别</label><select id="f_gender"><option value="">未填写</option><option value="男">男</option><option value="女">女</option></select></div>
+          </div>
+          <div class="row" style="margin-top:10px;">
+            <div class="col"><label>学院</label><input id="f_college" type="text" /></div>
+            <div class="col"><label>专业</label><input id="f_major" type="text" /></div>
+            <div class="col"><label>登录账号 *</label><input id="f_username" type="text" /></div>
+          </div>
+          <div class="row" style="margin-top:10px;">
+            <div class="col"><label>登录密码（新增必填）</label><input id="f_password" type="text" placeholder="留空则自动生成随机密码（新增场景）" /></div>
+            <div class="col"><label>账号状态</label><select id="f_enabled"><option value="1">正常</option><option value="0">禁用</option></select></div>
+          </div>
+          <div class="row" style="margin-top:10px;">
+            <button class="btn primary" id="btn-save">保存</button>
+            <button class="btn" id="btn-clear">清空</button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div id="detail-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99;align-items:center;justify-content:center;">
+      <div class="panel" style="width:min(680px,92vw);max-height:80vh;overflow:auto;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-weight:700;">学生账号详情</div>
+          <button class="btn" id="detail-close">关闭</button>
+        </div>
+          <pre id="detail-pre" style="white-space:pre-wrap;background:rgba(0,0,0,.2);padding:12px;border-radius:10px;margin-top:10px;"></pre>
+      </div>
+    </div>
+    <div id="reset-pass-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99;align-items:center;justify-content:center;">
+      <div class="panel" style="width:min(760px,94vw);max-height:80vh;overflow:auto;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-weight:700;">批量重置结果（请立即下载并妥善保管）</div>
+          <button class="btn" id="reset-pass-close">关闭</button>
+        </div>
+        <pre id="reset-pass-pre" style="white-space:pre-wrap;background:rgba(0,0,0,.2);padding:12px;border-radius:10px;margin-top:10px;"></pre>
+        <div style="margin-top:10px;">
+          <button class="btn primary" id="btn-download-reset-pass-csv">下载新密码清单(CSV)</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__navTo = function (page) {
+        if (page === "digitals") window.location.href = "/admin_digitals.html";
+        if (page === "kb") window.location.href = "/admin_kb.html";
+        if (page === "sessions") window.location.href = "/admin_sessions.html";
+        if (page === "analytics") window.location.href = "/admin_analytics.html";
+        if (page === "students") window.location.href = "/admin_students.html";
+      };
+      requireAdminLoginOrRedirect();
+      requireRoleOrRedirect("admin");
+      bindMenu("students");
+
+      function showNotice(msg, kind) {
+        const el = document.getElementById("notice");
+        el.style.display = "block";
+        el.textContent = msg;
+        el.className = "notice";
+        if (kind === "error") el.classList.add("error");
+        if (kind === "success") el.classList.add("success");
+      }
+      let currentPage = 1;
+      const pageSize = 20;
+      let totalCount = 0;
+      let lastResetPassItems = [];
+
+      function fmt(ms) {
+        if (!ms) return "-";
+        const d = new Date(Number(ms));
+        return d.toLocaleString();
+      }
+      function selectedIds() {
+        return Array.from(document.querySelectorAll('#tbody input[type="checkbox"]:checked')).map((x) => parseInt(x.dataset.id, 10));
+      }
+      function toCsv(items) {
+        const esc = (v) => {
+          const s = String(v ?? "");
+          if (s.includes(",") || s.includes("\"") || s.includes("\n")) return `"${s.replace(/"/g, "\"\"")}"`;
+          return s;
+        };
+        const lines = ["id,student_id,real_name,username,new_password"];
+        (items || []).forEach((it) => {
+          lines.push([it.id, it.student_id, it.real_name, it.username, it.new_password].map(esc).join(","));
+        });
+        return lines.join("\n");
+      }
+      function showDetail(it) {
+        const lines = [
+          `用户ID: ${it.id ?? "-"}`,
+          `学号: ${it.student_id || "-"}`,
+          `姓名: ${it.real_name || "-"}`,
+          `性别: ${it.gender || "-"}`,
+          `学院: ${it.college || "-"}`,
+          `专业: ${it.major || "-"}`,
+          `登录账号: ${it.username || "-"}`,
+          `账号状态: ${it.status || "-"}`,
+          `注册时间: ${fmt(it.created_at_ms)}`,
+          `最后登录: ${fmt(it.last_login_at_ms)}`
+        ];
+        document.getElementById("detail-pre").textContent = lines.join("\n");
+        document.getElementById("detail-modal").style.display = "flex";
+      }
+
+      function formToBody() {
+        return {
+          id: parseInt(document.getElementById("f_id").value || "0", 10),
+          student_id: document.getElementById("f_student_id").value.trim(),
+          real_name: document.getElementById("f_real_name").value.trim(),
+          gender: document.getElementById("f_gender").value,
+          college: document.getElementById("f_college").value.trim(),
+          major: document.getElementById("f_major").value.trim(),
+          username: document.getElementById("f_username").value.trim(),
+          password: document.getElementById("f_password").value,
+          enabled: document.getElementById("f_enabled").value === "1"
+        };
+      }
+
+      function fillForm(it) {
+        document.getElementById("f_id").value = String(it.id || "");
+        document.getElementById("f_student_id").value = it.student_id || "";
+        document.getElementById("f_real_name").value = it.real_name || "";
+        document.getElementById("f_gender").value = it.gender || "";
+        document.getElementById("f_college").value = it.college || "";
+        document.getElementById("f_major").value = it.major || "";
+        document.getElementById("f_username").value = it.username || "";
+        document.getElementById("f_password").value = "";
+        document.getElementById("f_enabled").value = it.enabled ? "1" : "0";
+      }
+
+      function clearForm() {
+        fillForm({ id: "", student_id: "", real_name: "", gender: "", college: "", major: "", username: "", enabled: true });
+      }
+
+      async function loadList() {
+        const qs = new URLSearchParams();
+        const sid = document.getElementById("q_student_id").value.trim();
+        const name = document.getElementById("q_real_name").value.trim();
+        const college = document.getElementById("q_college").value.trim();
+        const major = document.getElementById("q_major").value.trim();
+        const status = document.getElementById("q_status").value;
+        if (sid) qs.set("student_id", sid);
+        if (name) qs.set("real_name", name);
+        if (college) qs.set("college", college);
+        if (major) qs.set("major", major);
+        if (status) qs.set("status", status);
+        qs.set("page", String(currentPage));
+        qs.set("page_size", String(pageSize));
+        const resp = await apiGet("/admin/students/list?" + qs.toString());
+        if (!resp || resp.code !== 0) {
+          showNotice((resp && resp.msg) ? resp.msg : "列表加载失败", "error");
+          return;
+        }
+        totalCount = Number(resp.data.total || 0);
+        const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+        if (currentPage > totalPages) currentPage = totalPages;
+        document.getElementById("page-info").textContent = `第 ${currentPage} / ${totalPages} 页，共 ${totalCount} 条`;
+        document.getElementById("btn-prev-page").disabled = currentPage <= 1;
+        document.getElementById("btn-next-page").disabled = currentPage >= totalPages;
+        const tbody = document.getElementById("tbody");
+        tbody.innerHTML = "";
+        (resp.data.items || []).forEach((it) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><input type="checkbox" data-id="${it.id}" /></td>
+            <td>${it.id}</td>
+            <td>${it.student_id || "-"}</td>
+            <td>${it.real_name || "-"}</td>
+            <td>${it.gender || "-"}</td>
+            <td>${(it.college || "-") + " / " + (it.major || "-")}</td>
+            <td>${it.username || "-"}</td>
+            <td>${it.status || "-"}</td>
+            <td>${fmt(it.created_at_ms)}</td>
+            <td>${fmt(it.last_login_at_ms)}</td>
+            <td>
+              <button class="btn" data-act="detail" data-id="${it.id}">查看详情</button>
+              <button class="btn" data-act="edit" data-id="${it.id}">编辑</button>
+              <button class="btn" data-act="reset" data-id="${it.id}">重置密码</button>
+              <button class="btn" data-act="toggle" data-id="${it.id}" data-enabled="${it.enabled ? 1 : 0}">${it.enabled ? "禁用" : "启用"}</button>
+              <button class="btn danger" data-act="del" data-id="${it.id}">删除</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        tbody.querySelectorAll("button").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const id = parseInt(btn.dataset.id, 10);
+            const act = btn.dataset.act;
+            if (act === "detail") {
+              const d = await apiGet("/admin/students/detail/" + id);
+              if (d && d.code === 0) showDetail(d.data);
+              else showNotice((d && d.msg) ? d.msg : "读取失败", "error");
+            } else if (act === "edit") {
+              const d = await apiGet("/admin/students/detail/" + id);
+              if (d && d.code === 0) fillForm(d.data);
+              else showNotice((d && d.msg) ? d.msg : "读取失败", "error");
+            } else if (act === "reset") {
+              const r = await apiPost("/admin/students/reset_password", { id });
+              if (r && r.code === 0) showNotice("新密码: " + r.data.new_password, "success");
+              else showNotice((r && r.msg) ? r.msg : "重置失败", "error");
+            } else if (act === "toggle") {
+              const enabled = btn.dataset.enabled === "1" ? false : true;
+              const r = await apiPost("/admin/students/enable", { id, enabled });
+              if (r && r.code === 0) {
+                showNotice("状态已更新", "success");
+                loadList();
+              } else showNotice((r && r.msg) ? r.msg : "更新失败", "error");
+            } else if (act === "del") {
+              if (!confirm("确认删除该学生账号？")) return;
+              const r = await apiPost("/admin/students/delete", { id });
+              if (r && r.code === 0) {
+                showNotice("删除成功", "success");
+                loadList();
+              } else showNotice((r && r.msg) ? r.msg : "删除失败", "error");
+            }
+          });
+        });
+      }
+
+      document.getElementById("btn-query").addEventListener("click", loadList);
+      document.getElementById("btn-reset-query").addEventListener("click", () => {
+        document.getElementById("q_student_id").value = "";
+        document.getElementById("q_real_name").value = "";
+        document.getElementById("q_college").value = "";
+        document.getElementById("q_major").value = "";
+        document.getElementById("q_status").value = "";
+        currentPage = 1;
+        loadList();
+      });
+      document.getElementById("btn-add").addEventListener("click", clearForm);
+      document.getElementById("btn-clear").addEventListener("click", clearForm);
+      document.getElementById("btn-save").addEventListener("click", async () => {
+        const body = formToBody();
+        if (!body.student_id || !body.username) {
+          showNotice("学号和登录账号必填", "error");
+          return;
+        }
+        if (body.id <= 0 && !body.password) {
+          if (!confirm("未填写密码，将自动生成随机密码，继续吗？")) return;
+        }
+        const r = await apiPost("/admin/students/save", body);
+        if (r && r.code === 0) {
+          showNotice("保存成功", "success");
+          clearForm();
+          loadList();
+        } else showNotice((r && r.msg) ? r.msg : "保存失败", "error");
+      });
+      document.getElementById("btn-batch-delete").addEventListener("click", async () => {
+        const ids = selectedIds();
+        if (!ids.length) return showNotice("请先勾选需要删除的账号", "error");
+        if (!confirm("确认批量删除选中账号？")) return;
+        const r = await apiPost("/admin/students/batch_delete", { ids });
+        if (r && r.code === 0) {
+          showNotice(`已删除 ${r.data.deleted} 条`, "success");
+          loadList();
+        } else showNotice((r && r.msg) ? r.msg : "批量删除失败", "error");
+      });
+      document.getElementById("btn-batch-enable").addEventListener("click", async () => {
+        const ids = selectedIds();
+        if (!ids.length) return showNotice("请先勾选需要启用的账号", "error");
+        const r = await apiPost("/admin/students/batch_enable", { ids, enabled: true });
+        if (r && r.code === 0) {
+          showNotice(`已启用 ${r.data.updated} 条`, "success");
+          loadList();
+        } else showNotice((r && r.msg) ? r.msg : "批量启用失败", "error");
+      });
+      document.getElementById("btn-batch-disable").addEventListener("click", async () => {
+        const ids = selectedIds();
+        if (!ids.length) return showNotice("请先勾选需要禁用的账号", "error");
+        const r = await apiPost("/admin/students/batch_enable", { ids, enabled: false });
+        if (r && r.code === 0) {
+          showNotice(`已禁用 ${r.data.updated} 条`, "success");
+          loadList();
+        } else showNotice((r && r.msg) ? r.msg : "批量禁用失败", "error");
+      });
+      document.getElementById("btn-batch-reset-pass").addEventListener("click", async () => {
+        const ids = selectedIds();
+        if (!ids.length) return showNotice("请先勾选需要重置密码的账号", "error");
+        if (!confirm("确认批量重置选中账号密码？")) return;
+        const r = await apiPost("/admin/students/batch_reset_password", { ids });
+        if (r && r.code === 0) {
+          lastResetPassItems = (r.data && r.data.items) ? r.data.items : [];
+          if (!lastResetPassItems.length) {
+            showNotice("未成功重置任何账号", "error");
+            return;
+          }
+          const preview = lastResetPassItems.map((it) => `${it.student_id}\t${it.real_name}\t${it.username}\t${it.new_password}`).join("\n");
+          document.getElementById("reset-pass-pre").textContent = "学号\t姓名\t登录账号\t新密码\n" + preview;
+          document.getElementById("reset-pass-modal").style.display = "flex";
+          showNotice(`已重置 ${r.data.count} 条，请立即下载新密码清单`, "success");
+        } else {
+          showNotice((r && r.msg) ? r.msg : "批量重置密码失败", "error");
+        }
+      });
+      document.getElementById("btn-export").addEventListener("click", async () => {
+        const r = await apiGet("/admin/students/export");
+        if (!r || r.code !== 0) return showNotice((r && r.msg) ? r.msg : "导出失败", "error");
+        const blob = new Blob([JSON.stringify(r.data || [], null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "students_export.json";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+      document.getElementById("btn-export-xlsx").addEventListener("click", async () => {
+        try {
+          const token = getAdminToken();
+          const headers = {};
+          if (token) headers["Authorization"] = `Bearer ${token}`;
+          const resp = await fetch("/admin/students/export_xlsx", { method: "GET", headers });
+          if (!resp.ok) {
+            showNotice("Excel 导出失败", "error");
+            return;
+          }
+          const contentType = resp.headers.get("Content-Type") || "";
+          if (contentType.includes("application/json")) {
+            const data = await resp.json();
+            showNotice((data && data.msg) ? data.msg : "Excel 导出失败", "error");
+            return;
+          }
+          const blob = await resp.blob();
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "students_export.xlsx";
+          a.click();
+          URL.revokeObjectURL(a.href);
+        } catch (_) {
+          showNotice("Excel 导出失败", "error");
+        }
+      });
+      document.getElementById("btn-template").addEventListener("click", async () => {
+        try {
+          const token = getAdminToken();
+          const headers = {};
+          if (token) headers["Authorization"] = `Bearer ${token}`;
+          const resp = await fetch("/admin/students/template", { method: "GET", headers });
+          if (!resp.ok) return showNotice("模板下载失败", "error");
+          const blob = await resp.blob();
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "students_template.csv";
+          a.click();
+          URL.revokeObjectURL(a.href);
+        } catch (_) {
+          showNotice("模板下载失败", "error");
+        }
+      });
+      document.getElementById("btn-import").addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".csv,.xlsx";
+        input.onchange = async () => {
+          const f = input.files && input.files[0];
+          if (!f) return;
+          try {
+            const token = getAdminToken();
+            const headers = {};
+            if (token) headers["Authorization"] = `Bearer ${token}`;
+            const fd = new FormData();
+            fd.append("file", f);
+            const resp = await fetch("/admin/students/import_file", {
+              method: "POST",
+              headers,
+              body: fd
+            });
+            const r = await resp.json();
+            if (r && r.code === 0) {
+              showNotice(`导入完成：成功 ${r.data.imported} 条，跳过 ${r.data.skipped} 条`, "success");
+              loadList();
+            } else showNotice((r && r.msg) ? r.msg : "导入失败", "error");
+          } catch (_) {
+            showNotice("导入失败：文件格式错误或后端不可用", "error");
+          }
+        };
+        input.click();
+      });
+      document.getElementById("ck_all").addEventListener("change", (e) => {
+        const checked = !!e.target.checked;
+        document.querySelectorAll('#tbody input[type="checkbox"]').forEach((x) => x.checked = checked);
+      });
+      document.getElementById("btn-prev-page").addEventListener("click", () => {
+        if (currentPage <= 1) return;
+        currentPage -= 1;
+        loadList();
+      });
+      document.getElementById("btn-next-page").addEventListener("click", () => {
+        const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+        if (currentPage >= totalPages) return;
+        currentPage += 1;
+        loadList();
+      });
+      document.getElementById("detail-close").addEventListener("click", () => {
+        document.getElementById("detail-modal").style.display = "none";
+      });
+      document.getElementById("reset-pass-close").addEventListener("click", () => {
+        document.getElementById("reset-pass-modal").style.display = "none";
+      });
+      document.getElementById("btn-download-reset-pass-csv").addEventListener("click", () => {
+        if (!lastResetPassItems.length) {
+          showNotice("没有可下载的重置结果", "error");
+          return;
+        }
+        const csv = toCsv(lastResetPassItems);
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "students_reset_passwords.csv";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+
+      clearForm();
+      loadList();
+    </script>
+  <script src="/i18n3.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+chunk_size=5
+error=parse_failed
+
+RAW_CONTENT_START
+{"en": {"批量重置结果（请立即下载并妥善保管）": "Batch reset result (please download immediately and keep it properly)", "拖拽排序目前仅保存到本地（localStorage）。若要让动作实时生效，需要后端增加“动作编排配置”的落盘与推送逻辑。": "Drag-and-drop sorting is currently only saved locally (localStorage). To make the action take effect in real time, the backend needs to add a "action orchestration configuration" persistence and push logic.", "指标": "Indicator", "按周": "Weekly", "按日": "Daily"}, "ja": {"批量重置结果（请立即下载并妥善保管）": "一括リセット結果（すぐにダウンロードし、適切に保管してください）", "拖拽排序目前仅保存到本地（localStorage）。若要让动作实时生效，需要后端增加“动作编排配置”的落盘与推送逻辑。": "ドラッグアンドドロップによる並べ替えは現在、ローカル（localStorage）にのみ保存されています。アクションをリアルタイムで有効にするには、バックエンドに「アクションオーケストレーション設定」の永続化とプッシュロジックを追加する必要があります。", "指标": "指標", "按周": "週単位", "按日": "日単位"}, "ko": {"批量重置结果（请立即下载并妥善保管）": "일괄 재설정 결과(즉시 다운로드하여 안전하게 보관하십시오)", "拖拽排序目前仅保存到本地（localStorage）。若要让动作实时生效，需要后端增加“动作编排配置”的落盘与推送逻辑。": "드래그 앤 드롭 정렬은 현재 로컬(localhost)에만 저장됩니다. 동작을 실시간으로 적용하려면 백엔드에 '동작 오케스트레이션 설정'의 영구 저장 및 푸시 로직을 추가해야 합니다.", "指标": "지표", "按周": "주 단위", "按日": "일 단위"}}
+RAW_CONTENT_END

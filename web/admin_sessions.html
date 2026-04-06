@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>会话记录 - 留学咨询数字人管理平台</title>
+    <link rel="stylesheet" href="/admin_common.css" />
+    <script src="/admin_common.js"></script>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <div class="logo"></div>
+          <div>会话记录</div>
+        </div>
+
+        <div class="admin-menu">
+          <button id="menu-digitals" onclick="window.__navTo('digitals')">数字人管理</button>
+          <button id="menu-kb" onclick="window.__navTo('kb')">知识库管理</button>
+          <button id="menu-sessions" onclick="window.__navTo('sessions')">会话记录</button>
+          <button id="menu-analytics" onclick="window.__navTo('analytics')">数据分析</button>
+          <button id="menu-students" onclick="window.__navTo('students')">学生账号管理</button>
+        </div>
+
+        <div style="margin-top: 18px;">
+          <button class="btn" onclick="logoutAdmin()">退出登录</button>
+        </div>
+      </aside>
+
+      <main class="admin-content">
+        <div class="panel">
+          <div style="font-weight: 800; font-size: 15px; margin-bottom: 10px;">筛选</div>
+          <div class="row" style="flex-wrap: wrap;">
+            <div class="col" style="flex: 0 0 220px;">
+              <label for="start-ms">开始日期（YYYY-MM-DD）</label>
+              <input id="start-ms" type="text" placeholder="例如：2026-03-31" />
+            </div>
+            <div class="col" style="flex: 0 0 220px;">
+              <label for="end-ms">结束日期（YYYY-MM-DD）</label>
+              <input id="end-ms" type="text" placeholder="例如：2026-03-31" />
+            </div>
+            <div class="col" style="flex: 0 0 220px;">
+              <label for="user-id">用户 ID 筛选</label>
+              <input id="user-id" type="text" placeholder="例如 IP / 自定义 user_id" />
+            </div>
+            <div class="col">
+              <label for="keyword">问题关键词搜索</label>
+              <input id="keyword" type="text" placeholder="在会话消息中模糊检索" />
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-end;">
+              <button class="btn primary" id="btn-search">查询</button>
+              <button class="btn" id="btn-reset">重置</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+            <div style="font-weight: 800; font-size: 15px;">会话列表</div>
+            <div class="muted" style="font-size: 12px;">
+              数据来源：后端 SQLite（`history.db_path`）
+            </div>
+          </div>
+
+          <table class="table" style="margin-top: 10px;">
+            <thead>
+              <tr>
+                <th>会话ID</th>
+                <th>用户ID</th>
+                <th>咨询时间</th>
+                <th>问题摘要</th>
+                <th>回答摘要</th>
+                <th>响应(ms)</th>
+                <th>RAG</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="sessions-body"></tbody>
+          </table>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px;flex-wrap:wrap;">
+            <div class="muted" id="page-info" style="font-size:12px;"></div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button class="btn" id="btn-prev">上一页</button>
+              <button class="btn" id="btn-next">下一页</button>
+            </div>
+          </div>
+
+          <div class="notice" id="notice" style="display:none;"></div>
+        </div>
+
+        <div class="panel" id="detail-panel" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            <div style="font-weight: 800; font-size: 15px;">会话详情</div>
+            <button class="btn" id="btn-close-detail">关闭</button>
+          </div>
+          <div class="muted" id="detail-meta" style="font-size:12px;margin-top:8px;"></div>
+          <div id="detail-messages" style="margin-top:12px;"></div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      window.__navTo = function (page) {
+        if (page === "digitals") window.location.href = "/admin_digitals.html";
+        if (page === "kb") window.location.href = "/admin_kb.html";
+        if (page === "sessions") window.location.href = "/admin_sessions.html";
+        if (page === "analytics") window.location.href = "/admin_analytics.html";
+        if (page === "students") window.location.href = "/admin_students.html";
+      };
+
+      requireAdminLoginOrRedirect();
+      requireRoleOrRedirect("admin");
+      bindMenu("sessions");
+
+      const bodyEl = document.getElementById("sessions-body");
+      const noticeEl = document.getElementById("notice");
+      const pageInfoEl = document.getElementById("page-info");
+      const detailPanel = document.getElementById("detail-panel");
+      const detailMeta = document.getElementById("detail-meta");
+      const detailMessages = document.getElementById("detail-messages");
+
+      let page = 1;
+      const pageSize = 20;
+      let total = 0;
+
+      function showNotice(msg, kind) {
+        noticeEl.style.display = "block";
+        noticeEl.textContent = msg;
+        noticeEl.className = "notice";
+        if (kind === "error") noticeEl.classList.add("error");
+        if (kind === "success") noticeEl.classList.add("success");
+      }
+
+      function hideNotice() {
+        noticeEl.style.display = "none";
+        noticeEl.textContent = "";
+      }
+
+      function summarize(text, n) {
+        const t = (text || "").replace(/\s+/g, " ").trim();
+        return t.length > n ? t.slice(0, n) + "…" : t;
+      }
+
+      function fmtTime(ms) {
+        if (!ms) return "-";
+        try {
+          const d = new Date(ms);
+          return d.toLocaleString();
+        } catch {
+          return String(ms);
+        }
+      }
+
+      function convertDateInputToMs(raw, isEnd) {
+        const v = (raw || "").trim();
+        if (!v) return "";
+
+        // allow ms timestamp input for backward compatibility
+        if (/^\d+$/.test(v)) return String(parseInt(v, 10));
+
+        // yyyy-MM-dd
+        const m1 = v.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        if (m1) {
+          const y = parseInt(m1[1], 10);
+          const mo = parseInt(m1[2], 10) - 1;
+          const d = parseInt(m1[3], 10);
+          const dt = new Date(y, mo, d, isEnd ? 23 : 0, isEnd ? 59 : 0, isEnd ? 59 : 0, isEnd ? 999 : 0);
+          if (Number.isNaN(dt.getTime())) return null;
+          return String(dt.getTime());
+        }
+
+        // allow full datetime: YYYY-MM-DD HH:mm:ss or YYYY-MM-DDTHH:mm:ss
+        const dt = new Date(v.replace(" ", "T"));
+        if (Number.isNaN(dt.getTime())) return null;
+        return String(dt.getTime());
+      }
+
+      function currentQuery() {
+        const startRaw = document.getElementById("start-ms").value.trim();
+        const endRaw = document.getElementById("end-ms").value.trim();
+        const start_ms = convertDateInputToMs(startRaw, false);
+        const end_ms = convertDateInputToMs(endRaw, true);
+        const user_id = document.getElementById("user-id").value.trim();
+        const keyword = document.getElementById("keyword").value.trim();
+
+        if (startRaw && start_ms === null) {
+          showNotice("开始日期格式错误，请使用 YYYY-MM-DD（例如 2026-03-31）", "error");
+          return null;
+        }
+        if (endRaw && end_ms === null) {
+          showNotice("结束日期格式错误，请使用 YYYY-MM-DD（例如 2026-03-31）", "error");
+          return null;
+        }
+
+        return { start_ms: start_ms || "", end_ms: end_ms || "", user_id, keyword };
+      }
+
+      async function loadList() {
+        hideNotice();
+        const q = currentQuery();
+        if (!q) return;
+        const qs = new URLSearchParams();
+        if (q.start_ms) qs.set("start_ms", q.start_ms);
+        if (q.end_ms) qs.set("end_ms", q.end_ms);
+        if (q.user_id) qs.set("user_id", q.user_id);
+        if (q.keyword) qs.set("keyword", q.keyword);
+        qs.set("page", String(page));
+        qs.set("page_size", String(pageSize));
+
+        const resp = await apiGet(`/admin/sessions?${qs.toString()}`);
+        if (!resp || resp.code !== 0) {
+          showNotice((resp && resp.msg) ? resp.msg : "加载失败", "error");
+          return;
+        }
+
+        const data = resp.data;
+        total = data.total || 0;
+        bodyEl.innerHTML = "";
+
+        for (const item of (data.items || [])) {
+          // load summaries from detail when needed; list keeps it lightweight
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${item.id}</td>
+            <td class="muted">${item.user_id || "-"}</td>
+            <td class="muted">${fmtTime(item.created_at_ms)}</td>
+            <td class="muted">${summarize(item.question_summary || "", 40) || "-"}</td>
+            <td class="muted">${summarize(item.answer_summary || "", 40) || "-"}</td>
+            <td class="muted">${item.dt_ms ?? "-"}</td>
+            <td class="muted">${item.rag_enabled ? (item.rag_mode + " (" + (item.rag_hit_count||0) + ")") : "off"}</td>
+            <td>
+              <button class="btn" data-act="view" data-id="${item.id}">查看详情</button>
+              <button class="btn" data-act="export" data-id="${item.id}">导出</button>
+              <button class="btn danger" data-act="delete" data-id="${item.id}">删除</button>
+            </td>
+          `;
+          bodyEl.appendChild(tr);
+        }
+
+        bodyEl.querySelectorAll("button[data-act='view']").forEach((btn) => {
+          btn.addEventListener("click", () => viewDetail(parseInt(btn.dataset.id, 10)));
+        });
+        bodyEl.querySelectorAll("button[data-act='export']").forEach((btn) => {
+          btn.addEventListener("click", () => exportSession(parseInt(btn.dataset.id, 10)));
+        });
+        bodyEl.querySelectorAll("button[data-act='delete']").forEach((btn) => {
+          btn.addEventListener("click", () => deleteSession(parseInt(btn.dataset.id, 10)));
+        });
+
+        pageInfoEl.textContent = `第 ${data.page} 页 / 每页 ${data.page_size} 条 / 共 ${data.total} 条`;
+        document.getElementById("btn-prev").disabled = page <= 1;
+        document.getElementById("btn-next").disabled = page * pageSize >= total;
+      }
+
+      async function viewDetail(id) {
+        const resp = await apiGet(`/admin/sessions/${id}`);
+        if (!resp || resp.code !== 0) {
+          showNotice((resp && resp.msg) ? resp.msg : "加载详情失败", "error");
+          return;
+        }
+        const d = resp.data;
+        detailPanel.style.display = "block";
+        detailMeta.textContent = `会话ID=${d.session.id}  trace=${d.session.trace_id}  用户=${d.session.user_id||"-"}  数字人=${d.session.avatar_id||"-"}  响应=${d.session.dt_ms ?? "-"}ms  LLM=${d.session.llm_ms ?? "-"}ms  TTS=${d.session.tts_ms ?? "-"}ms  动作=${d.session.action_ms ?? "-"}ms  RAG=${d.session.rag_enabled ? d.session.rag_mode : "off"}  timeout=${d.session.llm_timeout}`;
+        detailMessages.innerHTML = "";
+        if (d.session && Array.isArray(d.session.rag_evidence) && d.session.rag_evidence.length > 0) {
+          const ragBox = document.createElement("div");
+          ragBox.className = "panel";
+          ragBox.style.marginBottom = "10px";
+          ragBox.innerHTML = `<div style="font-weight:700;margin-bottom:8px;">知识库命中证据</div>`;
+          const ul = document.createElement("div");
+          (d.session.rag_evidence || []).forEach((ev, idx) => {
+            const line = document.createElement("div");
+            line.className = "muted";
+            line.style.marginBottom = "6px";
+            line.textContent = `[E${idx + 1}] ${ev.title || "-"} | 来源:${ev.source || "-"} | 更新时间:${ev.last_updated || "-"}`;
+            ul.appendChild(line);
+          });
+          ragBox.appendChild(ul);
+          detailMessages.appendChild(ragBox);
+        }
+        for (const m of (d.messages || [])) {
+          const box = document.createElement("div");
+          box.className = "panel";
+          box.style.marginBottom = "10px";
+          box.innerHTML = `
+            <div class="muted" style="font-size:12px;margin-bottom:8px;">${m.role} · ${fmtTime(m.created_at_ms)}</div>
+            <div style="white-space:pre-wrap;line-height:1.6;">${(m.content || "").replace(/</g, "&lt;")}</div>
+          `;
+          detailMessages.appendChild(box);
+        }
+      }
+
+      async function exportSession(id) {
+        const resp = await apiGet(`/admin/sessions/${id}`);
+        if (!resp || resp.code !== 0) {
+          showNotice((resp && resp.msg) ? resp.msg : "导出失败", "error");
+          return;
+        }
+        const blob = new Blob([JSON.stringify(resp.data, null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `chat_session_${id}.json`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
+      async function deleteSession(id) {
+        if (!confirm(`确定删除会话 ${id}？`)) return;
+        const resp = await apiPost("/admin/sessions/delete", { id });
+        if (!resp || resp.code !== 0) {
+          showNotice((resp && resp.msg) ? resp.msg : "删除失败", "error");
+          return;
+        }
+        showNotice("删除成功", "success");
+        detailPanel.style.display = "none";
+        await loadList();
+      }
+
+      document.getElementById("btn-search").addEventListener("click", () => {
+        page = 1;
+        loadList();
+      });
+      document.getElementById("btn-reset").addEventListener("click", () => {
+        document.getElementById("start-ms").value = "";
+        document.getElementById("end-ms").value = "";
+        document.getElementById("user-id").value = "";
+        document.getElementById("keyword").value = "";
+        page = 1;
+        loadList();
+      });
+      document.getElementById("btn-prev").addEventListener("click", () => {
+        if (page > 1) page -= 1;
+        loadList();
+      });
+      document.getElementById("btn-next").addEventListener("click", () => {
+        if (page * pageSize < total) page += 1;
+        loadList();
+      });
+      document.getElementById("btn-close-detail").addEventListener("click", () => {
+        detailPanel.style.display = "none";
+      });
+
+      loadList().then(() => {
+        const url = new URL(window.location.href);
+        const sid = parseInt(url.searchParams.get("sid") || "0", 10);
+        if (sid > 0) {
+          viewDetail(sid);
+        }
+      });
+    </script>
+  <script src="/i18n3.js"></script>
+</body>
+</html>
+

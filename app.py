@@ -164,6 +164,9 @@ from livetalking.services.avatar_manager import AvatarManager
 from livetalking.server.state import AppState
 from livetalking.server.routes import setup_routes
 from knowledge_base import StudyAbroadKnowledgeBase
+from livetalking.server.auth_store import AuthStore
+from livetalking.server.chat_history import ChatHistoryStore
+from livetalking.server.avatar_admin_store import AvatarAdminStore
 
 app = Flask(__name__)
 # sockets = Sockets(app)
@@ -1146,6 +1149,39 @@ if __name__ == '__main__':
     avatar_manager = AvatarManager(opt, get_config_value)
     kb = StudyAbroadKnowledgeBase(get_config_value("rag.db_path", "study_abroad_kb.db"))
 
+    # -------------------------
+    # auth (admin/student)
+    # -------------------------
+    auth_token_secret = str(get_config_value("auth.token_secret", "dev-only-change-me"))
+    auth_token_ttl_seconds = int(get_config_value("auth.token_ttl_seconds", 24 * 3600))
+    auth_db_path = str(get_config_value("auth.db_path", "data/auth.db"))
+    auth_store = AuthStore(auth_db_path)
+    # Ensure default accounts exist
+    auth_store.ensure_user("admin", "123456", "admin")
+    auth_store.ensure_user("student", "123456", "student")
+
+    # chat history
+    history_db_path = str(get_config_value("history.db_path", "data/chat_history.db"))
+    chat_history = ChatHistoryStore(history_db_path)
+
+    # avatar admin config store
+    avatar_admin_db_path = str(get_config_value("avatar_admin.db_path", "data/avatar_admin.db"))
+    avatar_admin_store = AvatarAdminStore(avatar_admin_db_path)
+    # auto register existing avatars
+    try:
+        avatars_dir = "data/avatars"
+        if os.path.exists(avatars_dir):
+            for item in os.listdir(avatars_dir):
+                p = os.path.join(avatars_dir, item)
+                if os.path.isdir(p) and item != ".gitkeep":
+                    inferred = avatar_manager.infer_model_type(item, getattr(opt, "model", "musetalk"))
+                    avatar_admin_store.ensure_avatar(item, item, inferred)
+    except Exception as e:
+        logger.warning(f"avatar admin init warn: {e}")
+
+    avatar_manager.set_custom_action_provider(lambda aid: avatar_admin_store.get_actions(aid))
+    avatar_manager.set_tts_config_provider(lambda aid: avatar_admin_store.get_tts(aid))
+
     # 设置预加载功能状态
     preload_enabled = opt.preload
     logger.info(f"预加载功能: {'启用' if preload_enabled else '禁用'}")
@@ -1234,6 +1270,11 @@ if __name__ == '__main__':
         identities=identities,
         avatar_identities=avatar_identities,
         save_avatar_identities=_save_avatar_identities,
+        auth_token_secret=auth_token_secret,
+        auth_token_ttl_seconds=auth_token_ttl_seconds,
+        auth_store=auth_store,
+        chat_history=chat_history,
+        avatar_admin_store=avatar_admin_store,
         preload_queue=preload_queue,
         preload_in_progress=preload_in_progress,
         pcs=pcs,

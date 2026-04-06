@@ -40,3 +40,14 @@ class AppState:
     # knowledge base (SQLite) for keyword RAG
     kb: StudyAbroadKnowledgeBase
 
+    # auth (admin/student)
+    auth_token_secret: str
+    auth_token_ttl_seconds: int
+    auth_store: Any
+
+    # chat history (SQLite)
+    chat_history: Any
+
+    # avatar admin config store
+    avatar_admin_store: Any
+

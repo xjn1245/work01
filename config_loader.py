@@ -60,7 +60,13 @@ class ConfigLoader:
             "tts": {
                 "default_engine": "edgetts",
                 "default_voice": "zh-CN-YunxiaNeural",
-                "server": "http://127.0.0.1:9880"
+                "server": "http://127.0.0.1:9880",
+                "edge_voice_by_lang": {
+                    "zh-CN": "zh-CN-YunxiaNeural",
+                    "en": "en-US-JennyNeural",
+                    "ja": "ja-JP-NanamiNeural",
+                    "ko": "ko-KR-SunHiNeural"
+                }
             },
             "performance": {
                 "level": "balanced",
@@ -75,6 +81,10 @@ class ConfigLoader:
                 "left": 10,
                 "middle": 8,
                 "right": 10
+            },
+            "liveportrait": {
+                "expression_enabled": False,
+                "mouth_from_liveportrait": True
             }
         }
     

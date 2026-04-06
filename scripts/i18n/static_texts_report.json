@@ -1,0 +1,3727 @@
+{
+  "web_root": "E:\\LiveTalking-main\\web",
+  "total_unique_texts": 197,
+  "total_occurrences": 245,
+  "items": [
+    {
+      "text": "学生账号管理",
+      "suggested_key": "auto.admin_digitals.9324ad25fa",
+      "count": 4,
+      "files": [
+        "admin_digitals.html",
+        "admin_kb.html",
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 23
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 23
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 15
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "text": "操作",
+      "suggested_key": "auto.admin_digitals.2b6bc0f293",
+      "count": 4,
+      "files": [
+        "admin_digitals.html",
+        "admin_kb.html",
+        "admin_students.html",
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 46
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 62
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 86
+        },
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "text": "数字人管理",
+      "suggested_key": "auto.admin_digitals.6fd5663d07",
+      "count": 4,
+      "files": [
+        "admin_digitals.html",
+        "admin_kb.html",
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 15
+        },
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 19
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 19
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "text": "知识库管理",
+      "suggested_key": "auto.admin_digitals.2d499b0f49",
+      "count": 4,
+      "files": [
+        "admin_digitals.html",
+        "admin_kb.html",
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 20
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 15
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 20
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "text": "退出登录",
+      "suggested_key": "auto.admin_digitals.44efd179aa",
+      "count": 4,
+      "files": [
+        "admin_digitals.html",
+        "admin_kb.html",
+        "admin_students.html",
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 27
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 27
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 25
+        },
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "text": "会话记录",
+      "suggested_key": "auto.admin_digitals.f2c52b0f89",
+      "count": 3,
+      "files": [
+        "admin_digitals.html",
+        "admin_kb.html",
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 21
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 21
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "text": "关闭",
+      "suggested_key": "auto.admin_students.b15d91274e",
+      "count": 3,
+      "files": [
+        "admin_students.html",
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 128
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 137
+        },
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 52
+        }
+      ]
+    },
+    {
+      "text": "姓名",
+      "suggested_key": "auto.admin_students.60d0458ac6",
+      "count": 3,
+      "files": [
+        "admin_students.html",
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 36
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 79
+        },
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "text": "我的历史会话",
+      "suggested_key": "auto.history.f741ac62d7",
+      "count": 3,
+      "files": [
+        "history.html",
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 6
+        },
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "h3",
+          "attr": "",
+          "line": 14
+        },
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "text": "数据分析",
+      "suggested_key": "auto.admin_digitals.6450d84327",
+      "count": 3,
+      "files": [
+        "admin_digitals.html",
+        "admin_kb.html",
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 22
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 22
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "text": "状态",
+      "suggested_key": "auto.admin_digitals.3fea7ca76c",
+      "count": 3,
+      "files": [
+        "admin_digitals.html",
+        "admin_kb.html",
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 45
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 61
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 48
+        }
+      ]
+    },
+    {
+      "text": "用户中心",
+      "suggested_key": "auto.dashboard.3a0821ae0e",
+      "count": 3,
+      "files": [
+        "dashboard.html",
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1348
+        },
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 6
+        },
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "h3",
+          "attr": "",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "text": "返回主页",
+      "suggested_key": "auto.help.2e3eaa52ed",
+      "count": 3,
+      "files": [
+        "help.html",
+        "history.html",
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 24
+        },
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 16
+        },
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "text": "上一页",
+      "suggested_key": "auto.admin_students.f4f8531699",
+      "count": 2,
+      "files": [
+        "admin_students.html",
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 94
+        },
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "text": "下一页",
+      "suggested_key": "auto.admin_students.b4e1b508d0",
+      "count": 2,
+      "files": [
+        "admin_students.html",
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 95
+        },
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "text": "专业",
+      "suggested_key": "auto.admin_students.a7ad35acae",
+      "count": 2,
+      "files": [
+        "admin_students.html",
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 44
+        },
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "text": "保存",
+      "suggested_key": "auto.admin_kb.be5fbbe34c",
+      "count": 2,
+      "files": [
+        "admin_kb.html",
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 110
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 118
+        }
+      ]
+    },
+    {
+      "text": "停止",
+      "suggested_key": "auto.index.095e938e2a",
+      "count": 2,
+      "files": [
+        "asr/index.html",
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 75
+        },
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1416
+        }
+      ]
+    },
+    {
+      "text": "分类",
+      "suggested_key": "auto.admin_kb.d0771a42bb",
+      "count": 2,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 60
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 91
+        }
+      ]
+    },
+    {
+      "text": "名称",
+      "suggested_key": "auto.admin_digitals.d7ec2d3fea",
+      "count": 2,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 43
+        },
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 66
+        }
+      ]
+    },
+    {
+      "text": "响应(ms)",
+      "suggested_key": "auto.history.c20c81bcd8",
+      "count": 2,
+      "files": [
+        "history.html",
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 34
+        },
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 33
+        }
+      ]
+    },
+    {
+      "text": "学号",
+      "suggested_key": "auto.admin_students.2e9b8c80ef",
+      "count": 2,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 32
+        },
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 78
+        }
+      ]
+    },
+    {
+      "text": "学院",
+      "suggested_key": "auto.admin_students.f81165f139",
+      "count": 2,
+      "files": [
+        "admin_students.html",
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 40
+        },
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 73
+        }
+      ]
+    },
+    {
+      "text": "帮助中心",
+      "suggested_key": "auto.help.fe4416f2f8",
+      "count": 2,
+      "files": [
+        "help.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 7
+        },
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "h2",
+          "attr": "",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "text": "开始连接",
+      "suggested_key": "auto.dashboard.a5cb44e685",
+      "count": 2,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1377
+        },
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1385
+        }
+      ]
+    },
+    {
+      "text": "性别",
+      "suggested_key": "auto.admin_students.787b5677e3",
+      "count": 2,
+      "files": [
+        "admin_students.html",
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 80
+        },
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 65
+        }
+      ]
+    },
+    {
+      "text": "时间",
+      "suggested_key": "auto.history.19fcb9eb25",
+      "count": 2,
+      "files": [
+        "history.html",
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 31
+        },
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 33
+        }
+      ]
+    },
+    {
+      "text": "标题",
+      "suggested_key": "auto.admin_kb.32c65d8d74",
+      "count": 2,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 59
+        },
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 76
+        }
+      ]
+    },
+    {
+      "text": "清空",
+      "suggested_key": "auto.admin_students.288f0c404c",
+      "count": 2,
+      "files": [
+        "admin_students.html",
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 119
+        },
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1466
+        }
+      ]
+    },
+    {
+      "text": "问题摘要",
+      "suggested_key": "auto.history.914c334a15",
+      "count": 2,
+      "files": [
+        "history.html",
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 32
+        },
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 33
+        }
+      ]
+    },
+    {
+      "text": "1 - 很不满意",
+      "suggested_key": "auto.history.d5c54a6dc5",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "text": "1. 如何开始对话",
+      "suggested_key": "auto.help.da614f4d00",
+      "count": 1,
+      "files": [
+        "help.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "h4",
+          "attr": "",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "text": "2 - 不满意",
+      "suggested_key": "auto.history.2dfb212ebb",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "text": "2. 常见问题",
+      "suggested_key": "auto.help.224e2cf7d5",
+      "count": 1,
+      "files": [
+        "help.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "h4",
+          "attr": "",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "text": "3 - 一般",
+      "suggested_key": "auto.history.896889afb9",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 60
+        }
+      ]
+    },
+    {
+      "text": "3. 功能说明",
+      "suggested_key": "auto.help.8d573571ad",
+      "count": 1,
+      "files": [
+        "help.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "h4",
+          "attr": "",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "text": "4 - 满意",
+      "suggested_key": "auto.history.aae7cc82aa",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "text": "5 - 非常满意",
+      "suggested_key": "auto.history.5013978742",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 58
+        }
+      ]
+    },
+    {
+      "text": "AI模型",
+      "suggested_key": "auto.dashboard.b105f0a09d",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 1471
+        }
+      ]
+    },
+    {
+      "text": "AI留学顾问直播",
+      "suggested_key": "auto.dashboard.099f6a6a00",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "h3",
+          "attr": "",
+          "line": 1365
+        }
+      ]
+    },
+    {
+      "text": "TTS 配置（按形象落库）",
+      "suggested_key": "auto.admin_digitals.dcc9a2b1ca",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 117
+        }
+      ]
+    },
+    {
+      "text": "Wav2Lip (推荐)",
+      "suggested_key": "auto.dashboard.b5b8266552",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 1473
+        }
+      ]
+    },
+    {
+      "text": "asr服务器地址(必填):",
+      "suggested_key": "auto.index.8630eaef16",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "text": "一键应用到全部",
+      "suggested_key": "auto.admin_digitals.01f8b1c19e",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 133
+        }
+      ]
+    },
+    {
+      "text": "下含",
+      "suggested_key": "auto.admin_digitals.eca37b329d",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 52
+        }
+      ]
+    },
+    {
+      "text": "下载导入模板",
+      "suggested_key": "auto.admin_students.2e505d23f7",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 60
+        }
+      ]
+    },
+    {
+      "text": "下载新密码清单(CSV)",
+      "suggested_key": "auto.admin_students.1e89e65e4a",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 141
+        }
+      ]
+    },
+    {
+      "text": "专业词汇发音规则（占位）",
+      "suggested_key": "auto.admin_digitals.67c48c48eb",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 129
+        }
+      ]
+    },
+    {
+      "text": "业务身份标签",
+      "suggested_key": "auto.admin_digitals.b1f5c6b99e",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 76
+        }
+      ]
+    },
+    {
+      "text": "从资源目录推断",
+      "suggested_key": "auto.admin_digitals.752a67868b",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "attribute",
+          "tag": "input",
+          "attr": "placeholder",
+          "line": 72
+        }
+      ]
+    },
+    {
+      "text": "会话ID",
+      "suggested_key": "auto.history.ebe7daf111",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "text": "会话记录 - 留学咨询数字人管理平台",
+      "suggested_key": "auto.admin_sessions.1c93629b64",
+      "count": 1,
+      "files": [
+        "admin_sessions.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_sessions.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "text": "会话详情",
+      "suggested_key": "auto.history.9fae040d1b",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "h4",
+          "attr": "",
+          "line": 51
+        }
+      ]
+    },
+    {
+      "text": "保存 TTS 配置",
+      "suggested_key": "auto.admin_digitals.b646fda055",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 132
+        }
+      ]
+    },
+    {
+      "text": "保存档案",
+      "suggested_key": "auto.admin_digitals.2cffacb07e",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 91
+        }
+      ]
+    },
+    {
+      "text": "保存身份",
+      "suggested_key": "auto.dashboard.8a1a684ee6",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1463
+        }
+      ]
+    },
+    {
+      "text": "保存身份预设",
+      "suggested_key": "auto.admin_digitals.2b4b709aac",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 92
+        }
+      ]
+    },
+    {
+      "text": "修改",
+      "suggested_key": "auto.user_center.8347a927c0",
+      "count": 1,
+      "files": [
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "text": "修改密码",
+      "suggested_key": "auto.user_center.7fc88aeeda",
+      "count": 1,
+      "files": [
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "h4",
+          "attr": "",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "text": "全部",
+      "suggested_key": "auto.admin_students.a8b0c20416",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "text": "关键词标签（用于检索匹配，逗号分隔）",
+      "suggested_key": "auto.admin_kb.c6bc830bf6",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 105
+        }
+      ]
+    },
+    {
+      "text": "关键词检索",
+      "suggested_key": "auto.history.8f2ea616ba",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "attribute",
+          "tag": "input",
+          "attr": "placeholder",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "text": "切换视频",
+      "suggested_key": "auto.webrtcapi-custom.06d14b70e1",
+      "count": 1,
+      "files": [
+        "webrtcapi-custom.html"
+      ],
+      "occurrences": [
+        {
+          "file": "webrtcapi-custom.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "text": "切换顾问",
+      "suggested_key": "auto.dashboard.4bc667c9f6",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1388
+        }
+      ]
+    },
+    {
+      "text": "列表与「同步磁盘形象」均会扫描",
+      "suggested_key": "auto.admin_digitals.7c01ae7f42",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 51
+        }
+      ]
+    },
+    {
+      "text": "删除",
+      "suggested_key": "auto.admin_kb.2f4aaddde3",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 111
+        }
+      ]
+    },
+    {
+      "text": "加载中...",
+      "suggested_key": "auto.user_center.26b5bd4947",
+      "count": 1,
+      "files": [
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "text": "动作编排（拖拽排序，前端占位）",
+      "suggested_key": "auto.admin_digitals.58c47700fe",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 103
+        }
+      ]
+    },
+    {
+      "text": "历史对话",
+      "suggested_key": "auto.dashboard.f8dce1cd65",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 1313
+        }
+      ]
+    },
+    {
+      "text": "同步磁盘形象",
+      "suggested_key": "auto.admin_digitals.e11101955a",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "text": "后台列表中补充说明",
+      "suggested_key": "auto.admin_digitals.41a770cb94",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "attribute",
+          "tag": "input",
+          "attr": "placeholder",
+          "line": 82
+        }
+      ]
+    },
+    {
+      "text": "回答摘要",
+      "suggested_key": "auto.history.54e5c95d6c",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 33
+        }
+      ]
+    },
+    {
+      "text": "如果无声音：检查浏览器音量、系统音频输出、TTS 引擎配置。",
+      "suggested_key": "auto.help.057fcb9c97",
+      "count": 1,
+      "files": [
+        "help.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "p",
+          "attr": "",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "text": "如果连接失败：检查网络、WebRTC 端口与后端日志。",
+      "suggested_key": "auto.help.ebb2b686c9",
+      "count": 1,
+      "files": [
+        "help.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "p",
+          "attr": "",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "text": "如：留学顾问、签证官、院校介绍",
+      "suggested_key": "auto.admin_digitals.d7aa57d45a",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "attribute",
+          "tag": "input",
+          "attr": "placeholder",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "text": "学号 *",
+      "suggested_key": "auto.student_register.5035f17e5b",
+      "count": 1,
+      "files": [
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 55
+        }
+      ]
+    },
+    {
+      "text": "学生注册 - 留学咨询数字人管理平台",
+      "suggested_key": "auto.student_register.5ce161425e",
+      "count": 1,
+      "files": [
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "text": "学生账号注册",
+      "suggested_key": "auto.student_register.899e6912b4",
+      "count": 1,
+      "files": [
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "text": "学生账号管理 - 留学咨询数字人管理平台",
+      "suggested_key": "auto.admin_students.99f40c68df",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "text": "学生账号详情",
+      "suggested_key": "auto.admin_students.b4bec30158",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 127
+        }
+      ]
+    },
+    {
+      "text": "学院/专业",
+      "suggested_key": "auto.admin_students.b9d6b03a6a",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 81
+        }
+      ]
+    },
+    {
+      "text": "对话",
+      "suggested_key": "auto.dashboard.85936242fc",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1433
+        }
+      ]
+    },
+    {
+      "text": "导出Excel(.xlsx)",
+      "suggested_key": "auto.admin_students.a6c52ab3bb",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 63
+        }
+      ]
+    },
+    {
+      "text": "导出我的会话(JSON)",
+      "suggested_key": "auto.history.a612dc9ef7",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "text": "展示说明（可选）",
+      "suggested_key": "auto.admin_digitals.54df903bed",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 81
+        }
+      ]
+    },
+    {
+      "text": "平台设置",
+      "suggested_key": "auto.dashboard.7bccd01aab",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "h4",
+          "attr": "",
+          "line": 1454
+        }
+      ]
+    },
+    {
+      "text": "开启字幕显示",
+      "suggested_key": "auto.dashboard.49320158d4",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 1487
+        }
+      ]
+    },
+    {
+      "text": "开始",
+      "suggested_key": "auto.index.a3e3b88377",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 74
+        }
+      ]
+    },
+    {
+      "text": "当前用户：访客",
+      "suggested_key": "auto.dashboard.7333235427",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "span",
+          "attr": "",
+          "line": 1346
+        }
+      ]
+    },
+    {
+      "text": "当前：",
+      "suggested_key": "auto.dashboard.3d490bfc33",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 1495
+        }
+      ]
+    },
+    {
+      "text": "扫描 data/avatars 并同步到管理库",
+      "suggested_key": "auto.admin_digitals.6250551764",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "attribute",
+          "tag": "button",
+          "attr": "title",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "text": "批量删除",
+      "suggested_key": "auto.admin_students.7fb62b3011",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "text": "批量启用",
+      "suggested_key": "auto.admin_students.31bfc7fa40",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 64
+        }
+      ]
+    },
+    {
+      "text": "批量导入",
+      "suggested_key": "auto.admin_kb.407f3df2c9",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "text": "批量导入(CSV/XLSX)",
+      "suggested_key": "auto.admin_students.42cbf646b9",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "text": "批量导出",
+      "suggested_key": "auto.admin_kb.c6b2bfc530",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 39
+        }
+      ]
+    },
+    {
+      "text": "批量导出(JSON)",
+      "suggested_key": "auto.admin_students.a9bc347fc5",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "text": "批量禁用",
+      "suggested_key": "auto.admin_students.d8086fe5a0",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 65
+        }
+      ]
+    },
+    {
+      "text": "批量重置密码",
+      "suggested_key": "auto.admin_students.e8a4652d29",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 66
+        }
+      ]
+    },
+    {
+      "text": "批量重置结果（请立即下载并妥善保管）",
+      "suggested_key": "auto.admin_students.d932071a8c",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 136
+        }
+      ]
+    },
+    {
+      "text": "提交注册",
+      "suggested_key": "auto.student_register.8c21e66efe",
+      "count": 1,
+      "files": [
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 92
+        }
+      ]
+    },
+    {
+      "text": "提交评分",
+      "suggested_key": "auto.history.a4bd514e40",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 64
+        }
+      ]
+    },
+    {
+      "text": "搜索",
+      "suggested_key": "auto.admin_students.e5f71fc31e",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 55
+        }
+      ]
+    },
+    {
+      "text": "搜索会话...",
+      "suggested_key": "auto.dashboard.2bfa76d4ff",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "attribute",
+          "tag": "input",
+          "attr": "placeholder",
+          "line": 1316
+        }
+      ]
+    },
+    {
+      "text": "搜索标题/关键词/问题...",
+      "suggested_key": "auto.admin_kb.ff61be19d3",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "attribute",
+          "tag": "input",
+          "attr": "placeholder",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "text": "支持身份预设、语音输入、快捷问题、字幕开关、语速调节、历史会话查看。",
+      "suggested_key": "auto.help.fad67752cb",
+      "count": 1,
+      "files": [
+        "help.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "p",
+          "attr": "",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "text": "数字人列表",
+      "suggested_key": "auto.admin_digitals.48684e65ba",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "text": "数字人管理 - 留学咨询数字人管理平台",
+      "suggested_key": "auto.admin_digitals.dd6b9cbea3",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "text": "数字人视频交互",
+      "suggested_key": "auto.dashboard.ae78531e76",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 1358
+        }
+      ]
+    },
+    {
+      "text": "数字人身份预设",
+      "suggested_key": "auto.dashboard.465ab634d7",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 1458
+        }
+      ]
+    },
+    {
+      "text": "数据分析 - 留学咨询数字人管理平台",
+      "suggested_key": "auto.admin_analytics.6fc7b517ed",
+      "count": 1,
+      "files": [
+        "admin_analytics.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_analytics.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "text": "数据来源：后端 SQLite（`history.db_path`）",
+      "suggested_key": "auto.admin_sessions.3d831dc54f",
+      "count": 1,
+      "files": [
+        "admin_sessions.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_sessions.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "text": "文件",
+      "suggested_key": "auto.index.2a0c4740f1",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "text": "新增",
+      "suggested_key": "auto.admin_kb.66ab5e9f24",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "text": "新增 / 编辑",
+      "suggested_key": "auto.admin_digitals.a1179bf796",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "text": "新增学生",
+      "suggested_key": "auto.admin_students.051c13f1a5",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "text": "新密码",
+      "suggested_key": "auto.user_center.bf7da0bf02",
+      "count": 1,
+      "files": [
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "text": "新建会话",
+      "suggested_key": "auto.dashboard.611f2696af",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "attribute",
+          "tag": "button",
+          "attr": "title",
+          "line": 1323
+        }
+      ]
+    },
+    {
+      "text": "新建对话",
+      "suggested_key": "auto.dashboard.f2b14f27c7",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1324
+        }
+      ]
+    },
+    {
+      "text": "日本語",
+      "suggested_key": "auto.admin_kb.00110af8b4",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 99
+        }
+      ]
+    },
+    {
+      "text": "旧密码",
+      "suggested_key": "auto.user_center.1b3355e831",
+      "count": 1,
+      "files": [
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "text": "智能数字人直播平台 - 专业留学咨询与问答",
+      "suggested_key": "auto.dashboard.414c529839",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "p",
+          "attr": "",
+          "line": 1338
+        }
+      ]
+    },
+    {
+      "text": "最后登录",
+      "suggested_key": "auto.admin_students.19fb21791f",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 85
+        }
+      ]
+    },
+    {
+      "text": "最近会话",
+      "suggested_key": "auto.user_center.f812099222",
+      "count": 1,
+      "files": [
+        "user_center.html"
+      ],
+      "occurrences": [
+        {
+          "file": "user_center.html",
+          "kind": "text",
+          "tag": "h4",
+          "attr": "",
+          "line": 31
+        }
+      ]
+    },
+    {
+      "text": "未填写",
+      "suggested_key": "auto.student_register.5c6881399f",
+      "count": 1,
+      "files": [
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "text": "未连接",
+      "suggested_key": "auto.dashboard.7f3a55b2e8",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "span",
+          "attr": "",
+          "line": 1344
+        }
+      ]
+    },
+    {
+      "text": "查询",
+      "suggested_key": "auto.history.bee912d79e",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "text": "模型类型",
+      "suggested_key": "auto.admin_digitals.5f80d9b7d5",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 71
+        }
+      ]
+    },
+    {
+      "text": "欢迎使用留学问答AI助手！您可以咨询留学申请、院校选择、专业规划等问题。",
+      "suggested_key": "auto.dashboard.6ca6db149e",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 1445
+        }
+      ]
+    },
+    {
+      "text": "正在加载历史会话...",
+      "suggested_key": "auto.dashboard.186d466165",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 1320
+        }
+      ]
+    },
+    {
+      "text": "正在聆听...",
+      "suggested_key": "auto.dashboard.775d16b546",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "span",
+          "attr": "",
+          "line": 1414
+        }
+      ]
+    },
+    {
+      "text": "正常",
+      "suggested_key": "auto.admin_students.fd6e80f1e0",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 51
+        }
+      ]
+    },
+    {
+      "text": "注册后可使用学生身份登录并查看个人会话历史",
+      "suggested_key": "auto.student_register.55f18b5c4a",
+      "count": 1,
+      "files": [
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 51
+        }
+      ]
+    },
+    {
+      "text": "注册时间",
+      "suggested_key": "auto.admin_students.87d5eb8f88",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 84
+        }
+      ]
+    },
+    {
+      "text": "注：当前为前端管理界面占位（本地 localStorage 模拟数据）。如你要接入 SQLite KB 的真实增删改查/导入导出，我可以在后续补后端 API。",
+      "suggested_key": "auto.admin_kb.d08245e49c",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 41
+        }
+      ]
+    },
+    {
+      "text": "清空编辑区",
+      "suggested_key": "auto.admin_kb.d950abcf68",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 112
+        }
+      ]
+    },
+    {
+      "text": "清空身份预设",
+      "suggested_key": "auto.admin_digitals.532f6dbb06",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 93
+        }
+      ]
+    },
+    {
+      "text": "满意度评分：",
+      "suggested_key": "auto.history.8e06edd184",
+      "count": 1,
+      "files": [
+        "history.html"
+      ],
+      "occurrences": [
+        {
+          "file": "history.html",
+          "kind": "text",
+          "tag": "span",
+          "attr": "",
+          "line": 56
+        }
+      ]
+    },
+    {
+      "text": "点击开始连接与AI留学顾问对话",
+      "suggested_key": "auto.dashboard.eee295286b",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "p",
+          "attr": "",
+          "line": 1375
+        }
+      ]
+    },
+    {
+      "text": "点此处手工授权wss://127.0.0.1:10095/",
+      "suggested_key": "auto.index.f0aac10b62",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "text": "热词设置(一行一个关键字，空格隔开权重,如\"阿里巴巴 20\")：",
+      "suggested_key": "auto.index.0d9fd4e39e",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 57
+        }
+      ]
+    },
+    {
+      "text": "用户ID",
+      "suggested_key": "auto.admin_students.30acd20d6e",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "text": "用户工作台 / 实时对话",
+      "suggested_key": "auto.dashboard.f4235136d1",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 1357
+        }
+      ]
+    },
+    {
+      "text": "留学咨询数字人管理平台 - 登录",
+      "suggested_key": "auto.login.25a3977dd5",
+      "count": 1,
+      "files": [
+        "login.html"
+      ],
+      "occurrences": [
+        {
+          "file": "login.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "text": "留学咨询智能数字人平台使用说明",
+      "suggested_key": "auto.help.122a950286",
+      "count": 1,
+      "files": [
+        "help.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "p",
+          "attr": "",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "text": "留学申请流程",
+      "suggested_key": "auto.dashboard.b40206803e",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1421
+        }
+      ]
+    },
+    {
+      "text": "留学费用明细",
+      "suggested_key": "auto.dashboard.0990049265",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1425
+        }
+      ]
+    },
+    {
+      "text": "留学问答AI助手",
+      "suggested_key": "auto.dashboard.f60acb84e7",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "h1",
+          "attr": "",
+          "line": 1337
+        }
+      ]
+    },
+    {
+      "text": "留学问答AI助手 - 智能数字人直播平台",
+      "suggested_key": "auto.dashboard.3fe64a52bc",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "text": "留学问答对话",
+      "suggested_key": "auto.dashboard.4222339194",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "h3",
+          "attr": "",
+          "line": 1440
+        }
+      ]
+    },
+    {
+      "text": "登录密码 *",
+      "suggested_key": "auto.student_register.9ecdbebda0",
+      "count": 1,
+      "files": [
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 87
+        }
+      ]
+    },
+    {
+      "text": "登录账号",
+      "suggested_key": "auto.admin_students.bb2cdfacbf",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 82
+        }
+      ]
+    },
+    {
+      "text": "登录账号 *",
+      "suggested_key": "auto.student_register.c47fb14aec",
+      "count": 1,
+      "files": [
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 83
+        }
+      ]
+    },
+    {
+      "text": "的目录并写入管理库。身份预设走",
+      "suggested_key": "auto.admin_digitals.1bf6963133",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 52
+        }
+      ]
+    },
+    {
+      "text": "知识分类",
+      "suggested_key": "auto.admin_kb.162334c552",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 49
+        }
+      ]
+    },
+    {
+      "text": "知识库管理 - 留学咨询数字人管理平台",
+      "suggested_key": "auto.admin_kb.b793a04991",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "text": "知识条目列表 + 编辑区",
+      "suggested_key": "auto.admin_kb.61aba50606",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "text": "禁用",
+      "suggested_key": "auto.admin_students.710ad08b11",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 52
+        }
+      ]
+    },
+    {
+      "text": "第 1 页",
+      "suggested_key": "auto.admin_students.a6ef7a2f96",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 92
+        }
+      ]
+    },
+    {
+      "text": "答案（标准回答）",
+      "suggested_key": "auto.admin_kb.c3ef1ce8b8",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 86
+        }
+      ]
+    },
+    {
+      "text": "签证办理要求",
+      "suggested_key": "auto.dashboard.c7dc68524c",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1422
+        }
+      ]
+    },
+    {
+      "text": "简体中文",
+      "suggested_key": "auto.admin_kb.d688a3a4d0",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "option",
+          "attr": "",
+          "line": 97
+        }
+      ]
+    },
+    {
+      "text": "编号",
+      "suggested_key": "auto.admin_digitals.c515f3385e",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 42
+        }
+      ]
+    },
+    {
+      "text": "编辑区（点击左侧条目加载）",
+      "suggested_key": "auto.admin_kb.c040ff433e",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 70
+        }
+      ]
+    },
+    {
+      "text": "自动连接",
+      "suggested_key": "auto.dashboard.48b19cb8cb",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 1500
+        }
+      ]
+    },
+    {
+      "text": "设置",
+      "suggested_key": "auto.dashboard.e366ccf155",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1434
+        }
+      ]
+    },
+    {
+      "text": "语言",
+      "suggested_key": "auto.admin_kb.295bb704f5",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 95
+        }
+      ]
+    },
+    {
+      "text": "语言考试介绍",
+      "suggested_key": "auto.dashboard.05e09fd2bb",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1423
+        }
+      ]
+    },
+    {
+      "text": "语调",
+      "suggested_key": "auto.admin_digitals.ed8cd16726",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 123
+        }
+      ]
+    },
+    {
+      "text": "语速",
+      "suggested_key": "auto.admin_digitals.595d51e5f5",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 120
+        }
+      ]
+    },
+    {
+      "text": "语速调节",
+      "suggested_key": "auto.dashboard.873ae7107f",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 1493
+        }
+      ]
+    },
+    {
+      "text": "语音引擎",
+      "suggested_key": "auto.dashboard.f18f8556ae",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 1478
+        }
+      ]
+    },
+    {
+      "text": "语音识别",
+      "suggested_key": "auto.index.7c306e8832",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "title",
+          "attr": "",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "text": "语音识别结果显示：",
+      "suggested_key": "auto.index.1ad314a186",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "br",
+          "attr": "",
+          "line": 65
+        }
+      ]
+    },
+    {
+      "text": "语音输入",
+      "suggested_key": "auto.dashboard.688ad1c3b5",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "attribute",
+          "tag": "button",
+          "attr": "title",
+          "line": 1403
+        }
+      ]
+    },
+    {
+      "text": "请点击开始",
+      "suggested_key": "auto.index.b254bfb62a",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 71
+        }
+      ]
+    },
+    {
+      "text": "请输入数字人的身份信息，例如： 您是一位专业的留学顾问，拥有10年留学咨询经验，擅长美国、英国、加拿大等国家的留学申请...",
+      "suggested_key": "auto.dashboard.6e7936f253",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "attribute",
+          "tag": "textarea",
+          "attr": "placeholder",
+          "line": 1459
+        }
+      ]
+    },
+    {
+      "text": "账号状态",
+      "suggested_key": "auto.admin_students.d05d902f6e",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 83
+        }
+      ]
+    },
+    {
+      "text": "身份类型",
+      "suggested_key": "auto.admin_digitals.759ca47c3b",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "th",
+          "attr": "",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "text": "身份预设（将作为系统提示注入给大模型）",
+      "suggested_key": "auto.admin_digitals.8a4c281f75",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 86
+        }
+      ]
+    },
+    {
+      "text": "输入您的留学问题...",
+      "suggested_key": "auto.dashboard.3a10f5e6d2",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "attribute",
+          "tag": "textarea",
+          "attr": "placeholder",
+          "line": 1401
+        }
+      ]
+    },
+    {
+      "text": "输入数字人的身份预设描述...",
+      "suggested_key": "auto.admin_digitals.14b5ffa3d9",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "attribute",
+          "tag": "textarea",
+          "attr": "placeholder",
+          "line": 87
+        }
+      ]
+    },
+    {
+      "text": "返回登录",
+      "suggested_key": "auto.student_register.977deb3c88",
+      "count": 1,
+      "files": [
+        "student_register.html"
+      ],
+      "occurrences": [
+        {
+          "file": "student_register.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 93
+        }
+      ]
+    },
+    {
+      "text": "进入主页后先点击“开始连接”，连接成功后在右侧输入问题或点击快捷提问。",
+      "suggested_key": "auto.help.8e75881df2",
+      "count": 1,
+      "files": [
+        "help.html"
+      ],
+      "occurrences": [
+        {
+          "file": "help.html",
+          "kind": "text",
+          "tag": "p",
+          "attr": "",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "text": "连接",
+      "suggested_key": "auto.index.30f7dd4ecd",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 73
+        }
+      ]
+    },
+    {
+      "text": "逆文本标准化(ITN):",
+      "suggested_key": "auto.index.6f0acd1f30",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 51
+        }
+      ]
+    },
+    {
+      "text": "选择asr模型模式:",
+      "suggested_key": "auto.index.68ec5e4366",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "text": "选择左侧数字人后自动填充",
+      "suggested_key": "auto.admin_digitals.2d862058b5",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "attribute",
+          "tag": "input",
+          "attr": "placeholder",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "text": "选择录音模式:",
+      "suggested_key": "auto.index.77cca19daf",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "text": "重置",
+      "suggested_key": "auto.admin_students.4b9c3271dc",
+      "count": 1,
+      "files": [
+        "admin_students.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_students.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 56
+        }
+      ]
+    },
+    {
+      "text": "问题（用户问法）",
+      "suggested_key": "auto.admin_kb.8496cadd16",
+      "count": 1,
+      "files": [
+        "admin_kb.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_kb.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 81
+        }
+      ]
+    },
+    {
+      "text": "阿里巴巴 20 hello world 40",
+      "suggested_key": "auto.index.9d1c1b8a48",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "textarea",
+          "attr": "",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "text": "院校选择推荐",
+      "suggested_key": "auto.dashboard.1b827dd4eb",
+      "count": 1,
+      "files": [
+        "dashboard.html"
+      ],
+      "occurrences": [
+        {
+          "file": "dashboard.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 1424
+        }
+      ]
+    },
+    {
+      "text": "音色",
+      "suggested_key": "auto.admin_digitals.d09e4a62f0",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 126
+        }
+      ]
+    },
+    {
+      "text": "预览",
+      "suggested_key": "auto.admin_digitals.645dbc5504",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "button",
+          "attr": "",
+          "line": 94
+        }
+      ]
+    },
+    {
+      "text": "麦克风",
+      "suggested_key": "auto.index.e9f5e3b1d3",
+      "count": 1,
+      "files": [
+        "asr/index.html"
+      ],
+      "occurrences": [
+        {
+          "file": "asr/index.html",
+          "kind": "text",
+          "tag": "label",
+          "attr": "",
+          "line": 29
+        }
+      ]
+    },
+    {
+      "text": "；动作与 TTS 已落库 SQLite。",
+      "suggested_key": "auto.admin_digitals.950fba5fc8",
+      "count": 1,
+      "files": [
+        "admin_digitals.html"
+      ],
+      "occurrences": [
+        {
+          "file": "admin_digitals.html",
+          "kind": "text",
+          "tag": "div",
+          "attr": "",
+          "line": 52
+        }
+      ]
+    }
+  ]
+}

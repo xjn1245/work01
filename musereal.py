@@ -268,16 +268,28 @@ class MuseReal(BaseReal):
         recon = self.vae.decode_latents(pred_latents)
       
 
-    def paste_back_frame(self,pred_frame,idx:int):
+    def paste_back_frame(self, pred_frame, idx: int, base_frame=None, expression_face_crop=None):
         bbox = self.coord_list_cycle[idx]
-        ori_frame = copy.deepcopy(self.frame_list_cycle[idx])
         x1, y1, x2, y2 = bbox
 
-        res_frame = cv2.resize(pred_frame.astype(np.uint8),(x2-x1,y2-y1))
+        ori_frame = base_frame if base_frame is not None else copy.deepcopy(self.frame_list_cycle[idx])
+
+        if expression_face_crop is not None:
+            exp_resized = cv2.resize(
+                expression_face_crop.astype(np.uint8),
+                (x2 - x1, y2 - y1),
+            )
+            ori_frame[y1:y2, x1:x2] = exp_resized
+
+        # 口型也用 LivePortrait：pred_frame 允许为 None（此时只贴 expression_face_crop）
+        if pred_frame is None:
+            return ori_frame
+
+        res_frame = cv2.resize(pred_frame.astype(np.uint8), (x2 - x1, y2 - y1))
         mask = self.mask_list_cycle[idx]
         mask_crop_box = self.mask_coords_list_cycle[idx]
 
-        combine_frame = get_image_blending(ori_frame,res_frame,bbox,mask,mask_crop_box)
+        combine_frame = get_image_blending(ori_frame, res_frame, bbox, mask, mask_crop_box)
         return combine_frame
             
     def render(self,quit_event,loop=None,audio_track=None,video_track=None):

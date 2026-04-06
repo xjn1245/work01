@@ -206,15 +206,37 @@ class LipReal(BaseReal):
     # def __del__(self):
     #     logger.info(f'lipreal({self.sessionid}) delete')
 
-    def paste_back_frame(self,pred_frame,idx:int):
+    def paste_back_frame(self, pred_frame, idx: int, base_frame=None, expression_face_crop=None):
+        """
+        wav2lip 的 pred_frame 会覆盖整个人脸 bbox。
+        为了接入 LivePortrait 表情底图，这里改为“只覆盖嘴部区域”（默认下半脸），
+        使上半脸可以来自 expression_face_crop。
+        """
         bbox = self.coord_list_cycle[idx]
-        combine_frame = copy.deepcopy(self.frame_list_cycle[idx])
-        #combine_frame = copy.deepcopy(self.imagecache.get_img(idx))
         y1, y2, x1, x2 = bbox
-        res_frame = cv2.resize(pred_frame.astype(np.uint8),(x2-x1,y2-y1))
-        #combine_frame = get_image(ori_frame,res_frame,bbox)
-        #t=time.perf_counter()
-        combine_frame[y1:y2, x1:x2] = res_frame
+
+        combine_frame = base_frame if base_frame is not None else copy.deepcopy(self.frame_list_cycle[idx])
+
+        if expression_face_crop is not None:
+            exp_resized = cv2.resize(
+                expression_face_crop.astype(np.uint8),
+                (x2 - x1, y2 - y1),
+            )
+            combine_frame[y1:y2, x1:x2] = exp_resized
+
+        # 口型也用 LivePortrait：pred_frame 允许为 None（此时只贴 expression_face_crop）
+        if pred_frame is None:
+            return combine_frame
+
+        res_frame = cv2.resize(pred_frame.astype(np.uint8), (x2 - x1, y2 - y1))
+
+        # 嘴部覆盖策略：与 generate_mask(img_masked[:, face.shape[0]//2:]=0 保持一致，取下半脸
+        # 口型覆盖边界：不要覆盖到上半脸，否则 LivePortrait 的“眼鼻脸部表情”会被擦掉。
+        # 经验比例：256x256 face crop 内嘴部大致从 y~140 开始，所以取 0.55*h。
+        h_bbox = y2 - y1
+        y_cut_rel = int(h_bbox * 0.55)
+        combine_frame[y1 + y_cut_rel : y2, x1:x2] = res_frame[y_cut_rel:, :]
+
         return combine_frame
             
     def render(self,quit_event,loop=None,audio_track=None,video_track=None):

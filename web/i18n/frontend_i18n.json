@@ -1,0 +1,3606 @@
+{
+  "version": 1,
+  "sourceLang": "zh-CN",
+  "strings": {
+    "'+recAudioWorklet+'注册失败": {
+      "key": "k_ca77230b7615e798",
+      "en": "Failed to register '+recAudioWorklet+'",
+      "ja": "'+recAudioWorklet+'の登録に失敗しました",
+      "ko": "'+recAudioWorklet+' 등록 실패"
+    },
+    "(可留空)": {
+      "key": "k_8b6b980a10f2cddb",
+      "en": "(Optional)",
+      "ja": "(空にできます)",
+      "ko": "(비워둘 수 있음)"
+    },
+    ".addModule失败": {
+      "key": "k_242091ce5c0312a7",
+      "en": ".addModule failed",
+      "ja": ".addModuleに失敗しました",
+      "ko": ".addModule 실패"
+    },
+    "1 - 很不满意": {
+      "key": "k_be4facb6559a8b6a",
+      "en": "1 - Very dissatisfied",
+      "ja": "1 - 非常に不満",
+      "ko": "1 - 매우 불만"
+    },
+    "1. 如何开始对话": {
+      "key": "k_c45e8c4bf0c78ef1",
+      "en": "1. How to start a conversation",
+      "ja": "1. 会話を開始するには",
+      "ko": "1. 대화를 시작하는 방법"
+    },
+    "2 - 不满意": {
+      "key": "k_702947ed6f126f7c",
+      "en": "2 - Dissatisfied",
+      "ja": "2 - 不満",
+      "ko": "2 - 불만"
+    },
+    "2. 常见问题": {
+      "key": "k_6ac808fc8a348fd3",
+      "en": "2. Frequently Asked Questions",
+      "ja": "2. 一般的な質問",
+      "ko": "2. 흔한 질문"
+    },
+    "3 - 一般": {
+      "key": "k_253dcde8cff5710d",
+      "en": "3 - General",
+      "ja": "3 - 一般的",
+      "ko": "3 - 일반"
+    },
+    "3. 功能说明": {
+      "key": "k_644048d39340c49f",
+      "en": "3. Function Description",
+      "ja": "3. 機能説明",
+      "ko": "3. 기능 설명"
+    },
+    "4 - 满意": {
+      "key": "k_46c504de439c42eb",
+      "en": "4 - Satisfied",
+      "ja": "4 - 満足",
+      "ko": "4 - 만족"
+    },
+    "5 - 非常满意": {
+      "key": "k_c343a25d3a1bf14c",
+      "en": "5 - Very satisfied",
+      "ja": "5 - 非常に満足",
+      "ko": "5 - 매우 만족"
+    },
+    "=false可恢复使用": {
+      "key": "k_e6de284678411471",
+      "en": "=false can be recovered",
+      "ja": "=falseを復元可能",
+      "ko": "=false를 복구 가능"
+    },
+    "=false可恢复老式": {
+      "key": "k_727dc021205c1003",
+      "en": "=false can be restored to the old style",
+      "ja": "=falseを古いスタイルに復元可能",
+      "ko": "=false를 오래된 스타일로 복구 가능"
+    },
+    "=true尝试启用": {
+      "key": "k_a331cb1317a71efc",
+      "en": "=true try to enable",
+      "ja": "=trueを試して有効にする",
+      "ko": "=true를 시도하여 활성화"
+    },
+    "AI模型": {
+      "key": "k_70de7f4c32c839c6",
+      "en": "AI model",
+      "ja": "AIモデル",
+      "ko": "AI 모델"
+    },
+    "AI留学顾问直播": {
+      "key": "k_294e23ac8b21d563",
+      "en": "AI Study Abroad Consultant Live Stream",
+      "ja": "AI留学アドバイザーのライブ配信",
+      "ko": "AI 해외 유학 컨설턴트 라이브 스트리밍"
+    },
+    "Connect采用": {
+      "key": "k_a5183a30fd79d457",
+      "en": "Connect adoption",
+      "ja": "Connectの採用",
+      "ko": "Connect 채택"
+    },
+    "Connect采用老的": {
+      "key": "k_f6a6e9c25331e621",
+      "en": "Old Connect adoption",
+      "ja": "古いConnectの採用",
+      "ko": "구버전 Connect 채택"
+    },
+    "SampleData似乎传入了未重置chunk": {
+      "key": "k_8737b5400fefa149",
+      "en": "SampleData seems to have passed an unreset chunk",
+      "ja": "SampleDataはリセットされていないchunkを渡したようです",
+      "ko": "SampleData가 재설정되지 않은 chunk를 전달한 것 같습니다"
+    },
+    "TTS 配置（按形象落库）": {
+      "key": "k_4b18a8185bdcba39",
+      "en": "TTS Configuration (based on image storage)",
+      "ja": "TTS設定（キャラクターに応じた保存）",
+      "ko": "TTS 설정(캐릭터별 저장)"
+    },
+    "Wav2Lip (推荐)": {
+      "key": "k_9e6197fac7cf8b93",
+      "en": "Wav2Lip (Recommended)",
+      "ja": "Wav2Lip（推奨）",
+      "ko": "Wav2Lip(추천)"
+    },
+    "WebM 16改32位": {
+      "key": "k_c34f5ad465409b3e",
+      "en": "WebM 16 to 32-bit",
+      "ja": "WebM 16から32ビットへ",
+      "ko": "WebM 16에서 32비트로"
+    },
+    "WebM Track非预期": {
+      "key": "k_1ec7e710029b05b6",
+      "en": "WebM Track is unexpected",
+      "ja": "WebMトラックが予期せずに",
+      "ko": "WebM 트랙이 예상치 못하게"
+    },
+    "asr服务器地址(必填):": {
+      "key": "k_05b847bad667752a",
+      "en": "asr server address (required):",
+      "ja": "asrサーバーのアドレス（必須）:",
+      "ko": "asr 서버 주소(필수):"
+    },
+    "close被忽略（因为同时open了多个rec，只有最后一个会真正close）": {
+      "key": "k_e87847750bf790b7",
+      "en": "close is ignored (because multiple recs are opened at the same time, only the last one will be truly closed)",
+      "ja": "closeは無視されます（複数のrecを同時に開いたため、最後のものだけが実際に閉じられます）",
+      "ko": "close는 무시됩니다(동시에 여러 개의 rec를 열었기 때문에 마지막 것만 실제로 닫힙니다)"
+    },
+    "ms 文件大小": {
+      "key": "k_4af4a262a1b58497",
+      "en": "ms file size",
+      "ja": "ms ファイルサイズ",
+      "ko": "ms 파일 크기"
+    },
+    "ms 补偿": {
+      "key": "k_ba1ad1fdf6b6220a",
+      "en": "ms compensation",
+      "ja": "ms 補償",
+      "ko": "ms 보상"
+    },
+    "ms 音频时长": {
+      "key": "k_6ff83feefafd42c0",
+      "en": "ms audio duration",
+      "ja": "ms 音声長",
+      "ko": "ms 오디오 길이"
+    },
+    "open被中断": {
+      "key": "k_d87bf7bcdb7dea96",
+      "en": "open was interrupted",
+      "ja": "open が中断されました",
+      "ko": "open이 중단되었습니다"
+    },
+    "open被取消": {
+      "key": "k_b54aa35ade022c00",
+      "en": "open was canceled",
+      "ja": "open がキャンセルされました",
+      "ko": "open이 취소되었습니다"
+    },
+    "pcm2wav必须先加载wav编码器wav.js": {
+      "key": "k_35acfecdfb456b6a",
+      "en": "pcm2wav must load the wav encoder wav.js first",
+      "ja": "pcm2wavはまずwavエンコーダーのwav.jsをロードする必要があります",
+      "ko": "pcm2wav은 먼저 wav 인코더인 wav.js를 로드해야 합니다"
+    },
+    "pcm2wav必须提供sampleRate和bitRate": {
+      "key": "k_7de7252816d098ac",
+      "en": "pcm2wav must provide sampleRate and bitRate",
+      "ja": "pcm2wavはsampleRateとbitRateを提供する必要があります",
+      "ko": "pcm2wav은 sampleRate와 bitRate를 제공해야 합니다"
+    },
+    "pcm为未封装的原始音频数据，pcm数据文件无法直接播放；支持位数8位、16位（填在比特率里面），采样率取值无限制": {
+      "key": "k_d338340ebd050a13",
+      "en": "pcm is raw audio data without packaging, pcm data files cannot be played directly; supported bit numbers are 8-bit and 16-bit (filled in the bit rate), and there is no limit on the sampling rate",
+      "ja": "pcmはカプセル化されていない元の音声データであり、pcmデータファイルは直接再生できません。サポートされているビット数は8ビット、16ビット（ビットレートに記入）で、サンプリングレートの値には制限がありません",
+      "ko": "pcm은 래핑되지 않은 원본 음성 데이터이며, pcm 데이터 파일은 직접 재생할 수 없습니다. 지원되는 비트 수는 8비트, 16비트(비트레이트에 입력)이며, 샘플링 주파수의 값에는 제한이 없습니다"
+    },
+    "start被中断": {
+      "key": "k_be2c09b84b4a310d",
+      "en": "start is interrupted",
+      "ja": "startが中断されました",
+      "ko": "start가 중단되었습니다"
+    },
+    "stop 和start时差": {
+      "key": "k_51593fcf5a69da60",
+      "en": "time difference between stop and start",
+      "ja": "stopとstartの時間差",
+      "ko": "stop과 start의 시간 차이"
+    },
+    "。由于": {
+      "key": "k_afafa5b84e1c8ac1",
+      "en": "Due to",
+      "ja": "由於",
+      "ko": "불량"
+    },
+    "一键应用到全部": {
+      "key": "k_3e6ce8a52fb1cdbb",
+      "en": "Apply to all with one click",
+      "ja": "すべてにワンクリックで適用",
+      "ko": "모든 항목에 한 번에 적용"
+    },
+    "上一页": {
+      "key": "k_b41561d80765888e",
+      "en": "Previous page",
+      "ja": "前ページ",
+      "ko": "이전 페이지"
+    },
+    "下一页": {
+      "key": "k_67a246a344ae111a",
+      "en": "Next page",
+      "ja": "次ページ",
+      "ko": "다음 페이지"
+    },
+    "下含": {
+      "key": "k_0b6c55ccc09c4aac",
+      "en": "Includes",
+      "ja": "含まれる",
+      "ko": "포함"
+    },
+    "下载图表PNG": {
+      "key": "k_26e34441bab6010a",
+      "en": "Download chart PNG",
+      "ja": "チャートのPNGをダウンロード",
+      "ko": "차트 PNG 다운로드"
+    },
+    "下载导入模板": {
+      "key": "k_111340ae39da1973",
+      "en": "Download import template",
+      "ja": "インポートテンプレートをダウンロード",
+      "ko": "인수 템플릿 다운로드"
+    },
+    "下载新密码清单(CSV)": {
+      "key": "k_3cf6e29742c3a475",
+      "en": "Download new password list (CSV)",
+      "ja": "新しいパスワードリスト（CSV）をダウンロード",
+      "ko": "새로운 비밀번호 목록(CSV) 다운로드"
+    },
+    "不支持": {
+      "key": "k_ef8274b96890b0ae",
+      "en": "Not supported",
+      "ja": "サポートされていません",
+      "ko": "지원되지 않음"
+    },
+    "不支持此浏览器从流中获取录音": {
+      "key": "k_a6116e61d9b5bebc",
+      "en": "This browser does not support recording from stream",
+      "ja": "このブラウザはストリームからの録音をサポートしていません",
+      "ko": "이 브라우저는 스트림에서 녹음을 지원하지 않습니다"
+    },
+    "不能录音：": {
+      "key": "k_a4c232335b9129b3",
+      "en": "Cannot record:",
+      "ja": "録音できません：",
+      "ko": "녹음할 수 없습니다:"
+    },
+    "专业": {
+      "key": "k_443b26616a7f00dd",
+      "en": "Professional",
+      "ja": "専門的",
+      "ko": "전문적인"
+    },
+    "专业词汇发音规则（占位）": {
+      "key": "k_eed111b76ddabdd4",
+      "en": "Professional vocabulary pronunciation rules (placeholder)",
+      "ja": "専門用語の発音ルール（プレースホルダー）",
+      "ko": "전문 용어 발음 규칙 (위치 표시자)"
+    },
+    "业务身份标签": {
+      "key": "k_bf7487146d8e0f3b",
+      "en": "Business identity tag",
+      "ja": "業務アイデンティティタグ",
+      "ko": "업무 신분 태그"
+    },
+    "中文(简体)": {
+      "key": "k_d52a005e719374f4",
+      "en": "Chinese (Simplified)",
+      "ja": "中国語（簡体字）",
+      "ko": "중국어(간체자)"
+    },
+    "今日会话数": {
+      "key": "k_a54817ecd65bea44",
+      "en": "今日会话数",
+      "ja": "今日会话数",
+      "ko": "今日会话数"
+    },
+    "从流中打开录音失败：": {
+      "key": "k_5615c65fec4de68c",
+      "en": "Failed to open recording from stream:",
+      "ja": "ストリームから録音を開けませんでした：",
+      "ko": "스트림에서 녹음을 열 수 없습니다："
+    },
+    "从资源目录推断": {
+      "key": "k_b6ce0c60650965a9",
+      "en": "Infer from resource directory",
+      "ja": "リソースディレクトリから推測する",
+      "ko": "자원 디렉토리에서 추론"
+    },
+    "会话ID": {
+      "key": "k_e6cb120241a7f88d",
+      "en": "Session ID",
+      "ja": "セッションID",
+      "ko": "세션 ID"
+    },
+    "会话列表": {
+      "key": "k_b77b641ed6797c93",
+      "en": "Chat List",
+      "ja": "チャット一覧",
+      "ko": "채팅 목록"
+    },
+    "会话记录": {
+      "key": "k_8150043c567aa551",
+      "en": "Conversation records",
+      "ja": "チャット記録",
+      "ko": "대화 기록"
+    },
+    "会话记录 - 留学咨询数字人管理平台": {
+      "key": "k_0f001a75906a9e2f",
+      "en": "Conversation Records - Digital Human Management Platform for Study Abroad Consultation",
+      "ja": "チャット記録 - 海外留学相談デジタル人間管理プラットフォーム",
+      "ko": "대화 기록 - 해외 유학 상담 디지털 인간 관리 플랫폼"
+    },
+    "会话详情": {
+      "key": "k_5446baecd9ae736a",
+      "en": "Session Details",
+      "ja": "セッションの詳細",
+      "ko": "세션 세부 정보"
+    },
+    "但已": {
+      "key": "k_3376d57e1657b20a",
+      "en": "But already",
+      "ja": "しかしすでに",
+      "ko": "하지만 이미"
+    },
+    "低性能，耗时": {
+      "key": "k_faefe883c17bd275",
+      "en": "Low performance, time-consuming",
+      "ja": "低性能で時間がかかる",
+      "ko": "저성능이며 시간이 오래 걸림"
+    },
+    "例如 IP / 自定义 user_id": {
+      "key": "k_42f24fff1526c821",
+      "en": "For example IP / custom user_id",
+      "ja": "例: IP / カスタム user_id",
+      "ko": "예: IP / 커스텀 user_id"
+    },
+    "例如：0.8（占位）": {
+      "key": "k_c503acfcac8437bb",
+      "en": "For example: 0.8 (placeholder)",
+      "ja": "例: 0.8（プレースホルダ）",
+      "ko": "예: 0.8(플레이스홀더)"
+    },
+    "例如：1.0（占位）": {
+      "key": "k_d9c184089e9c72ce",
+      "en": "For example: 1.0 (placeholder)",
+      "ja": "例: 1.0（プレースホルダ）",
+      "ko": "예: 1.0(플레이스홀더)"
+    },
+    "例如：2026-03-31": {
+      "key": "k_9bcac4fbba0e0606",
+      "en": "For example: 2026-03-31",
+      "ja": "例: 2026-03-31",
+      "ko": "예: 2026-03-31"
+    },
+    "例如：XX=...（占位）": {
+      "key": "k_e2a1709a71055b94",
+      "en": "For example: XX=... (placeholder)",
+      "ja": "例: XX=...（プレースホルダ）",
+      "ko": "예: XX=...(플레이스홀더)"
+    },
+    "例如：zh-CN-YunxiaNeural（占位）": {
+      "key": "k_4ca34dd5a3290cf1",
+      "en": "For example: zh-CN-YunxiaNeural (placeholder)",
+      "ja": "例: zh-CN-YunxiaNeural（プレースホルダー）",
+      "ko": "예: zh-CN-YunxiaNeural(플레이스홀더)"
+    },
+    "例如：签证, 资金证明, 学费": {
+      "key": "k_a423160e0188a777",
+      "en": "For example: visa, proof of funds, tuition",
+      "ja": "例: 署名、資金証明、授業料",
+      "ko": "예: 비자, 자금 증명, 등록금"
+    },
+    "保存": {
+      "key": "k_fadf24dbc5a9e0bb",
+      "en": "Save",
+      "ja": "保存",
+      "ko": "저장"
+    },
+    "保存 TTS 配置": {
+      "key": "k_4dc7f3abb4795b24",
+      "en": "Save TTS configuration",
+      "ja": "TTS設定を保存",
+      "ko": "TTS 설정 저장"
+    },
+    "保存档案": {
+      "key": "k_0ed56570afb73519",
+      "en": "Save file",
+      "ja": "ファイルを保存",
+      "ko": "파일 저장"
+    },
+    "保存身份": {
+      "key": "k_e7fc84f0cfe8fed7",
+      "en": "Save Identity",
+      "ja": "アイデンティティを保存",
+      "ko": "아이디ENTITY 저장"
+    },
+    "保存身份预设": {
+      "key": "k_621e9081782dfd1b",
+      "en": "Save Identity Preset",
+      "ja": "アイデンティティのプリセットを保存",
+      "ko": "아이디ENTITY 프리셋 저장"
+    },
+    "修改": {
+      "key": "k_c9c77517fe85af27",
+      "en": "Modify",
+      "ja": "変更",
+      "ko": "수정"
+    },
+    "修改密码": {
+      "key": "k_0ae20ac3af1b94db",
+      "en": "Change Password",
+      "ja": "パスワードを変更",
+      "ko": "비밀번호 변경"
+    },
+    "停止": {
+      "key": "k_a17f70a8d3d66e14",
+      "en": "Stop",
+      "ja": "ストップ",
+      "ko": "중지"
+    },
+    "全部": {
+      "key": "k_778fc8f99453571c",
+      "en": "All",
+      "ja": "すべて",
+      "ko": "모두"
+    },
+    "关键词标签（用于检索匹配，逗号分隔）": {
+      "key": "k_16dd01eb7a71a07e",
+      "en": "Keyword tags (for search matching, comma separated)",
+      "ja": "キーワードタグ（検索一致用、カンマ区切り）",
+      "ko": "키워드 태그(검색 일치용, 쉼표로 구분)"
+    },
+    "关键词检索": {
+      "key": "k_06da23639d24ccbf",
+      "en": "Keyword search",
+      "ja": "キーワード検索",
+      "ko": "키워드 검색"
+    },
+    "关闭": {
+      "key": "k_6c14bd7f6f9e54e4",
+      "en": "Close",
+      "ja": "閉じる",
+      "ko": "닫기"
+    },
+    "关闭提示": {
+      "key": "k_c620893e29da3dd0",
+      "en": "Close prompt",
+      "ja": "閉じるプロンプト",
+      "ko": "닫기 팁"
+    },
+    "内部1秒375次回调，在移动端可能会有性能问题导致回调丢失录音变短，PC端无影响，暂不建议开启": {
+      "key": "k_aa0915afcfb3a134",
+      "en": "Internal callback 375 times per second, which may cause performance issues on mobile devices leading to lost callbacks and shortened recordings. No impact on PC, not recommended to enable for now",
+      "ja": "1秒間に375回の内部コールバックがあり、モバイル端末ではパフォーマンスの問題によりコールバックが失われて録音が短くなる可能性があります。PCでは影響ありませんが、一時的に推奨されません",
+      "ko": "1초당 375회 내부 콜백이 있으며, 모바일 기기에서는 성능 문제로 인해 콜백이 손실되어 녹음 시간이 짧아질 수 있습니다. PC에서는 영향이 없으며, 잠시 권장되지 않습니다"
+    },
+    "分类": {
+      "key": "k_435c5259e4dfb229",
+      "en": "Category",
+      "ja": "カテゴリ",
+      "ko": "분류"
+    },
+    "切换视频": {
+      "key": "k_eca5b542b8cd3efc",
+      "en": "Switch video",
+      "ja": "ビデオを切り替える",
+      "ko": "비디오 전환"
+    },
+    "切换顾问": {
+      "key": "k_a4e10545e3caf628",
+      "en": "Switch advisor",
+      "ja": "アドバイザーを切り替える",
+      "ko": "멘토 전환"
+    },
+    "列表与「同步磁盘形象」均会扫描": {
+      "key": "k_dc67ac7eeb1ad4f6",
+      "en": "List and \"Synchronize Disk Image\" will both be scanned",
+      "ja": "リストと「同期ディスクイメージ」は両方スキャンされます",
+      "ko": "리스트와 「동기화 디스크 이미지」는 모두 스캔됩니다"
+    },
+    "删除": {
+      "key": "k_3755f56f2f831876",
+      "en": "Delete",
+      "ja": "削除",
+      "ko": "삭제"
+    },
+    "加载中...": {
+      "key": "k_514c33af5cf4455f",
+      "en": "Loading...",
+      "ja": "読み込み中...",
+      "ko": "로딩 중..."
+    },
+    "动作编排（拖拽排序，前端占位）": {
+      "key": "k_295c003586c27d63",
+      "en": "Action arrangement (drag and drop sorting, front-end placeholder)",
+      "ja": "アクションの編成（ドラッグアンドドロップによる並べ替え、フロントエンドのプレースホルダー）",
+      "ko": "액션 배치(드래그 앤 드롭 정렬, 프론트엔드 자리 잡기)"
+    },
+    "历史对话": {
+      "key": "k_68387cc3de3621e4",
+      "en": "History conversation",
+      "ja": "履歴会話",
+      "ko": "이력 대화"
+    },
+    "发现同时多次调用open": {
+      "key": "k_bff51cbc564191a1",
+      "en": "Discovered multiple simultaneous calls to open",
+      "ja": "同時に複数回openを呼び出すことを発見",
+      "ko": "동시에 여러 번 open을 호출하는 것을 발견"
+    },
+    "发送完数据,请等候,正在识别...": {
+      "key": "k_49c5be46fc5b6dbd",
+      "en": "Data sent, please wait, identifying...",
+      "ja": "データを送信しました、お待ちください、識別中...",
+      "ko": "데이터를 전송했으니 기다려 주세요, 인식 중입니다..."
+    },
+    "可能无法录音：": {
+      "key": "k_f7b6077137471fbc",
+      "en": "May not be able to record:",
+      "ja": "録音できない可能性があります：",
+      "ko": "녹음이 불가능할 수 있습니다:"
+    },
+    "同步磁盘形象": {
+      "key": "k_b59ee3937606c1d1",
+      "en": "Synchronize disk image",
+      "ja": "ディスクイメージを同期します",
+      "ko": "디스크 이미지를 동기화합니다"
+    },
+    "名称": {
+      "key": "k_1be7ae4fc2571d6f",
+      "en": "Name",
+      "ja": "名前",
+      "ko": "이름"
+    },
+    "后台列表中补充说明": {
+      "key": "k_0955782bb107eebf",
+      "en": "Supplementary notes in the background list",
+      "ja": "バックグラウンドリストの補足説明",
+      "ko": "백그라운드 목록의 보충 설명"
+    },
+    "启用takeoffEncodeChunk后stop返回的blob长度为0不提供音频数据": {
+      "key": "k_4aebd8c5d3dca436",
+      "en": "After enabling takeoffEncodeChunk, the blob length returned by stop is 0 and does not provide audio data",
+      "ja": "takeoffEncodeChunkを有効にした後、stopで返されるblobの長さは0で、音声データを提供しません",
+      "ko": "takeoffEncodeChunk를 활성화한 후 stop에서 반환되는 블롭 길이는 0이며 음성 데이터를 제공하지 않습니다"
+    },
+    "周期": {
+      "key": "k_8a12b12125c2139c",
+      "en": "Cycle",
+      "ja": "サイクル",
+      "ko": "주기"
+    },
+    "咨询时间": {
+      "key": "k_14c62d9362695d59",
+      "en": "Consultation time",
+      "ja": "相談時間",
+      "ko": "상담 시간"
+    },
+    "咨询量趋势图加载中...": {
+      "key": "k_fbed36280bd24a69",
+      "en": "Loading consultation trend chart...",
+      "ja": "相談量のトレンドチャートを読み込んでいます...",
+      "ko": "상담량 추세도가 로드 중입니다..."
+    },
+    "响应(ms)": {
+      "key": "k_b0684a3f78fbabfc",
+      "en": "Response (ms)",
+      "ja": "応答（ms）",
+      "ko": "응답 (ms)"
+    },
+    "回答摘要": {
+      "key": "k_4c1b7392d302b58f",
+      "en": "Answer Summary",
+      "ja": "回答の要約",
+      "ko": "답변 요약"
+    },
+    "回调出错是不允许的，需保证不会抛异常": {
+      "key": "k_40588b1c697e2674",
+      "en": "Callback errors are not allowed, ensure that no exceptions are thrown",
+      "ja": "コールバックエラーは許可されていません。例外がスローされないことを確認してください",
+      "ko": "콜백 오류는 허용되지 않으며, 예외가 발생하지 않도록 해야 합니다"
+    },
+    "图表统计": {
+      "key": "k_6dd174be60f0399a",
+      "en": "Chart Statistics",
+      "ja": "チャート統計",
+      "ko": "차트 통계"
+    },
+    "在会话消息中模糊检索": {
+      "key": "k_481e5eb853745ed5",
+      "en": "Fuzzy Search in Session Messages",
+      "ja": "会話メッセージ内で曖昧検索",
+      "ko": "대화 메시지에서 불확실 검색"
+    },
+    "多余回调": {
+      "key": "k_8e2343b361fb4d93",
+      "en": "Redundant Callback",
+      "ja": "不要なコールバック",
+      "ko": "불필요한 콜백"
+    },
+    "失败,请检查asr地址和端口。或试试界面上手动授权，再连接。": {
+      "key": "k_3f83638392d1e770",
+      "en": "Failed, please check the ASR address and port. Or try manual authorization on the interface and reconnect.",
+      "ja": "失敗しました。ASRのアドレスとポートを確認してください。または、インターフェース上の手動認証を試してから接続してください。",
+      "ko": "실패했습니다. ASR 주소와 포트를 확인하십시오. 또는 인터페이스에서 수동 권한을 부여하고 다시 연결하십시오."
+    },
+    "如果无声音：检查浏览器音量、系统音频输出、TTS 引擎配置。": {
+      "key": "k_ab47480e40e9f616",
+      "en": "If there is no sound: check the browser volume, system audio output, and TTS engine configuration.",
+      "ja": "音声がない場合: ブラウザのボリューム、システムのオーディオ出力、TTSエンジンの設定を確認してください。",
+      "ko": "음성이 없는 경우: 브라우저 볼륨, 시스템 오디오 출력, TTS 엔진 설정을 확인하십시오."
+    },
+    "如果连接失败：检查网络、WebRTC 端口与后端日志。": {
+      "key": "k_8279ac4d097a9ba4",
+      "en": "If connection fails: check the network, WebRTC port, and backend logs.",
+      "ja": "接続に失敗した場合: ネットワーク、WebRTCポート、およびバックエンドログを確認してください。",
+      "ko": "연결에 실패한 경우: 네트워크, WebRTC 포트 및 백엔드 로그를 확인하십시오."
+    },
+    "如：留学顾问、签证官、院校介绍": {
+      "key": "k_dc01855501e16720",
+      "en": "For example: study abroad consultants, visa officers, school introductions",
+      "ja": "例: 留学コンサルタント、ビザ官、学校紹介",
+      "ko": "예: 유학 컨설턴트, 비자 관리자, 대학 소개"
+    },
+    "姓名": {
+      "key": "k_be4c2616b1776acc",
+      "en": "Name",
+      "ja": "名前",
+      "ko": "이름"
+    },
+    "学号": {
+      "key": "k_8d0ada2d0e8ffd5a",
+      "en": "Student ID",
+      "ja": "学生番号",
+      "ko": "학번"
+    },
+    "学号 *": {
+      "key": "k_6ab423f53e1f4544",
+      "en": "Student ID *",
+      "ja": "学生番号 *",
+      "ko": "학번 *"
+    },
+    "学生": {
+      "key": "k_b76783d38c00a7d5",
+      "en": "Student",
+      "ja": "生徒",
+      "ko": "학생"
+    },
+    "学生注册 - 留学咨询数字人管理平台": {
+      "key": "k_cd0e7c22a1811b2d",
+      "en": "Student Registration - Digital Human Management Platform for Overseas Study Consultation",
+      "ja": "学生登録 - 海外留学相談デジタル人管理プラットフォーム",
+      "ko": "학생 등록 - 해외 유학 상담 디지털 인 프로젝트 관리 플랫폼"
+    },
+    "学生账号注册": {
+      "key": "k_f525e2b2325f9c55",
+      "en": "Student Account Registration",
+      "ja": "学生アカウント登録",
+      "ko": "학생 계정 등록"
+    },
+    "学生账号管理": {
+      "key": "k_b22036e81cd1e398",
+      "en": "Student Account Management",
+      "ja": "学生アカウント管理",
+      "ko": "학생 계정 관리"
+    },
+    "学生账号管理 - 留学咨询数字人管理平台": {
+      "key": "k_16734e762e814425",
+      "en": "Student Account Management - Digital Human Management Platform for Overseas Study Consultation",
+      "ja": "学生アカウント管理 - 海外留学相談デジタル人管理プラットフォーム",
+      "ko": "학생 계정 관리 - 해외 유학 상담 디지털 인 프로젝트 관리 플랫폼"
+    },
+    "学生账号详情": {
+      "key": "k_87e84aefc3b33ab9",
+      "en": "Student Account Details",
+      "ja": "学生アカウントの詳細",
+      "ko": "학생 계정 세부 정보"
+    },
+    "学院": {
+      "key": "k_ebc4e5dc91441ba0",
+      "en": "College",
+      "ja": "学部",
+      "ko": "학과"
+    },
+    "学院/专业": {
+      "key": "k_f3b611cfc2551508",
+      "en": "College/Department",
+      "ja": "学部/専攻",
+      "ko": "학과/전공"
+    },
+    "实时连接 / 推理槽": {
+      "key": "k_677cb033b661e7d9",
+      "en": "Real-time Connection / Inference Slot",
+      "ja": "リアルタイム接続 / 推論スロット",
+      "ko": "실시간 연결 / 추론 슬롯"
+    },
+    "密码": {
+      "key": "k_c839a8ff17885af0",
+      "en": "Password",
+      "ja": "パスワード",
+      "ko": "비밀번호"
+    },
+    "对话": {
+      "key": "k_00d4cbafeabc2db4",
+      "en": "Conversation",
+      "ja": "会話",
+      "ko": "대화"
+    },
+    "导出Excel(.xlsx)": {
+      "key": "k_0ef9b9f2cbde4522",
+      "en": "Export Excel (.xlsx)",
+      "ja": "Excel (.xlsx) をエクスポート",
+      "ko": "Excel (.xlsx) 내보내기"
+    },
+    "导出我的会话(JSON)": {
+      "key": "k_df580afb3d4135b4",
+      "en": "Export My Session (JSON)",
+      "ja": "私のセッションをエクスポート (JSON)",
+      "ko": "내 세션(JSON) 내보내기"
+    },
+    "导出统计报告(JSON)": {
+      "key": "k_085ddc29b80506a5",
+      "en": "Export statistical report (JSON)",
+      "ja": "統計レポートのエクスポート（JSON）",
+      "ko": "통계 보고서(.JSON) 내보내기"
+    },
+    "展示说明（可选）": {
+      "key": "k_541d3c1ca68cb650",
+      "en": "Display instructions (optional)",
+      "ja": "表示説明（オプション）",
+      "ko": "표시 설명(선택 사항)"
+    },
+    "已注册形象数": {
+      "key": "k_bf139fcb9e6c5be6",
+      "en": "Number of registered characters",
+      "ja": "登録済みキャラクター数",
+      "ko": "등록된 캐릭터 수"
+    },
+    "帮助中心": {
+      "key": "k_32b8611e2751eaf2",
+      "en": "Help center",
+      "ja": "ヘルプセンター",
+      "ko": "도움말 센터"
+    },
+    "平台设置": {
+      "key": "k_f2e6f78e457459a4",
+      "en": "Platform settings",
+      "ja": "プラットフォーム設定",
+      "ko": "플랫폼 설정"
+    },
+    "平均响应时间(ms)": {
+      "key": "k_2099595a758547de",
+      "en": "Average response time (ms)",
+      "ja": "平均応答時間（ms）",
+      "ko": "평균 응답 시간 (ms)"
+    },
+    "平均满意度(1–5)": {
+      "key": "k_603c64948ffc6361",
+      "en": "Average satisfaction (1-5)",
+      "ja": "平均満足度（1〜5）",
+      "ko": "평균 만족도 (1~5)"
+    },
+    "开启字幕显示": {
+      "key": "k_86d4f1b04ff4f356",
+      "en": "Enable subtitles",
+      "ja": "字幕を表示する",
+      "ko": "자막 표시 활성화"
+    },
+    "开始": {
+      "key": "k_79cc871ca99292a4",
+      "en": "Start",
+      "ja": "開始",
+      "ko": "시작"
+    },
+    "开始录音": {
+      "key": "k_736ac7c73c671776",
+      "en": "Start recording",
+      "ja": "録音を開始",
+      "ko": "녹음 시작"
+    },
+    "开始日期（YYYY-MM-DD）": {
+      "key": "k_1a5388435ff05b03",
+      "en": "Start date (YYYY-MM-DD)",
+      "ja": "開始日付（YYYY-MM-DD）",
+      "ko": "시작 날짜 (YYYY-MM-DD)"
+    },
+    "开始连接": {
+      "key": "k_2003342bf817a94d",
+      "en": "Start connection",
+      "ja": "接続を開始する",
+      "ko": "연결 시작"
+    },
+    "当前值": {
+      "key": "k_8b0db6787147e5eb",
+      "en": "Current value",
+      "ja": "現在の値",
+      "ko": "현재 값"
+    },
+    "当前浏览器不支持 WebSocket": {
+      "key": "k_09417f3af4903656",
+      "en": "Current browser does not support WebSocket",
+      "ja": "現在のブラウザはWebSocketをサポートしていません",
+      "ko": "현재 브라우저는 WebSocket을 지원하지 않습니다"
+    },
+    "当前用户：访客": {
+      "key": "k_235e04cbc167e853",
+      "en": "Current user: Guest",
+      "ja": "現在のユーザー：ゲスト",
+      "ko": "현재 사용자: 손님"
+    },
+    "当前：": {
+      "key": "k_23ef9f06bac9208a",
+      "en": "Current:",
+      "ja": "現在：",
+      "ko": "현재:"
+    },
+    "录音open失败：": {
+      "key": "k_29674c2ab781ef8c",
+      "en": "Failed to open recording:",
+      "ja": "録音open失敗：",
+      "ko": "녹음 open 실패:"
+    },
+    "录音功能无效：无音频流": {
+      "key": "k_b144e14c7b63ace3",
+      "en": "Recording function is invalid: no audio stream",
+      "ja": "録音機能が無効です：オーディオストリームなし",
+      "ko": "녹음 기능이 무효입니다: 오디오 스트림 없음"
+    },
+    "录音错误：": {
+      "key": "k_b3720bf04aca8ab7",
+      "en": "Recording error:",
+      "ja": "録音エラー：",
+      "ko": "녹음 오류:"
+    },
+    "忽略": {
+      "key": "k_d84129b8beb2a76d",
+      "en": "Ignore",
+      "ja": "無視",
+      "ko": "무시"
+    },
+    "性别": {
+      "key": "k_fe8aa4ef93bd5d04",
+      "en": "Gender",
+      "ja": "性別",
+      "ko": "성별"
+    },
+    "性能与运行时": {
+      "key": "k_7c5386689473686b",
+      "en": "Performance and Runtime",
+      "ja": "パフォーマンスと実行時",
+      "ko": "성능 및 실행 시간"
+    },
+    "总会话数": {
+      "key": "k_583dfe778e01aa2f",
+      "en": "Total Session Count",
+      "ja": "総セッション数",
+      "ko": "총 세션 수"
+    },
+    "总用户数": {
+      "key": "k_5e50829d289182ca",
+      "en": "Total User Count",
+      "ja": "総ユーザー数",
+      "ko": "총 사용자 수"
+    },
+    "我的历史会话": {
+      "key": "k_e7e05c24d82d60e4",
+      "en": "My History Sessions",
+      "ja": "私の履歴セッション",
+      "ko": "내 이력 세션"
+    },
+    "或老式": {
+      "key": "k_94147b9b2b8181a6",
+      "en": "or old-style",
+      "ja": "または古いスタイル",
+      "ko": "또는 오래된 스타일"
+    },
+    "扫描 data/avatars 并同步到管理库": {
+      "key": "k_7d9ca875aed0d207",
+      "en": "Scan data/avatars and synchronize to the management library",
+      "ja": "data/avatars をスキャンして管理ライブラリに同期する",
+      "ko": "data/avatars를 스캔하여 관리 라이브러리에 동기화합니다"
+    },
+    "批量删除": {
+      "key": "k_362aedce377df370",
+      "en": "Batch delete",
+      "ja": "一括削除",
+      "ko": "일괄 삭제"
+    },
+    "批量启用": {
+      "key": "k_f5e3609c11a8a497",
+      "en": "Batch enable",
+      "ja": "一括有効化",
+      "ko": "일괄 활성화"
+    },
+    "批量导入": {
+      "key": "k_14b1962ec39976b1",
+      "en": "Batch import",
+      "ja": "一括インポート",
+      "ko": "일괄 입력"
+    },
+    "批量导入(CSV/XLSX)": {
+      "key": "k_dae764f6e6062641",
+      "en": "Batch import (CSV/XLSX)",
+      "ja": "一括インポート（CSV/XLSX）",
+      "ko": "일괄 입력(CSV/XLSX)"
+    },
+    "批量导出": {
+      "key": "k_972dd216dd788f19",
+      "en": "Batch export",
+      "ja": "一括エクスポート",
+      "ko": "일괄 내보내기"
+    },
+    "批量导出(JSON)": {
+      "key": "k_06efa441941eac78",
+      "en": "Batch export (JSON)",
+      "ja": "一括エクスポート（JSON）",
+      "ko": "일괄 내보내기 (JSON)"
+    },
+    "批量禁用": {
+      "key": "k_c563433de06b589d",
+      "en": "Batch disable",
+      "ja": "一括無効",
+      "ko": "일괄 비활성화"
+    },
+    "批量重置密码": {
+      "key": "k_bd204a274a47b0dc",
+      "en": "Batch reset password",
+      "ja": "一括パスワードリセット",
+      "ko": "일괄 비밀번호 재설정"
+    },
+    "批量重置结果（请立即下载并妥善保管）": {
+      "key": "k_7796ee275b5de6f0",
+      "en": "Batch Reset Results (Please download immediately and keep it properly)",
+      "ja": "一括リセット結果（すぐにダウンロードし、適切に保管してください）",
+      "ko": "일괄 재설정 결과(즉시 다운로드하여 안전하게 보관하십시오)"
+    },
+    "拖拽排序目前仅保存到本地（localStorage）。若要让动作实时生效，需要后端增加“动作编排配置”的落盘与推送逻辑。": {
+      "key": "k_bc09f417f6390b7a",
+      "en": "Drag-and-drop sorting is currently only saved to the local (localStorage). To make the action take effect in real time, the backend needs to add a 'action orchestration configuration' persistence and push logic.",
+      "ja": "ドラッグアンドドロップによる並べ替えは現在、ローカル（localStorage）にのみ保存されています。アクションをリアルタイムで有効にするには、バックエンドに「アクションオーケストレーション設定」の永続化とプッシュロジックを追加する必要があります。",
+      "ko": "드래그 앤 드롭 정렬은 현재 로컬(localhost)에만 저장됩니다. 동작을 실시간으로 적용하려면 백엔드에 '동작 오케스트레이션 구성'의 지속화 및 전달 로직을 추가해야 합니다."
+    },
+    "指标": {
+      "key": "k_1dfc810a7b0c0927",
+      "en": "Metric",
+      "ja": "メトリック",
+      "ko": "메트릭"
+    },
+    "按周": {
+      "key": "k_6ccceba5c49ff4ec",
+      "en": "Weekly",
+      "ja": "週単位",
+      "ko": "주 단위"
+    },
+    "按日": {
+      "key": "k_5bbcddbccd6e6dc0",
+      "en": "Daily",
+      "ja": "日単位",
+      "ko": "일 단위"
+    },
+    "按月": {
+      "key": "k_7bae1e0954ac84b1",
+      "en": "Monthly",
+      "ja": "毎月",
+      "ko": "월간"
+    },
+    "提交注册": {
+      "key": "k_249a9b75b0f901c9",
+      "en": "Submit Registration",
+      "ja": "登録を提出",
+      "ko": "등록 제출"
+    },
+    "提交评分": {
+      "key": "k_d6355a6378dfcb2e",
+      "en": "Submit Rating",
+      "ja": "評価を提出",
+      "ko": "평가 제출"
+    },
+    "搜索": {
+      "key": "k_f04090805c6eebdf",
+      "en": "Search",
+      "ja": "検索",
+      "ko": "검색"
+    },
+    "搜索会话...": {
+      "key": "k_4e3d01e7ce2da4e7",
+      "en": "Search session...",
+      "ja": "検索セッション...",
+      "ko": "검색 세션..."
+    },
+    "搜索标题/关键词/问题...": {
+      "key": "k_c61af95ff2be05f5",
+      "en": "Search title/keyword/question...",
+      "ja": "タイトル/キーワード/質問を検索...",
+      "ko": "제목/키워드/질문 검색..."
+    },
+    "操作": {
+      "key": "k_f3ea6d345e2ab032",
+      "en": "Operation",
+      "ja": "操作",
+      "ko": "작업"
+    },
+    "支持位数8位、16位（填在比特率里面），采样率取值无限制": {
+      "key": "k_d9c62360f95f19c4",
+      "en": "Supports 8-bit, 16-bit (fill in the bit rate), sampling rate has no limit",
+      "ja": "8ビット、16ビット（ビットレートに記入）をサポートしています。サンプルレートの値には制限がありません",
+      "ko": "8비트, 16비트(비트레이트에 입력)를 지원하며 샘플링 주파수 값에는 제한이 없습니다"
+    },
+    "支持富文本（当前用 textarea 占位）": {
+      "key": "k_e8010bb0165725a6",
+      "en": "Supports rich text (currently using textarea as placeholder)",
+      "ja": "豊富なテキストをサポートしています（現在はtextareaで占めています）",
+      "ko": "풍부한 텍스트를 지원합니다(현재는 textarea로 대체되어 있습니다)"
+    },
+    "支持换行...": {
+      "key": "k_3c1bae055a7f3c90",
+      "en": "Supports line breaks...",
+      "ja": "改行をサポートしています...",
+      "ko": "줄 바꿈을 지원합니다..."
+    },
+    "支持身份预设、语音输入、快捷问题、字幕开关、语速调节、历史会话查看。": {
+      "key": "k_20bf086247caa362",
+      "en": "Supports identity preset, voice input, quick questions, subtitle switch, speech rate adjustment, and viewing of historical conversations.",
+      "ja": "アイデンティティの事前設定、音声入力、クイックな質問、字幕の切替、語速調整、履歴会話の表示をサポートしています。",
+      "ko": "신분 사전 설정, 음성 입력, 빠른 질문, 자막 전환, 말 속도 조절, 이력 대화 보기 등을 지원합니다."
+    },
+    "数字人列表": {
+      "key": "k_9c8f49598bd8ef81",
+      "en": "Digital Human List",
+      "ja": "デジタル人リスト",
+      "ko": "디지털 인물 목록"
+    },
+    "数字人管理": {
+      "key": "k_f938528b7674060d",
+      "en": "Digital Human Management",
+      "ja": "デジタル人管理",
+      "ko": "디지털 인물 관리"
+    },
+    "数字人管理 - 留学咨询数字人管理平台": {
+      "key": "k_6873079c5a315a9e",
+      "en": "Digital Human Management - Study Abroad Consultation Digital Human Management Platform",
+      "ja": "デジタル人管理 - 留学相談デジタル人管理プラットフォーム",
+      "ko": "디지털 인물 관리 - 유학 상담 디지털 인물 관리 플랫폼"
+    },
+    "数字人视频交互": {
+      "key": "k_3c754e7d1e3d5571",
+      "en": "Digital Human Video Interaction",
+      "ja": "デジタル人ビデオインタラクション",
+      "ko": "디지털 인물 비디오 상호작용"
+    },
+    "数字人身份预设": {
+      "key": "k_d6a0e01d5e2cdd08",
+      "en": "Digital Human Identity Preset",
+      "ja": "デジタル人間のアイデンティティプリセット",
+      "ko": "디지털 인간 정체성 사전설정"
+    },
+    "数据分析": {
+      "key": "k_e2e51da567826462",
+      "en": "Data Analysis",
+      "ja": "データ分析",
+      "ko": "데이터 분석"
+    },
+    "数据分析 - 留学咨询数字人管理平台": {
+      "key": "k_e9e9e55c879f8c91",
+      "en": "Data Analysis - Digital Human Management Platform for Study Abroad Consultation",
+      "ja": "データ分析 - 海外留学相談デジタル人間管理プラットフォーム",
+      "ko": "데이터 분석 - 해외 유학 상담 디지털 인간 관리 플랫폼"
+    },
+    "数据来源：后端 SQLite（`history.db_path`）": {
+      "key": "k_81ad82ea6b523d53",
+      "en": "Data Source: Backend SQLite (history.db_path)",
+      "ja": "データソース：バックエンド SQLite（`history.db_path`）",
+      "ko": "데이터 소스: 백엔드 SQLite (`history.db_path`)"
+    },
+    "数据概览（卡片）": {
+      "key": "k_d003ceeeee402aba",
+      "en": "Data Overview (Card)",
+      "ja": "データ概要（カード）",
+      "ko": "데이터 개요(카드)"
+    },
+    "文件": {
+      "key": "k_49deaf7da20d3276",
+      "en": "File",
+      "ja": "ファイル",
+      "ko": "파일"
+    },
+    "新增": {
+      "key": "k_2cd9e6ce817dcb1a",
+      "en": "New",
+      "ja": "新規",
+      "ko": "새로운"
+    },
+    "新增 / 编辑": {
+      "key": "k_222b89bf183a6722",
+      "en": "Add / Edit",
+      "ja": "新規作成／編集",
+      "ko": "새로 추가 / 편집"
+    },
+    "新增 / 编辑学生账号": {
+      "key": "k_5743362edad8842b",
+      "en": "New / Edit Student Account",
+      "ja": "新規 / 学生アカウントの編集",
+      "ko": "새로운 / 학생 계정 편집"
+    },
+    "新增学生": {
+      "key": "k_44bbefa35da89d27",
+      "en": "New Student",
+      "ja": "新規学生",
+      "ko": "새로운 학생"
+    },
+    "新密码": {
+      "key": "k_d22c9c008539b6a6",
+      "en": "New Password",
+      "ja": "新しいパスワード",
+      "ko": "새 비밀번호"
+    },
+    "新建会话": {
+      "key": "k_3da224c43d41ca4f",
+      "en": "New session",
+      "ja": "新しいセッションを開始",
+      "ko": "새 세션 생성"
+    },
+    "新建对话": {
+      "key": "k_b3e55858d9d4e855",
+      "en": "New Conversation",
+      "ja": "新しいダイアログ",
+      "ko": "새 대화"
+    },
+    "无效": {
+      "key": "k_eb645ab4619f5a5b",
+      "en": "Invalid",
+      "ja": "無効",
+      "ko": "무효"
+    },
+    "无权录音(跨域，请尝试给iframe添加麦克风访问策略，如allow=\"camera;microphone\")": {
+      "key": "k_5366f26995703ddb",
+      "en": "No permission to record (Cross-domain, please try adding a microphone access policy to the iframe, such as allow=\"camera;microphone\")",
+      "ja": "録音権限なし（クロスドメインのため、iframeにマイクアクセスポリシーを追加してください。例: allow=\"camera;microphone\"）",
+      "ko": "녹음 권한 없음(크로스 도메인으로, iframe에 마이크 접근 정책을 추가해 주세요. 예: allow=\"camera;microphone\" )"
+    },
+    "无法录音：": {
+      "key": "k_bf1b049fb79b991c",
+      "en": "Cannot record:",
+      "ja": "録音できません：",
+      "ko": "녹음할 수 없습니다:"
+    },
+    "日本語": {
+      "key": "k_c12140a0ffb4e564",
+      "en": "Japanese",
+      "ja": "日本語",
+      "ko": "일본어"
+    },
+    "旧密码": {
+      "key": "k_8a4f13a03c81ffc1",
+      "en": "Old password",
+      "ja": "古いパスワード",
+      "ko": "기존 비밀번호"
+    },
+    "时间": {
+      "key": "k_89b4aa6364ce3c4a",
+      "en": "Time",
+      "ja": "時間",
+      "ko": "시간"
+    },
+    "智能数字人直播平台 - 专业留学咨询与问答": {
+      "key": "k_10c7cbad9ad8248e",
+      "en": "Intelligent Digital Human Live Streaming Platform - Professional Study Abroad Consultation and Q&A",
+      "ja": "スマートデジタル人ライブ配信プラットフォーム - 専門の留学相談と質問応答",
+      "ko": "스마트 디지털 인 라이브 플랫폼 - 전문 유학 상담 및 질문 응답"
+    },
+    "最后登录": {
+      "key": "k_12f998a88fbf44bb",
+      "en": "Last login",
+      "ja": "最後のログイン",
+      "ko": "마지막 로그인"
+    },
+    "最近会话": {
+      "key": "k_c60de350a3ee8b2e",
+      "en": "Recent session",
+      "ja": "最近のセッション",
+      "ko": "최근 대화"
+    },
+    "未open": {
+      "key": "k_1816b69dda930098",
+      "en": "Not open",
+      "ja": "未開封",
+      "ko": "열리지 않음"
+    },
+    "未加载": {
+      "key": "k_43e203c1de2cf839",
+      "en": "Not loaded",
+      "ja": "読み込まれていません",
+      "ko": "로드되지 않음"
+    },
+    "未填写": {
+      "key": "k_287a1d10348b9ab3",
+      "en": "Not filled",
+      "ja": "未記入",
+      "ko": "입력되지 않음"
+    },
+    "未开始录音": {
+      "key": "k_cd5c34a89ba9585a",
+      "en": "Not started recording",
+      "ja": "録音が開始されていません",
+      "ko": "녹음이 시작되지 않았습니다"
+    },
+    "未返回任何音频，恢复使用": {
+      "key": "k_6273fe6513f0c4de",
+      "en": "No audio returned, restore use",
+      "ja": "音声が返却されませんでした、復元使用",
+      "ko": "음성은 반환되지 않았습니다, 복원 사용"
+    },
+    "未返回任何音频，降级使用": {
+      "key": "k_0f46da3966ebf9bf",
+      "en": "No audio returned, downgrade use",
+      "ja": "音声が返却されませんでした、デグレード使用",
+      "ko": "음성은 반환되지 않았습니다, 강등 사용"
+    },
+    "未进入异步前不能清除buffers": {
+      "key": "k_04a4702fc0d95574",
+      "en": "Cannot clear buffers before entering asynchronous",
+      "ja": "非同期に進む前にバッファをクリアできません",
+      "ko": "비동기로 들어가기 전에 버퍼를 지울 수 없습니다"
+    },
+    "未连接": {
+      "key": "k_f2f3e9803ccb98c5",
+      "en": "Not connected",
+      "ja": "接続されていません",
+      "ko": "연결되지 않았습니다"
+    },
+    "未采集到录音": {
+      "key": "k_9005e1e6431c6855",
+      "en": "No recording was collected",
+      "ja": "録音が取得されませんでした",
+      "ko": "녹음이 수집되지 않았습니다"
+    },
+    "架构": {
+      "key": "k_ad929e517cb8fb4b",
+      "en": "Architecture",
+      "ja": "アーキテクチャ",
+      "ko": "아키텍처"
+    },
+    "查询": {
+      "key": "k_711363c4247457a0",
+      "en": "Query",
+      "ja": "クエリ",
+      "ko": "쿼리"
+    },
+    "标题": {
+      "key": "k_748d7dc7e3212d62",
+      "en": "Title",
+      "ja": "タイトル",
+      "ko": "제목"
+    },
+    "模型类型": {
+      "key": "k_f3d44124bc5fd008",
+      "en": "Model Type",
+      "ja": "モデルタイプ",
+      "ko": "모델 유형"
+    },
+    "欢迎使用留学问答AI助手！您可以咨询留学申请、院校选择、专业规划等问题。": {
+      "key": "k_cfa113f89306bebf",
+      "en": "Welcome to the Study Abroad Q&A AI Assistant! You can consult on application for study abroad, selection of schools, and planning of majors.",
+      "ja": "留学質問AIアシスタントへようこそ！留学申請、学校選択、専門計画などの質問にご相談ください。",
+      "ko": "유학 질문 AI 어시스턴트를 사용해 주셔서 감사합니다! 유학 신청, 대학 선택, 전공 계획과 같은 문제에 대해 문의하실 수 있습니다."
+    },
+    "欢迎回来": {
+      "key": "k_a5d9fdec5a71fcf1",
+      "en": "Welcome back",
+      "ja": "おかえりなさい",
+      "ko": "돌아오셨습니다"
+    },
+    "正在加载历史会话...": {
+      "key": "k_c32ce696daa9befd",
+      "en": "Loading history conversation...",
+      "ja": "履歴の会話を読み込んでいます...",
+      "ko": "이전 대화 기록을 불러오는 중..."
+    },
+    "正在聆听...": {
+      "key": "k_229c62fdd1b89a3d",
+      "en": "Listening...",
+      "ja": "聴いています...",
+      "ko": "들어가고 있습니다..."
+    },
+    "正在连接asr服务器，请等待...": {
+      "key": "k_3c5eca10e2d181a1",
+      "en": "Connecting to ASR server, please wait...",
+      "ja": "ASRサーバーに接続中です、お待ちください...",
+      "ko": "ASR 서버에 연결 중입니다. 기다려주세요..."
+    },
+    "正常": {
+      "key": "k_f78d037abccd3e07",
+      "en": "Normal",
+      "ja": "通常",
+      "ko": "정상"
+    },
+    "正常，": {
+      "key": "k_8c640ca6cb4c1ab3",
+      "en": "Normal,",
+      "ja": "通常、",
+      "ko": "정상,"
+    },
+    "注册后可使用学生身份登录并查看个人会话历史": {
+      "key": "k_cba5489c43014ae6",
+      "en": "After registration, you can log in with a student identity and view your personal session history.",
+      "ja": "登録後、学生の身分でログインして個人のセッション履歴を確認できます。",
+      "ko": "등록 후 학생 신분으로 로그인하여 개인 세션 기록을 확인할 수 있습니다."
+    },
+    "注册失败\",e)": {
+      "key": "k_0464bd105939186b",
+      "en": "Registration failed\",e)",
+      "ja": "登録失敗\",e)",
+      "ko": "등록 실패\",e)"
+    },
+    "注册时间": {
+      "key": "k_525ad5e2bc6f7b68",
+      "en": "Registration time",
+      "ja": "登録時間",
+      "ko": "등록 시간"
+    },
+    "注：当前为前端管理界面占位（本地 localStorage 模拟数据）。如你要接入 SQLite KB 的真实增删改查/导入导出，我可以在后续补后端 API。": {
+      "key": "k_01b7b247482da1f9",
+      "en": "Note: This is a placeholder for the front-end management interface (local localStorage simulated data). If you want to access the real CRUD/export/import of SQLite KB, I can add the backend API later.",
+      "ja": "注意：これはフロントエンド管理インターフェースのポジションプレースホルダーです（ローカルのlocalStorageによるシミュレートデータ）。SQLite KBの実際のCRUD/インポート・エクスポートを接続したい場合は、後でバックエンドAPIを追加できます。",
+      "ko": "참고: 현재는 프론트엔드 관리 인터페이스의 자리 표시자입니다 (로컬 localStorage 시뮬레이션 데이터). SQLite KB의 실제 생성, 수정, 삭제, 검색/수입 및 수출을 연결하려면 이후에 백엔드 API를 보완할 수 있습니다."
+    },
+    "浏览器禁止不安全页面录音，可开启https解决": {
+      "key": "k_ea97e25756309188",
+      "en": "Browser prohibits recording on unsafe pages; enable https to resolve this.",
+      "ja": "ブラウザは非安全なページの録音を禁止しています。HTTPSを有効にして解決してください。",
+      "ko": "브라우저는 안전하지 않은 페이지 녹음이 금지되어 있습니다. HTTPS를 활성화하여 해결하십시오."
+    },
+    "清空": {
+      "key": "k_84fcd70d42800662",
+      "en": "Clear",
+      "ja": "クリア",
+      "ko": "지우기"
+    },
+    "清空编辑区": {
+      "key": "k_2a077c7cabe83779",
+      "en": "Clear editor area",
+      "ja": "エディタ領域をクリア",
+      "ko": "편집 영역 지우기"
+    },
+    "清空身份预设": {
+      "key": "k_70988ef0daaa5ce4",
+      "en": "Clear identity presets",
+      "ja": "アイデンティティの初期設定をクリア",
+      "ko": "신분 예정 지우기"
+    },
+    "满意度分析": {
+      "key": "k_e6f9264638254007",
+      "en": "Satisfaction Analysis",
+      "ja": "満足度分析",
+      "ko": "만족도 분석"
+    },
+    "满意度评分：": {
+      "key": "k_1352f08ba0112837",
+      "en": "Satisfaction Rating:",
+      "ja": "満足度スコア：",
+      "ko": "만족도 평가:"
+    },
+    "点击开始连接与AI留学顾问对话": {
+      "key": "k_a2e5d06f59c817d9",
+      "en": "Click to start connecting and chat with an AI study abroad consultant",
+      "ja": "クリックしてAI留学カウンセラーと接続して会話する",
+      "ko": "AI 유학 상담사와 연결하여 대화를 시작하려면 클릭하세요"
+    },
+    "点击注册": {
+      "key": "k_ce11028d816b42fb",
+      "en": "Click to register",
+      "ja": "クリックして登録する",
+      "ko": "등록하려면 클릭하세요"
+    },
+    "点此处手工授权wss://127.0.0.1:10095/": {
+      "key": "k_819dd67ebe13a6b4",
+      "en": "Click here to manually authorize wss://127.0.0.1:10095/",
+      "ja": "ここをクリックして手動で認証してください wss://127.0.0.1:10095/",
+      "ko": "이곳을 클릭하여 수동으로 권한을 부여하세요 wss://127.0.0.1:10095/"
+    },
+    "点此处手工授权（IOS手机）": {
+      "key": "k_e6ad0cb7d87a50fa",
+      "en": "Click here to manually authorize (IOS phone)",
+      "ja": "ここをクリックして手動で認証してください（IOS電話）",
+      "ko": "이곳을 클릭하여 수동으로 인증하십시오 (IOS 전화)"
+    },
+    "热词设置(一行一个关键字，空格隔开权重,如\"阿里巴巴 20\")：": {
+      "key": "k_6173105c72477629",
+      "en": "Hot word settings (one keyword per line, separated by spaces with weight, e.g. \"Alibaba 20\"):",
+      "ja": "ホットワード設定（1行に1つのキーワード、スペースで区切り、重みを示す、例: \"アリババ 20\"):",
+      "ko": "인기 키워드 설정 (한 줄에 하나의 키워드, 공백으로 구분, 예: \"알리바바 20\"):"
+    },
+    "版权信息 © 2026，某某大学留学咨询团队": {
+      "key": "k_9e8608e18a063ef0",
+      "en": "Copyright information © 2026, Some University Study Abroad Consulting Team",
+      "ja": "著作権情報 © 2026、ある大学の留学相談チーム",
+      "ko": "저작권 정보 © 2026, 어떤 대학 유학 상담 팀"
+    },
+    "状态": {
+      "key": "k_62e951a692ff8f4e",
+      "en": "Status",
+      "ja": "状態",
+      "ko": "상태"
+    },
+    "生成的": {
+      "key": "k_d29f3f2204ddac67",
+      "en": "Generated",
+      "ja": "生成された",
+      "ko": "생성된"
+    },
+    "用户": {
+      "key": "k_9ba763ea34238bdf",
+      "en": "User",
+      "ja": "ユーザー",
+      "ko": "사용자"
+    },
+    "用户 ID 筛选": {
+      "key": "k_ec04a4f57ffb4175",
+      "en": "User ID filter",
+      "ja": "ユーザーIDフィルター",
+      "ko": "사용자 ID 필터"
+    },
+    "用户ID": {
+      "key": "k_e0e375c2ba2fb25a",
+      "en": "User ID",
+      "ja": "ユーザーID",
+      "ko": "사용자 ID"
+    },
+    "用户中心": {
+      "key": "k_37a7a8fb42f665b8",
+      "en": "User Center",
+      "ja": "ユーザー中央",
+      "ko": "사용자 중심"
+    },
+    "用户名": {
+      "key": "k_a1aaf352cb07ffc9",
+      "en": "Username",
+      "ja": "ユーザー名",
+      "ko": "사용자 이름"
+    },
+    "用户工作台 / 实时对话": {
+      "key": "k_881feac637c6c5fc",
+      "en": "User Dashboard / Real-time Chat",
+      "ja": "ユーザー作業台 / 実時間チャット",
+      "ko": "사용자 작업대 / 실시간 대화"
+    },
+    "用户拒绝了录音权限": {
+      "key": "k_0072b6621be06c06",
+      "en": "The user denied the recording permission",
+      "ja": "ユーザーは録音権限を拒否しました",
+      "ko": "사용자가 녹음 권한을 거부했습니다"
+    },
+    "留学咨询数字人管理平台": {
+      "key": "k_b3cc49239b849f6f",
+      "en": "Study Abroad Consultation Digital Human Management Platform",
+      "ja": "留学相談デジタル人間管理プラットフォーム",
+      "ko": "유학 상담 디지털 인간 관리 플랫폼"
+    },
+    "留学咨询数字人管理平台 - 登录": {
+      "key": "k_0b9474a039f294a6",
+      "en": "Study Abroad Consultation Digital Human Management Platform - Login",
+      "ja": "留学相談デジタル人間管理プラットフォーム - ログイン",
+      "ko": "유학 상담 디지털 인간 관리 플랫폼 - 로그인"
+    },
+    "留学咨询智能数字人平台使用说明": {
+      "key": "k_2f3b6b78e48386ac",
+      "en": "Usage Instructions for the Intelligent Digital Human Platform for Study Abroad Consultation",
+      "ja": "留学相談スマートデジタル人間プラットフォームの使用説明",
+      "ko": "유학 상담 스마트 디지털 인간 플랫폼 사용 안내"
+    },
+    "留学申请流程": {
+      "key": "k_6dd10810515093bf",
+      "en": "Study Abroad Application Process",
+      "ja": "留学申請プロセス",
+      "ko": "유학 신청 프로세스"
+    },
+    "留学费用明细": {
+      "key": "k_979c673193f9663f",
+      "en": "Detailed study abroad costs",
+      "ja": "留学費用明細",
+      "ko": "유학 비용 세부 사항"
+    },
+    "留学问答AI助手": {
+      "key": "k_0efdc5f2234f8156",
+      "en": "Study Abroad Q&A AI Assistant",
+      "ja": "留学質問AIアシスタント",
+      "ko": "유학 질문 답변 AI 어시스턴트"
+    },
+    "留学问答AI助手 - 智能数字人直播平台": {
+      "key": "k_7fe49d106e197c17",
+      "en": "Study Abroad Q&A AI Assistant - Intelligent Digital Human Live Streaming Platform",
+      "ja": "留学質問AIアシスタント - インテリジェントなデジタル人間ライブ配信プラットフォーム",
+      "ko": "유학 질문 답변 AI 어시스턴트 - 지능형 디지털 인물 라이브 플랫폼"
+    },
+    "留学问答对话": {
+      "key": "k_e65a65394c92deeb",
+      "en": "Study Abroad Q&A Conversation",
+      "ja": "留学質問の会話",
+      "ko": "유학 질문 대화"
+    },
+    "留空则自动生成随机密码（新增场景）": {
+      "key": "k_45a1292ef655c4c7",
+      "en": "If left blank, a random password will be generated (new scenario)",
+      "ja": "空欄の場合はランダムなパスワードが自動生成されます（新規シナリオ）",
+      "ko": "비워두면 랜덤 비밀번호가 자동 생성됩니다(신규 시나리오)"
+    },
+    "登录": {
+      "key": "k_21f1e88275aa9a5e",
+      "en": "Login",
+      "ja": "ログイン",
+      "ko": "로그인"
+    },
+    "登录密码 *": {
+      "key": "k_824b7fdfcec33ead",
+      "en": "Login password *",
+      "ja": "ログインパスワード *",
+      "ko": "로그인 비밀번호 *"
+    },
+    "登录密码（新增必填）": {
+      "key": "k_442c25b43192ca79",
+      "en": "Login password (new required)",
+      "ja": "ログインパスワード（新規必須）",
+      "ko": "로그인 비밀번호(신규 필수)"
+    },
+    "登录账号": {
+      "key": "k_4500709ede33419d",
+      "en": "Login account",
+      "ja": "ログインアカウント",
+      "ko": "로그인 계정"
+    },
+    "登录账号 *": {
+      "key": "k_6b94e8a91c8b7aee",
+      "en": "Login account *",
+      "ja": "ログインアカウント *",
+      "ko": "로그인 계정 *"
+    },
+    "的目录并写入管理库。身份预设走": {
+      "key": "k_73ad528a1bd4d65d",
+      "en": "Directory and write to management library. Identity preset walk",
+      "ja": "ディレクトリを管理ライブラリに書き込みます。アイデンティティの初期設定を進める",
+      "ko": "디렉토리 및 관리 라이브러리에 쓰기. 아이덴티티 사전 설정 이동"
+    },
+    "知识分类": {
+      "key": "k_2a40fc3e8d0a76f7",
+      "en": "Knowledge Classification",
+      "ja": "知識分類",
+      "ko": "지식 분류"
+    },
+    "知识库管理": {
+      "key": "k_053fc4ecbfd03834",
+      "en": "Knowledge Base Management",
+      "ja": "知識ベース管理",
+      "ko": "지식베이스 관리"
+    },
+    "知识库管理 - 留学咨询数字人管理平台": {
+      "key": "k_30b97b16ffc4b1ae",
+      "en": "Knowledge Base Management - Study Abroad Consultation Digital Human Management Platform",
+      "ja": "知識ベース管理 - 留学相談デジタル人管理プラットフォーム",
+      "ko": "지식베이스 관리 - 유학 상담 디지털 인 관리 플랫폼"
+    },
+    "知识条目列表 + 编辑区": {
+      "key": "k_bf3e76be981df86c",
+      "en": "Knowledge entry list + editor area",
+      "ja": "知識項目一覧 + 編集領域",
+      "ko": "지식 항목 목록 + 편집 영역"
+    },
+    "禁用": {
+      "key": "k_be70be5a2e125123",
+      "en": "Disable",
+      "ja": "無効",
+      "ko": "비활성화"
+    },
+    "第 1 页": {
+      "key": "k_3d127c8d78c8fadc",
+      "en": "Page 1",
+      "ja": "ページ1",
+      "ko": "1페이지"
+    },
+    "答案（标准回答）": {
+      "key": "k_3531de7df70f946b",
+      "en": "Answer (standard response)",
+      "ja": "答え（標準的な応答）",
+      "ko": "답변(표준 응답)"
+    },
+    "筛选": {
+      "key": "k_dcce9a144a4068f4",
+      "en": "Filter",
+      "ja": "フィルター",
+      "ko": "필터"
+    },
+    "签证办理要求": {
+      "key": "k_7efdd7fa8e63810b",
+      "en": "Visa application requirements",
+      "ja": "ビザ申請の要件",
+      "ko": "비자 신청 요건"
+    },
+    "管理员": {
+      "key": "k_ef84e765e027ce19",
+      "en": "Administrator",
+      "ja": "管理者",
+      "ko": "관리자"
+    },
+    "管理员 / 学生专用登录入口": {
+      "key": "k_3a18c74160fc399e",
+      "en": "Administrator / Student exclusive login entrance",
+      "ja": "管理者／学生専用ログインエントリ",
+      "ko": "관리자/학생 전용 로그인 입구"
+    },
+    "类型": {
+      "key": "k_e4e46c7235d16598",
+      "en": "Type",
+      "ja": "タイプ",
+      "ko": "유형"
+    },
+    "系统入口登录": {
+      "key": "k_7618ee404b3b85e4",
+      "en": "System access login",
+      "ja": "システムエントリログイン",
+      "ko": "시스템 진입 로그인"
+    },
+    "结束录音 编码花": {
+      "key": "k_0b2a4e27510902d0",
+      "en": "End recording Encoding flower",
+      "ja": "録音を終了する エンコード花",
+      "ko": "녹음 종료 인코딩 꽃"
+    },
+    "结束录音失败：": {
+      "key": "k_1a7747493b954f41",
+      "en": "Failed to end recording:",
+      "ja": "録音の終了に失敗しました：",
+      "ko": "녹음 종료 실패:"
+    },
+    "结束日期（YYYY-MM-DD）": {
+      "key": "k_e86a433b2d8346bd",
+      "en": "End date (YYYY-MM-DD)",
+      "ja": "終了日（YYYY-MM-DD）",
+      "ko": "종료 날짜 (YYYY-MM-DD)"
+    },
+    "编号": {
+      "key": "k_9f42dac67ed96cdb",
+      "en": "Number",
+      "ja": "番号",
+      "ko": "번호"
+    },
+    "编码器": {
+      "key": "k_816c022c480028f6",
+      "en": "Encoder",
+      "ja": "エンコーダー",
+      "ko": "인코더"
+    },
+    "编辑区（点击左侧条目加载）": {
+      "key": "k_af794448cb845bb8",
+      "en": "Edit area (click on the left items to load)",
+      "ja": "編集領域（左の項目をクリックして読み込み）",
+      "ko": "편집 영역(왼쪽 항목을 클릭하여 로드)"
+    },
+    "自动连接": {
+      "key": "k_a034ebdf1fa9e342",
+      "en": "Auto connect",
+      "ja": "自動接続",
+      "ko": "자동 연결"
+    },
+    "花:": {
+      "key": "k_1630eddb6dddd950",
+      "en": "Flower:",
+      "ja": "花:",
+      "ko": "꽃:"
+    },
+    "角色": {
+      "key": "k_6b26695e4dce255f",
+      "en": "Character",
+      "ja": "キャラクター",
+      "ko": "캐릭터"
+    },
+    "言語": {
+      "key": "k_31eecb3ddc6da901",
+      "en": "Language",
+      "ja": "言語",
+      "ko": "언어"
+    },
+    "记住我": {
+      "key": "k_b55c1573072587f7",
+      "en": "Remember me",
+      "ja": "私を覚えていてください",
+      "ko": "내가 누구인지 기억해줘"
+    },
+    "设置": {
+      "key": "k_7debf9cb0372cb43",
+      "en": "Settings",
+      "ja": "設定",
+      "ko": "설정"
+    },
+    "语言": {
+      "key": "k_cd99b225a08ea013",
+      "en": "Language",
+      "ja": "言語",
+      "ko": "언어"
+    },
+    "语言考试介绍": {
+      "key": "k_e2efac57623cd361",
+      "en": "Introduction to language exams",
+      "ja": "言語試験の紹介",
+      "ko": "언어 시험 소개"
+    },
+    "语调": {
+      "key": "k_3e8f6d6a97bf528e",
+      "en": "Tone",
+      "ja": "トーン",
+      "ko": "톤"
+    },
+    "语速": {
+      "key": "k_747374775d00c8f1",
+      "en": "Speech rate",
+      "ja": "発音速度",
+      "ko": "말하는 속도"
+    },
+    "语速调节": {
+      "key": "k_ede97f7c77f284df",
+      "en": "Speech rate adjustment",
+      "ja": "発音速度の調整",
+      "ko": "말하는 속도 조절"
+    },
+    "语音引擎": {
+      "key": "k_a4f3cc3f08598a33",
+      "en": "Voice engine",
+      "ja": "ボイスエンジン",
+      "ko": "음성 엔진"
+    },
+    "语音识别": {
+      "key": "k_df3dd6abf40426e7",
+      "en": "Speech recognition",
+      "ja": "音声認識",
+      "ko": "음성 인식"
+    },
+    "语音识别结果显示：": {
+      "key": "k_6555aeb399ca4c45",
+      "en": "Speech recognition result:",
+      "ja": "音声認識結果：",
+      "ko": "음성 인식 결과:"
+    },
+    "语音输入": {
+      "key": "k_978896c43c6d1f76",
+      "en": "Voice input",
+      "ja": "音声入力",
+      "ko": "음성 입력"
+    },
+    "说明": {
+      "key": "k_26670dda421f5c59",
+      "en": "Explanation",
+      "ja": "説明",
+      "ko": "설명"
+    },
+    "请检查wss地址正确性": {
+      "key": "k_b56df92d5a746547",
+      "en": "Please check the correctness of the wss address",
+      "ja": "WSSアドレスの正しさを確認してください",
+      "ko": "WSS 주소의 정확성을 확인하십시오"
+    },
+    "请求录音权限错误": {
+      "key": "k_43c57f98f7c35adb",
+      "en": "Error requesting recording permission",
+      "ja": "録音権限の要求エラー",
+      "ko": "녹음 권한 요청 오류"
+    },
+    "请点击开始": {
+      "key": "k_df1e67ee54cd0ec4",
+      "en": "Click to start",
+      "ja": "開始をクリックしてください",
+      "ko": "시작을 클릭하세요"
+    },
+    "请点击连接": {
+      "key": "k_4c790b699ee98369",
+      "en": "Click the link",
+      "ja": "リンクをクリックしてください",
+      "ko": "링크를 클릭하세요"
+    },
+    "请点击连接进行识别": {
+      "key": "k_7f1135f83f27755e",
+      "en": "Click the link to identify",
+      "ja": "識別するにはリンクをクリックしてください",
+      "ko": "인식하려면 링크를 클릭하세요"
+    },
+    "请点击选择文件": {
+      "key": "k_addebf7875b1c03b",
+      "en": "Click to select a file",
+      "ja": "ファイルを選択してください",
+      "ko": "파일을 선택하세요"
+    },
+    "请耐心等待,大文件等待时间更长": {
+      "key": "k_91aabc4869adb476",
+      "en": "Please wait patiently, larger files will take longer",
+      "ja": "お待ちください、大きなファイルは時間がかかります",
+      "ko": "기다려 주세요, 큰 파일은 더 오래 기다려야 합니다"
+    },
+    "请输入密码": {
+      "key": "k_713b73825016a47f",
+      "en": "Please enter the password",
+      "ja": "パスワードを入力してください",
+      "ko": "비밀번호를 입력하세요"
+    },
+    "请输入数字人的身份信息，例如：\n您是一位专业的留学顾问，拥有10年留学咨询经验，擅长美国、英国、加拿大等国家的留学申请...": {
+      "key": "k_26ddc2f24292b93a",
+      "en": "Please enter the identity information of the digital person, for example:\nYou are a professional study abroad consultant with 10 years of experience in study abroad consultation, and are proficient in applying for study abroad in countries such as the United States, the United Kingdom, and Canada...",
+      "ja": "デジタル人間の身分情報を入力してください。例として：\nあなたは10年の留学コンサルティング経験を持つ専門的な留学アドバイザーで、アメリカ、イギリス、カナダなどの国々の留学申請に長けている...",
+      "ko": "디지털 인물의 신분 정보를 입력하세요. 예를 들어:\n10년의 유학 컨설팅 경험을 가진 전문적인 유학 상담사로, 미국, 영국, 캐나다 등 여러 국가의 유학 지원에 능합니다..."
+    },
+    "请输入用户名": {
+      "key": "k_ad5f05f1cf5f5e9d",
+      "en": "Please enter the username",
+      "ja": "ユーザー名を入力してください",
+      "ko": "사용자 이름을 입력하세요"
+    },
+    "账号状态": {
+      "key": "k_67104f03e0cf5ef1",
+      "en": "Account status",
+      "ja": "アカウント状態",
+      "ko": "계정 상태"
+    },
+    "身份类型": {
+      "key": "k_93bb2fd3cea482dc",
+      "en": "Identity type",
+      "ja": "身分タイプ",
+      "ko": "신분 유형"
+    },
+    "身份预设（将作为系统提示注入给大模型）": {
+      "key": "k_557bddd810ebe6b1",
+      "en": "Identity preset (will be injected as a system prompt to the large model)",
+      "ja": "身分のプリセット（システムプロンプトとして大規模モデルに挿入されます）",
+      "ko": "신분 설정(대형 모델에 시스템 프롬프트로 주입됨)"
+    },
+    "输入您的留学问题...": {
+      "key": "k_6fefcd68a8f81efe",
+      "en": "Enter your study abroad question...",
+      "ja": "留学に関する質問を入力してください...",
+      "ko": "학습 해외 질문을 입력하십시오..."
+    },
+    "输入数字人的身份预设描述...": {
+      "key": "k_db3223aa1c041010",
+      "en": "Enter the preset description of the digital person's identity...",
+      "ja": "デジタル人のアイデンティティの事前設定説明を入力してください...",
+      "ko": "디지털 인물의 신분 사전 설정 설명을 입력하십시오..."
+    },
+    "输入验证码": {
+      "key": "k_5bee011bb3cdab13",
+      "en": "Enter verification code",
+      "ja": "認証コードを入力してください",
+      "ko": "인증 코드를 입력하십시오"
+    },
+    "返回主页": {
+      "key": "k_20b6e2fcece91fd5",
+      "en": "Return to homepage",
+      "ja": "ホームに戻る",
+      "ko": "메인 페이지로 돌아가기"
+    },
+    "返回登录": {
+      "key": "k_f2fe4ecc0f4b89a5",
+      "en": "Return to login",
+      "ja": "ログインに戻る",
+      "ko": "로그인으로 돌아가기"
+    },
+    "还没有学生账号？": {
+      "key": "k_8f0c7a48ec007773",
+      "en": "No student account yet?",
+      "ja": "まだ学生アカウントはありませんか？",
+      "ko": "학생 계정이 아직 없으신가요?"
+    },
+    "进入主页后先点击“开始连接”，连接成功后在右侧输入问题或点击快捷提问。": {
+      "key": "k_7af6bb9bba2541eb",
+      "en": "After entering the main page, first click \"Start Connection\", and after the connection is successful, enter your question on the right or click quick question.",
+      "ja": "メインページに入ったらまず「接続を開始」をクリックしてください。接続が成功したら、右側に質問を入力するか、クイック質問をクリックしてください。",
+      "ko": "메인 페이지에 들어가신 후 먼저 \"연결 시작\"을 클릭하세요. 연결이 성공한 후 오른쪽에 질문을 입력하거나 빠른 질문을 클릭하십시오."
+    },
+    "连接": {
+      "key": "k_7328deebb5bc3ce5",
+      "en": "Connect",
+      "ja": "接続",
+      "ko": "연결"
+    },
+    "连接地址": {
+      "key": "k_2cf55a246471e96e",
+      "en": "Connection Address",
+      "ja": "接続アドレス",
+      "ko": "연결 주소"
+    },
+    "连接成功": {
+      "key": "k_eb06635875201cd0",
+      "en": "Connection Successful",
+      "ja": "接続成功",
+      "ko": "연결 성공"
+    },
+    "连接成功!请点击开始": {
+      "key": "k_19103592044b64ce",
+      "en": "Connected successfully! Click to start",
+      "ja": "接続に成功しました。開始をクリックしてください",
+      "ko": "연결이 성공했습니다! 시작을 클릭하십시오"
+    },
+    "退出登录": {
+      "key": "k_094774b4a77be0bf",
+      "en": "Log out",
+      "ja": "ログアウト",
+      "ko": "로그아웃"
+    },
+    "逆文本标准化(ITN):": {
+      "key": "k_9f12eb0e147085bf",
+      "en": "Inverse Text Normalization (ITN):",
+      "ja": "逆テキスト正規化（ITN）:",
+      "ko": "역 텍스트 정규화(ITN):"
+    },
+    "选择asr模型模式:": {
+      "key": "k_812617cd78e59bb1",
+      "en": "Select ASR model mode:",
+      "ja": "ASRモデルモードを選択してください:",
+      "ko": "ASR 모델 모드 선택:"
+    },
+    "选择左侧数字人后自动填充": {
+      "key": "k_af12768803d8cdc8",
+      "en": "Automatically fill after selecting the digital human on the left",
+      "ja": "左側のデジタル人を選び、自動的に入力してください",
+      "ko": "왼쪽의 디지털 인물을 선택한 후 자동으로 채우기"
+    },
+    "选择录音模式:": {
+      "key": "k_c1d36b762fb7541e",
+      "en": "Select recording mode:",
+      "ja": "録音モードを選択してください：",
+      "ko": "녹음 모드 선택:"
+    },
+    "采样": {
+      "key": "k_2d84c587b4330aa6",
+      "en": "Sample",
+      "ja": "サンプル",
+      "ko": "샘플"
+    },
+    "重复引入": {
+      "key": "k_0fdd6e4ae9123fab",
+      "en": "Repeat import",
+      "ja": "繰り返しインポート",
+      "ko": "반복 입력"
+    },
+    "重置": {
+      "key": "k_3d81345303ab49d5",
+      "en": "Reset",
+      "ja": "リセット",
+      "ko": "재설정"
+    },
+    "问题关键词搜索": {
+      "key": "k_ac624d0de9323ba2",
+      "en": "Problem keyword search",
+      "ja": "問題キーワード検索",
+      "ko": "문제 키워드 검색"
+    },
+    "问题摘要": {
+      "key": "k_af06026baa7f5590",
+      "en": "Summary of the issue",
+      "ja": "問題の要約",
+      "ko": "문제 요약"
+    },
+    "问题（用户问法）": {
+      "key": "k_ef5da9fd9544799c",
+      "en": "Problem (user's wording)",
+      "ja": "問題（ユーザーの表現）",
+      "ko": "문제(사용자 표현)"
+    },
+    "阿里巴巴 20&#13;hello world 40": {
+      "key": "k_49956026fd32df20",
+      "en": "Alibaba 20\\r\\nhello world 40",
+      "ja": "アリババ 20\\r\\nhello world 40",
+      "ko": "알리바바 20\\r\\nhello world 40"
+    },
+    "院校选择推荐": {
+      "key": "k_e0f18758e69ce98f",
+      "en": "Recommendations for school selection",
+      "ja": "学校選択の推奨",
+      "ko": "학원 선택 추천"
+    },
+    "音色": {
+      "key": "k_c4301894a290bd43",
+      "en": "Voice tone",
+      "ja": "ボイストーン",
+      "ko": "음색"
+    },
+    "音频buffers被释放": {
+      "key": "k_6ff2baae666a3856",
+      "en": "Audio buffers are released",
+      "ja": "オーディオバッファが解放されます",
+      "ko": "오디오 버퍼가 해제됩니다"
+    },
+    "预览": {
+      "key": "k_de61aa8e1cbc404f",
+      "en": "Preview",
+      "ja": "プレビュー",
+      "ko": "미리보기"
+    },
+    "验证码（当前版本仅展示占位）": {
+      "key": "k_adfc0f20fbf2efba",
+      "en": "Verification code (placeholder only in this version)",
+      "ja": "認証コード（現在のバージョンではプレースホルダーのみ表示）",
+      "ko": "인증 코드(현재 버전에서는 자리 표시자만 표시됨)"
+    },
+    "麦克风": {
+      "key": "k_bbefc72e6f8767fd",
+      "en": "Microphone",
+      "ja": "マイク",
+      "ko": "마이크"
+    },
+    "，开始录音前无用户交互导致AudioContext未运行": {
+      "key": "k_2fdec3f09fe0c56c",
+      "en": ", no user interaction before starting recording caused the AudioContext to not run",
+      "ja": "、録音を開始する前にユーザーの操作がないため、AudioContextが実行されませんでした",
+      "ko": "녹음 시작 전 사용자 상호작용 없이 AudioContext가 실행되지 않았습니다"
+    },
+    "，无可用麦克风": {
+      "key": "k_2946a7c634c5f4e8",
+      "en": "，No available microphone",
+      "ja": "，利用可能なマイクはありません",
+      "ko": "，사용 가능한 마이크가 없습니다"
+    },
+    "，设置": {
+      "key": "k_8ad6003d7a294dfc",
+      "en": "，Settings",
+      "ja": "，設定",
+      "ko": "，설정"
+    },
+    "；动作与 TTS 已落库 SQLite。": {
+      "key": "k_13783c46509cffa7",
+      "en": "；Actions and TTS have been stored in SQLite.",
+      "ja": "；アクションとTTSはSQLiteに格納されました。",
+      "ko": "；액션과 TTS는 SQLite에 저장되었습니다。"
+    },
+    "1){//多声道，提取一个声道\n\t\t\tvar arr2=[];\n\t\t\tfor(var i=0;i": {
+      "key": "k_fdb30abb4f09b290",
+      "en": "1){//Multi-channel, extract one channel\n\t\t\tvar arr2=[];\n\t\t\tfor(var i=0;i",
+      "ja": "1){//マルチチャネル、1つのチャネルを抽出\n\t\t\tvar arr2=[];\n\t\t\tfor(var i=0;i",
+      "ko": "1){//다중 채널에서 하나의 채널을 추출합니다\n\t\t\tvar arr2=[];\n\t\t\tfor(var i=0;i"
+    },
+    "1){//新采样低于录音采样，进行抽样\n\t\tsize=Math.floor(size/step);\n\t}else{//新采样高于录音采样不处理，省去了插值处理\n\t\tstep=1;\n\t\tnewSampleRate=pcmSampleRate;\n\t};\n\t\n\tsize+=frameNext.length;\n\tvar res=new Int16Array(size);\n\tvar idx=0;\n\t//添加上一次不够一帧的剩余数据\n\tfor(var i=0;i": {
+      "key": "k_abc8d9c21c329d22",
+      "en": "1){//New sampling is lower than recording sampling, perform sampling\n\t\tsize=Math.floor(size/step);\n\t}else{//New sampling is higher than recording sampling, no processing is done, interpolation is omitted\n\t\tstep=1;\n\t\tnewSampleRate=pcmSampleRate;\n\t};\n\t\n\tsize+=frameNext.length;\n\tvar res=new Int16Array(size);\n\tvar idx=0;\n\t//Add the remaining data from the previous incomplete frame\n\tfor(var i=0;i",
+      "ja": "1){//新しいサンプリングが録音サンプリングより低い場合、サンプリングを行います\n\t\tsize=Math.floor(size/step);\n\t}else{//新しいサンプリングが録音サンプリングより高い場合、処理は行われず、補間処理が省略されます\n\t\tstep=1;\n\t\tnewSampleRate=pcmSampleRate;\n\t};\n\t\n\tsize+=frameNext.length;\n\tvar res=new Int16Array(size);\n\tvar idx=0;\n\t//前回のフレームに不足しているデータを追加します\n\tfor(var i=0;i",
+      "ko": "1){//새 샘플링이 녹음 샘플링보다 낮을 경우 샘플링을 수행합니다\n\t\tsize=Math.floor(size/step);\n\t}else{//새 샘플링이 녹음 샘플링보다 높을 경우 처리하지 않으며, 보간 처리가 생략됩니다\n\t\tstep=1;\n\t\tnewSampleRate=pcmSampleRate;\n\t};\n\t\n\tsize+=frameNext.length;\n\tvar res=new Int16Array(size);\n\tvar idx=0;\n\t//이전에 한 프레임 미만으로 남은 데이터를 추가합니다\n\tfor(var i=0;i"
+    },
+    "1000){ //1秒后开始onProcess性能监测\n\t\t\tThis.CLog(procTxt+\"低性能，耗时\"+slowT+\"ms\",3);\n\t\t};\n\t\t\n\t\tif(asyncBegin===true){\n\t\t\t//开启了异步模式，onProcess已接管buffers新数据，立即清空，避免出现未处理的数据\n\t\t\tvar hasClear=0;\n\t\t\tfor(var i=bufferFirstIdx;i": {
+      "key": "k_68319fbcb1dee8ae",
+      "en": "1000) { //Start onProcess performance monitoring after 1 second\n\t\t\tThis.CLog(procTxt + \"Low performance, time spent\" + slowT + \"ms\", 3);\n\t\t};\n\t\t\n\t\tif (asyncBegin === true) {\n\t\t\t//Async mode is enabled, onProcess has taken over new data in buffers, clear immediately to avoid unprocessed data\n\t\t\tvar hasClear = 0;\n\t\t\tfor (var i = bufferFirstIdx; i",
+      "ja": "1000) { //1秒後にonProcessのパフォーマンスモニタリングを開始します\n\t\t\tThis.CLog(procTxt + \"低パフォーマンス、時間\": + slowT + \"ms\", 3);\n\t\t};\n\t\t\n\t\tif (asyncBegin === true) {\n\t\t\t//非同期モードが有効になっており、onProcessがbuffersの新しいデータを引き継いでいるため、すぐにクリアして処理されていないデータが発生しないようにします\n\t\t\tvar hasClear = 0;\n\t\t\tfor (var i = bufferFirstIdx; i",
+      "ko": "1000) { //1초 후 onProcess 성능 모니터링 시작\n\t\t\tThis.CLog(procTxt + \"저성능, 소요 시간\" + slowT + \"ms\", 3);\n\t\t};\n\t\t\n\t\tif (asyncBegin === true) {\n\t\t\t//비동기 모드가 활성화되어 있으며, onProcess가 buffers의 새 데이터를 받아들였으므로 즉시 정리하여 처리되지 않은 데이터가 발생하지 않도록 합니다\n\t\t\tvar hasClear = 0;\n\t\t\tfor (var i = bufferFirstIdx; i"
+    },
+    "';\n                voiceBtn.title = '停止语音输入';\n                voiceStatus.style.display = 'flex';\n            } else {\n                voiceBtn.classList.remove('recording');\n                voiceBtn.innerHTML = '": {
+      "key": "k_ed52d780461c2ee3",
+      "en": "';\n                voiceBtn.title = 'Stop voice input';\n                voiceStatus.style.display = 'flex';\n            } else {\n                voiceBtn.classList.remove('recording');\n                voiceBtn.innerHTML = '",
+      "ja": "';\n                voiceBtn.title = '音声入力を停止する';\n                voiceStatus.style.display = 'flex';\n            } else {\n                voiceBtn.classList.remove('recording');\n                voiceBtn.innerHTML = '",
+      "ko": "';\n                voiceBtn.title = '음성 입력 중지';\n                voiceStatus.style.display = 'flex';\n            } else {\n                voiceBtn.classList.remove('recording');\n                voiceBtn.innerHTML = '"
+    },
+    "<div class=\"history-empty\">加载失败，请先登录后重试</div>": {
+      "key": "k_bf9f9a9ffbade5dc",
+      "en": "<div class=\"history-empty\">Failed to load, please try again after logging in</div>",
+      "ja": "<div class=\"history-empty\">読み込みに失敗しました。先にログインしてください。</div>",
+      "ko": "<div class=\"history-empty\">로드 실패, 먼저 로그인 후 다시 시도하십시오</div>"
+    },
+    "<div class=\"history-empty\">暂无历史会话</div>": {
+      "key": "k_4525a5294f3b2a09",
+      "en": "<div class=\"history-empty\">No history conversation</div>",
+      "ja": "<div class=\"history-empty\">履歴の会話はありません</div>",
+      "ko": "<div class=\"history-empty\">역사 대화가 없습니다</div>"
+    },
+    "<div class=\"history-empty\">未找到匹配会话</div>": {
+      "key": "k_f8e310d1217cc4f3",
+      "en": "<div class=\"history-empty\">No matching conversation found</div>",
+      "ja": "<div class=\"history-empty\">一致する会話が見つかりません</div>",
+      "ko": "<div class=\"history-empty\">일치하는 대화가 없습니다</div>"
+    },
+    "<div style=\"font-weight:700;margin-bottom:8px;\">知识库命中证据</div>": {
+      "key": "k_6d387ac34369e8b0",
+      "en": "<div style=\"font-weight:700;margin-bottom:8px;\">Evidence from knowledge base hit</div>",
+      "ja": "<div style=\"font-weight:700;margin-bottom:8px;\">知識ベースのヒット証拠</div>",
+      "ko": "<div style=\"font-weight:700;margin-bottom:8px;\">지식베이스 충돌 증거</div>"
+    },
+    "<i class=\"bi bi-play-fill me-2\"></i>开始连接": {
+      "key": "k_b50fbbd0e33d762a",
+      "en": "<i class=\"bi bi-play-fill me-2\"></i>Start connection",
+      "ja": "<i class=\"bi bi-play-fill me-2\"></i>接続を開始",
+      "ko": "<i class=\"bi bi-play-fill me-2\"></i>연결 시작"
+    },
+    "<i class=\"bi bi-stop-fill me-2\"></i>停止连接": {
+      "key": "k_c915f6886cb4210b",
+      "en": "<i class=\"bi bi-stop-fill me-2\"></i>Stop connection",
+      "ja": "<i class=\"bi bi-stop-fill me-2\"></i>接続を停止",
+      "ko": "<i class=\"bi bi-stop-fill me-2\"></i>연결 중지"
+    },
+    "<span class=\"history-item-badge ended\">已结束</span>": {
+      "key": "k_7686542a2860a762",
+      "en": "<span class=\"history-item-badge ended\">Ended</span>",
+      "ja": "<span class=\"history-item-badge ended\">終了しました</span>",
+      "ko": "<span class=\"history-item-badge ended\">종료됨</span>"
+    },
+    "ECharts 未加载，无法导出图表。请检查网络或改用本地 echarts 文件。": {
+      "key": "k_9f90137172898fb8",
+      "en": "ECharts is not loaded, cannot export chart. Please check the network or use a local echarts file.",
+      "ja": "EChartsが読み込まれていません。グラフをエクスポートできません。ネットワークを確認するか、ローカルのechartsファイルを使用してください。",
+      "ko": "ECharts가 로드되지 않았습니다. 차트를 내보낼 수 없습니다. 네트워크를 확인하거나 로컬 echarts 파일을 사용하십시오."
+    },
+    "Excel 导出失败": {
+      "key": "k_544a7b0648c98077",
+      "en": "Excel export failed",
+      "ja": "Excelのエクスポートに失敗しました",
+      "ko": "Excel 내보내기 실패"
+    },
+    "GPU 利用率": {
+      "key": "k_e5e0b7632746e05f",
+      "en": "GPU utilization",
+      "ja": "GPU利用率",
+      "ko": "GPU 사용률"
+    },
+    "LLM 成功率(近似)": {
+      "key": "k_22818fe94b24c3da",
+      "en": "LLM success rate (approximate)",
+      "ja": "LLM成功率（概算）",
+      "ko": "LLM 성공률(근사)"
+    },
+    "TTS 保存失败": {
+      "key": "k_f01239c75834574e",
+      "en": "TTS save failed",
+      "ja": "TTSの保存に失敗しました",
+      "ko": "TTS 저장 실패"
+    },
+    "TTS 配置已保存到后端": {
+      "key": "k_e989a019c085baf6",
+      "en": "TTS configuration has been saved to the backend",
+      "ja": "TTS設定はバックエンドに保存されました",
+      "ko": "TTS 설정은 백엔드에 저장되었습니다"
+    },
+    "WebRTC 并发连接": {
+      "key": "k_1ca7a1e293f4afe1",
+      "en": "WebRTC concurrent connection",
+      "ja": "WebRTC同時接続",
+      "ko": "WebRTC 병렬 연결"
+    },
+    "WebRTC连接失败:": {
+      "key": "k_910e61dfe1aca3b3",
+      "en": "WebRTC connection failed:",
+      "ja": "WebRTC接続失敗:",
+      "ko": "WebRTC 연결 실패:"
+    },
+    "WebRTC连接已关闭": {
+      "key": "k_b59aa1ce0eee611e",
+      "en": "WebRTC connection closed",
+      "ja": "WebRTC接続が閉じられました",
+      "ko": "WebRTC 연결이 종료되었습니다"
+    },
+    "WebRTC连接已建立": {
+      "key": "k_1f1620ac508c1b45",
+      "en": "WebRTC connection established",
+      "ja": "WebRTC接続が確立されました",
+      "ko": "WebRTC 연결이 설정되었습니다"
+    },
+    "`;\n          tbody.appendChild(tr);\n        });\n        document.getElementById(\"page-info\").textContent = `第  页，共  条`;\n        document.getElementById(\"prev\").disabled = page": {
+      "key": "k_150830925acab68b",
+      "en": "`;\n          tbody.appendChild(tr);\n        });\n        document.getElementById(\"page-info\").textContent = `Page  , total  items`;\n        document.getElementById(\"prev\").disabled = page",
+      "ja": "`;\n          tbody.appendChild(tr);\n        });\n        document.getElementById(\"page-info\").textContent = `第  ページ、合計  件`;\n        document.getElementById(\"prev\").disabled = page",
+      "ko": "`;\n          tbody.appendChild(tr);\n        });\n        document.getElementById(\"page-info\").textContent = `제  페이지, 총  항목`;\n        document.getElementById(\"prev\").disabled = page"
+    },
+    "deleteSession(parseInt(btn.dataset.id, 10)));\n        });\n\n        pageInfoEl.textContent = `第  页 / 每页  条 / 共  条`;\n        document.getElementById(\"btn-prev\").disabled = page": {
+      "key": "k_c45d8b4617f92156",
+      "en": "deleteSession(parseInt(btn.dataset.id, 10)));\n        });\n\n        pageInfoEl.textContent = `Page  /  per page  /  total  items`;\n        document.getElementById(\"btn-prev\").disabled = page",
+      "ja": "deleteSession(parseInt(btn.dataset.id, 10)));\n        });\n\n        pageInfoEl.textContent = `第  ページ / 1ページあたり  件 / 合計  件`;\n        document.getElementById(\"btn-prev\").disabled = page",
+      "ko": "deleteSession(parseInt(btn.dataset.id, 10)));\n        });\n\n        pageInfoEl.textContent = `제  페이지 / 페이지당  개 / 총  개`;\n        document.getElementById(\"btn-prev\").disabled = page"
+    },
+    "totalPages) currentPage = totalPages;\n        document.getElementById(\"page-info\").textContent = `第  /  页，共  条`;\n        document.getElementById(\"btn-prev-page\").disabled = currentPage": {
+      "key": "k_dae6545ee7deb088",
+      "en": "totalPages) currentPage = totalPages;\n        document.getElementById(\"page-info\").textContent = `Page  /  , total  items`;\n        document.getElementById(\"btn-prev-page\").disabled = currentPage",
+      "ja": "totalPages) currentPage = totalPages;\n        document.getElementById(\"page-info\").textContent = `第  /  ページ、合計  件`;\n        document.getElementById(\"btn-prev-page\").disabled = currentPage",
+      "ko": "totalPages) currentPage = totalPages;\n        document.getElementById(\"page-info\").textContent = `제  /  페이지, 총  개`;\n        document.getElementById(\"btn-prev-page\").disabled = currentPage"
+    },
+    "{\n        const body = formToBody();\n        if (!body.student_id || !body.username) {\n          showNotice(\"学号和登录账号必填\", \"error\");\n          return;\n        }\n        if (body.id": {
+      "key": "k_4a38ff63114039c4",
+      "en": "{\n        const body = formToBody();\n        if (!body.student_id || !body.username) {\n          showNotice(\"Student ID and login account are required\", \"error\");\n          return;\n        }\n        if (body.id",
+      "ja": "{\n        const body = formToBody();\n        if (!body.student_id || !body.username) {\n          showNotice(\"学籍番号とログインアカウントは必須です\", \"error\");\n          return;\n        }\n        if (body.id",
+      "ko": "{\n        const body = formToBody();\n        if (!body.student_id || !body.username) {\n          showNotice(\"학번과 로그인 계정은 필수입니다\", \"error\");\n          return;\n        }\n        if (body.id"
+    },
+    "一键应用失败": {
+      "key": "k_6a1e0fe0a8f4606c",
+      "en": "One-click application failed",
+      "ja": "一括適用失敗",
+      "ko": "일괄 적용 실패"
+    },
+    "专业介绍": {
+      "key": "k_f512d82386a7a64b",
+      "en": "Major introduction",
+      "ja": "専攻紹介",
+      "ko": "전문 소개"
+    },
+    "今天": {
+      "key": "k_17e83cc25e229b05",
+      "en": "Today",
+      "ja": "今日は",
+      "ko": "오늘"
+    },
+    "会话ID设置为:": {
+      "key": "k_2cfe4761afb1d680",
+      "en": "Session ID is set to:",
+      "ja": "セッションIDが次の値に設定されています:",
+      "ko": "세션 ID가 다음 값으로 설정되었습니다:"
+    },
+    "会话已结束": {
+      "key": "k_3af546696201a961",
+      "en": "The conversation has ended",
+      "ja": "会話は終了しました",
+      "ko": "대화가 종료되었습니다"
+    },
+    "会话量按数字人形象": {
+      "key": "k_96bd9138040dfa4f",
+      "en": "Conversation volume by digital human image",
+      "ja": "デジタル人の画像別の会話量",
+      "ko": "디지털 휴먼 이미지별 대화량"
+    },
+    "保存失败": {
+      "key": "k_40525a732872b210",
+      "en": "Save failed",
+      "ja": "保存に失敗しました",
+      "ko": "저장 실패"
+    },
+    "保存成功": {
+      "key": "k_7e68eb622d385462",
+      "en": "Save successful",
+      "ja": "保存に成功しました",
+      "ko": "저장에 성공했습니다"
+    },
+    "保存成功（已写入数据库）": {
+      "key": "k_0656fd35e2cc8bb7",
+      "en": "Save successful (written to database)",
+      "ja": "保存に成功しました（データベースに書き込み済み）",
+      "ko": "저장에 성공했습니다(데이터베이스에 작성됨)"
+    },
+    "保存请求失败，请检查后端是否已部署接口": {
+      "key": "k_ba8d958248071eac",
+      "en": "Save request failed, please check if the backend interface has been deployed",
+      "ja": "保存リクエストに失敗しました。バックエンドにインターフェースがデプロイされているか確認してください",
+      "ko": "저장 요청에 실패했습니다. 백엔드에 인터페이스가 배포되었는지 확인하십시오"
+    },
+    "保存身份预设:": {
+      "key": "k_bb7d95ae3c7b0091",
+      "en": "Save identity preset:",
+      "ja": "アイデンティティのプリセットを保存します：",
+      "ko": "신분 예측 저장:"
+    },
+    "保存身份预设时发生错误": {
+      "key": "k_ff5b0a88f64c7fdf",
+      "en": "An error occurred while saving the identity preset",
+      "ja": "アイデンティティのプリセットを保存中にエラーが発生しました",
+      "ko": "신분 예측을 저장하는 동안 오류가 발생했습니다"
+    },
+    "保存身份预设错误:": {
+      "key": "k_c212a8902c0f89c8",
+      "en": "Save identity preset error:",
+      "ja": "アイデンティティプリセットの保存エラー:",
+      "ko": "아이덴티티 프리셋 저장 오류:"
+    },
+    "倾听": {
+      "key": "k_10ba6105bb7ad1d1",
+      "en": "Listen",
+      "ja": "聞く",
+      "ko": "들어보기"
+    },
+    "停止当前连接，开始新连接": {
+      "key": "k_fb50520e6e5bbea3",
+      "en": "Stop current connection and start a new connection",
+      "ja": "現在の接続を停止して新しい接続を開始してください",
+      "ko": "현재 연결을 중지하고 새 연결을 시작하십시오"
+    },
+    "停止语音输入": {
+      "key": "k_1cd8f3a2e9bb7ade",
+      "en": "Stop voice input",
+      "ja": "音声入力を停止する",
+      "ko": "음성 입력 중지"
+    },
+    "分类图表渲染异常（请查看控制台错误）": {
+      "key": "k_ce620351962bd2f0",
+      "en": "Classification chart rendering exception (please check the console error)",
+      "ja": "分類チャートのレンダリング異常（コンソールのエラーを確認してください）",
+      "ko": "분류 차트 렌더링 예외(콘솔 오류 확인)"
+    },
+    "分类统计加载失败": {
+      "key": "k_ebcf5777b06f0dc1",
+      "en": "Classification statistics loading failed",
+      "ja": "分類統計の読み込みに失敗しました",
+      "ko": "분류 통계 로딩 실패"
+    },
+    "列表加载失败": {
+      "key": "k_d47107971228c45b",
+      "en": "List loading failed",
+      "ja": "リストの読み込みに失敗しました",
+      "ko": "리스트 로딩 실패"
+    },
+    "删除会话": {
+      "key": "k_19cf29f82669f391",
+      "en": "Delete session",
+      "ja": "セッションを削除する",
+      "ko": "세션 삭제"
+    },
+    "删除失败": {
+      "key": "k_72250c5922f28b4f",
+      "en": "Deletion failed",
+      "ja": "削除に失敗しました",
+      "ko": "삭제 실패"
+    },
+    "删除成功": {
+      "key": "k_86e8d12a79b350cb",
+      "en": "Deletion successful",
+      "ja": "削除に成功しました",
+      "ko": "삭제 성공"
+    },
+    "加载失败": {
+      "key": "k_f6b7a41e56004ac0",
+      "en": "Failed to load",
+      "ja": "読み込みに失敗しました",
+      "ko": "로드 실패"
+    },
+    "加载失败，请先登录后重试": {
+      "key": "k_79bd9bcf2933397e",
+      "en": "Failed to load, please log in and try again",
+      "ja": "読み込みに失敗しました。先にログインしてください。再試行してください",
+      "ko": "로드 실패, 먼저 로그인한 후 다시 시도하십시오"
+    },
+    "加载头像身份预设失败:": {
+      "key": "k_16d31d18031b5f09",
+      "en": "Failed to load avatar identity preset:",
+      "ja": "アバターのアイデンティティプリセットの読み込みに失敗しました:",
+      "ko": "아바타 신분 사전 설정 로드 실패:"
+    },
+    "加载数字人列表失败": {
+      "key": "k_8056ebd75360c958",
+      "en": "Failed to load digital human list",
+      "ja": "デジタル人間の一覧の読み込みに失敗しました",
+      "ko": "디지털 인물 목록 로드 실패"
+    },
+    "加载数字人形象失败:": {
+      "key": "k_b30008af100ad922",
+      "en": "Failed to load digital human appearance:",
+      "ja": "デジタル人間のイメージの読み込みに失敗しました:",
+      "ko": "디지털 인물 이미지 로드 실패:"
+    },
+    "加载的数字人数据:": {
+      "key": "k_70c09adfa9774f09",
+      "en": "Loaded digital human data:",
+      "ja": "ロードされたデジタル人間のデータ:",
+      "ko": "로드된 디지털 인간 데이터:"
+    },
+    "加载详情失败": {
+      "key": "k_02c28cd84c0ed92b",
+      "en": "Failed to load details",
+      "ja": "詳細の読み込みに失敗しました",
+      "ko": "상세 정보 로드 실패"
+    },
+    "动作排序保存失败": {
+      "key": "k_8e5f4e7b76b12f26",
+      "en": "Failed to save action order",
+      "ja": "アクションの並べ替えの保存に失敗しました",
+      "ko": "액션 정렬 저장 실패"
+    },
+    "发送offer到后端...": {
+      "key": "k_c8a02be9cbe43b93",
+      "en": "Sending offer to backend...",
+      "ja": "後方エンドにオファーを送信中...",
+      "ko": "백엔드에 오퍼 전송 중..."
+    },
+    "发送失败，请重试": {
+      "key": "k_df64576e4ade4843",
+      "en": "Sending failed, please try again",
+      "ja": "送信に失敗しました。再試してください",
+      "ko": "전송 실패, 다시 시도하십시오"
+    },
+    "发送消息:": {
+      "key": "k_caff468d18e23444",
+      "en": "Send message:",
+      "ja": "メッセージを送信:",
+      "ko": "메시지 전송:"
+    },
+    "发送消息错误:": {
+      "key": "k_56b8841e56697cf7",
+      "en": "Error sending message:",
+      "ja": "メッセージの送信エラー:",
+      "ko": "메시지 전송 오류:"
+    },
+    "同步身份到新会话失败:": {
+      "key": "k_9e5be3a33f3482d0",
+      "en": "Failed to synchronize identity to new session:",
+      "ja": "新しいセッションにアイデンティティを同期できませんでした:",
+      "ko": "새 세션에 신분을 동기화하는 데 실패했습니다:"
+    },
+    "听用户讲话动作": {
+      "key": "k_7466a43ec136aa77",
+      "en": "Listen to user speaking action",
+      "ja": "ユーザーの話す動作を聞く",
+      "ko": "사용자의 말하는 동작을 듣다"
+    },
+    "启动语音识别失败:": {
+      "key": "k_f607cd261b336a58",
+      "en": "Failed to start voice recognition:",
+      "ja": "音声認識を開始できませんでした:",
+      "ko": "음성 인식을 시작하는 데 실패했습니다:"
+    },
+    "启动语音识别失败，请刷新页面重试": {
+      "key": "k_2fe029c955bfcfc0",
+      "en": "Failed to start voice recognition. Please refresh the page and try again",
+      "ja": "音声認識を開始できませんでした。ページを再読み込みして再度お試しください",
+      "ko": "음성 인식 시작 실패. 페이지를 새로고침하여 다시 시도하십시오"
+    },
+    "启用": {
+      "key": "k_d4e9ca3dd494de81",
+      "en": "Enable",
+      "ja": "有効にする",
+      "ko": "활성화"
+    },
+    "咨询量趋势": {
+      "key": "k_1d713db9d710d649",
+      "en": "Consultation volume trend",
+      "ja": "相談件数のトレンド",
+      "ko": "상담량 추세"
+    },
+    "回答生成超时，已进行兜底播报": {
+      "key": "k_230326c3d27799c3",
+      "en": "Answer generation timed out, fallback broadcast has been performed",
+      "ja": "回答生成がタイムアウトしました。バックアップ放送が行われました",
+      "ko": "답변 생성 시간 초과, 백업 방송이 진행되었습니다"
+    },
+    "图表组件 ECharts 加载失败（可能是网络/CDN 被拦截）": {
+      "key": "k_813bf47f736b5958",
+      "en": "Chart component ECharts failed to load (may be due to network/CDN being blocked)",
+      "ja": "チャートコンポーネントEChartsのロードに失敗しました（ネットワーク/CDNがブロックされている可能性があります）",
+      "ko": "차트 컴포넌트 ECharts 로드 실패(네트워크/CDN가 차단되었을 수 있음)"
+    },
+    "复制": {
+      "key": "k_4edd1d00875d8ede",
+      "en": "Copy",
+      "ja": "コピー",
+      "ko": "복사"
+    },
+    "复制失败": {
+      "key": "k_f2c6b5167b9a7b80",
+      "en": "Copy failed",
+      "ja": "コピーに失敗しました",
+      "ko": "복사 실패"
+    },
+    "复制成功": {
+      "key": "k_c1ef062e06cd78b6",
+      "en": "Copy succeeded",
+      "ja": "コピーに成功しました",
+      "ko": "복사 성공"
+    },
+    "奖学金": {
+      "key": "k_389fedf49f32079b",
+      "en": "Scholarship",
+      "ja": "奨学金",
+      "ko": "장학금"
+    },
+    "学号、登录账号、登录密码为必填项": {
+      "key": "k_d2714089ae16dc87",
+      "en": "Student number, login account, and login password are required fields",
+      "ja": "学生番号、ログインアカウント、ログインパスワードは必須項目です",
+      "ko": "학번, 로그인 계정, 로그인 비밀번호는 필수 항목입니다"
+    },
+    "学号和登录账号必填": {
+      "key": "k_ca1f83538fea3f31",
+      "en": "Student ID and login account are required",
+      "ja": "学生番号とログインアカウントは必須です",
+      "ko": "학번과 로그인 계정은 필수입니다"
+    },
+    "密码不能为空": {
+      "key": "k_4d81424b0110d45d",
+      "en": "Password cannot be empty",
+      "ja": "パスワードは空にできません",
+      "ko": "비밀번호는 비워둘 수 없습니다"
+    },
+    "密码修改失败": {
+      "key": "k_16c0fa21193dec62",
+      "en": "Password change failed",
+      "ja": "パスワードの変更に失敗しました",
+      "ko": "비밀번호 변경 실패"
+    },
+    "密码修改成功": {
+      "key": "k_f0e65f05ada2efcb",
+      "en": "Password change successful",
+      "ja": "パスワードの変更に成功しました",
+      "ko": "비밀번호 변경 성공"
+    },
+    "密码至少 6 位": {
+      "key": "k_fbbecb23874168ae",
+      "en": "Password must be at least 6 characters",
+      "ja": "パスワードは少なくとも6文字以上である必要があります",
+      "ko": "비밀번호는 최소 6자 이상이어야 합니다"
+    },
+    "导入失败": {
+      "key": "k_a01a8d53938f5f3d",
+      "en": "Import failed",
+      "ja": "インポートに失敗しました",
+      "ko": "불러오기 실패"
+    },
+    "导入失败：JSON 格式错误": {
+      "key": "k_0b67a79d343939b8",
+      "en": "Import failed: JSON format error",
+      "ja": "インポートに失敗しました：JSON形式のエラー",
+      "ko": "불러오기 실패: JSON 형식 오류"
+    },
+    "导入失败：文件格式错误或后端不可用": {
+      "key": "k_86062227168c141a",
+      "en": "Import failed: File format error or backend not available",
+      "ja": "インポートに失敗しました：ファイル形式のエラーまたはバックエンドが利用できません",
+      "ko": "불러오기 실패: 파일 형식 오류 또는 백엔드 사용 불가"
+    },
+    "导出": {
+      "key": "k_188896795f1d4320",
+      "en": "Export",
+      "ja": "エクスポート",
+      "ko": "내보내기"
+    },
+    "导出失败": {
+      "key": "k_675338126127c5ff",
+      "en": "Export failed",
+      "ja": "エクスポートに失敗しました",
+      "ko": "내보내기 실패"
+    },
+    "导出报告失败": {
+      "key": "k_01525f2f283706ca",
+      "en": "Export report failed",
+      "ja": "レポートのエクスポートに失敗しました",
+      "ko": "보고서 내보내기 실패"
+    },
+    "就业前景": {
+      "key": "k_344e46ae0d4c5a0f",
+      "en": "Employment prospects",
+      "ja": "就業見込み",
+      "ko": "취업 전망"
+    },
+    "已从磁盘同步数字人列表": {
+      "key": "k_d9eb7b3af1c4780b",
+      "en": "Digital human list has been synchronized from the disk",
+      "ja": "ディスクからデジタル人間リストを同期しました",
+      "ko": "디스크에서 디지털 인물 목록을 동기화했습니다"
+    },
+    "已创建的会话槽位": {
+      "key": "k_110c51bed7b97fdd",
+      "en": "Created session slots",
+      "ja": "作成されたセッションスロット",
+      "ko": "생성된 세션 슬롯"
+    },
+    "已加载头像身份预设:": {
+      "key": "k_205d02195cbefa01",
+      "en": "Avatar identity preset loaded:",
+      "ja": "アバターのアイデンティティプリセットが読み込まれました:",
+      "ko": "아바타 신분 예약이 로드되었습니다:"
+    },
+    "已应用到全部数字人": {
+      "key": "k_8dfb600d5913c11a",
+      "en": "Applied to all digital humans",
+      "ja": "すべてのデジタル人間に適用されました",
+      "ko": "모든 디지털 인물에 적용됨"
+    },
+    "已打开新增模式，请填写信息后点保存。": {
+      "key": "k_08fddf8059cd182a",
+      "en": "Added mode is open. Please fill in the information and click save.",
+      "ja": "追加モードが開かれました。情報を入力して保存をクリックしてください。",
+      "ko": "추가 모드가 열렸습니다. 정보를 입력한 후 저장을 클릭하십시오."
+    },
+    "已新建会话": {
+      "key": "k_0775b9555b815b74",
+      "en": "New session created",
+      "ja": "新しいセッションが作成されました",
+      "ko": "새로운 세션이 생성되었습니다"
+    },
+    "已新建会话，请输入你的问题开始对话。": {
+      "key": "k_616fc931efb6bea1",
+      "en": "A new session has been created. Please enter your question to start a conversation.",
+      "ja": "新しいセッションが作成されました。質問を入力して会話を開始してください。",
+      "ko": "새로운 대화가 생성되었습니다. 질문을 입력하여 대화를 시작하세요."
+    },
+    "已清空身份预设（并写回后端 JSON）": {
+      "key": "k_4273ff26c40c14fe",
+      "en": "Cleared identity presets (and wrote back to backend JSON)",
+      "ja": "アイデンティティのプリセットをクリアしました（バックエンドJSONに書き戻し）",
+      "ko": "신분 예정을 비웠습니다(백엔드 JSON에 다시 쓰기)"
+    },
+    "已连接": {
+      "key": "k_65fe35c45e4e9e85",
+      "en": "Connected",
+      "ja": "接続済み",
+      "ko": "연결됨"
+    },
+    "平均响应(ms)": {
+      "key": "k_4dc0c72fa18d3ac9",
+      "en": "Average Response (ms)",
+      "ja": "平均応答時間（ms）",
+      "ko": "평균 응답 시간 (ms)"
+    },
+    "平均响应耗时": {
+      "key": "k_818df5fd79a4dcf6",
+      "en": "Average Response Time",
+      "ja": "平均応答時間",
+      "ko": "평균 응답 시간"
+    },
+    "平均响应耗时（按周期聚合）": {
+      "key": "k_33b351d7443fb68b",
+      "en": "Average Response Time (Aggregated by Period)",
+      "ja": "平均応答時間（期間ごとに集計）",
+      "ko": "평균 응답 시간 (주기별 집계)"
+    },
+    "开始日期格式错误，请使用 YYYY-MM-DD（例如 2026-03-31）": {
+      "key": "k_4c85a709f97ca115",
+      "en": "Start date format error. Please use YYYY-MM-DD (e.g., 2026-03-31)",
+      "ja": "開始日付の形式が誤っています。YYYY-MM-DD（例: 2026-03-31）を使用してください",
+      "ko": "시작 날짜 형식 오류입니다. YYYY-MM-DD 형식(예: 2026-03-31)을 사용하십시오"
+    },
+    "开始连接，使用顾问:": {
+      "key": "k_eb397774bbf3c04f",
+      "en": "Connecting, using advisor:",
+      "ja": "接続を開始し、アドバイザーを使用します：",
+      "ko": "연결을 시작하고 컨설턴트를 사용합니다:"
+    },
+    "强调": {
+      "key": "k_b955193410d7e0c8",
+      "en": "Emphasize",
+      "ja": "強調",
+      "ko": "강조"
+    },
+    "强调重点动作": {
+      "key": "k_b5af7ed4ff5e4ec6",
+      "en": "Emphasize key actions",
+      "ja": "重要な動作を強調する",
+      "ko": "핵심 동작 강조"
+    },
+    "当前 RTCPeerConnection 数量": {
+      "key": "k_dd26b64df3c7b5dc",
+      "en": "Current RTCPeerConnection count",
+      "ja": "現在のRTCPeerConnection数",
+      "ko": "현재 RTCPeerConnection 수"
+    },
+    "您的浏览器不支持语音识别功能，请使用Chrome、Edge等现代浏览器": {
+      "key": "k_dfd4cc3b532dc299",
+      "en": "Your browser does not support voice recognition. Please use modern browsers such as Chrome or Edge",
+      "ja": "お使いのブラウザは音声認識機能をサポートしていません。ChromeやEdgeなどの現代的なブラウザをご利用ください",
+      "ko": "브라우저가 음성 인식 기능을 지원하지 않습니다. Chrome, Edge 등 현대 브라우저를 사용하십시오"
+    },
+    "执行停止连接逻辑": {
+      "key": "k_7da06424f9a04c95",
+      "en": "Execute stop connection logic",
+      "ja": "接続を停止するロジックを実行します",
+      "ko": "연결 중지 로직을 실행합니다"
+    },
+    "执行开始连接逻辑": {
+      "key": "k_78dbabe96325c627",
+      "en": "Execute start connection logic",
+      "ja": "接続を開始するロジックを実行します",
+      "ko": "연결 시작 로직을 실행합니다"
+    },
+    "批量删除失败": {
+      "key": "k_b59edb270d91a60a",
+      "en": "Batch deletion failed",
+      "ja": "一括削除に失敗しました",
+      "ko": "일괄 삭제 실패"
+    },
+    "批量启用失败": {
+      "key": "k_d4f2bec4b0dd9bf0",
+      "en": "Batch activation failed",
+      "ja": "一括有効化に失敗しました",
+      "ko": "일괄 활성화 실패"
+    },
+    "批量禁用失败": {
+      "key": "k_95f656862165fcce",
+      "en": "Batch deactivation failed",
+      "ja": "一括無効化に失敗しました",
+      "ko": "일괄 비활성화 실패"
+    },
+    "批量重置密码失败": {
+      "key": "k_186862b1f8f81316",
+      "en": "Batch password reset failed",
+      "ja": "一括パスワードリセットに失敗しました",
+      "ko": "일괄 비밀번호 재설정 실패"
+    },
+    "拖拽排序": {
+      "key": "k_344bb4480ed63076",
+      "en": "Drag and sort",
+      "ja": "ドラッグアンドソート",
+      "ko": "드래그 앤 드롭 정렬"
+    },
+    "按形象图表渲染异常（请查看控制台错误）": {
+      "key": "k_14446be7248097fc",
+      "en": "Rendering exception for chart by image (please check console errors)",
+      "ja": "イメージによるチャートのレンダリング例外（コンソールエラーを確認してください）",
+      "ko": "이미지에 따라 차트 렌더링 예외(콘솔 오류 확인)"
+    },
+    "按形象统计加载失败": {
+      "key": "k_8a011cf58a9bc448",
+      "en": "Failed to load statistics by image",
+      "ja": "イメージによる統計の読み込みに失敗しました",
+      "ko": "이미지 기반 통계 로드 실패"
+    },
+    "按钮点击 - 当前图标类名:": {
+      "key": "k_a6016279cd323b6d",
+      "en": "Button click - Current icon class:",
+      "ja": "ボタンクリック - 現在のアイコンクラス:",
+      "ko": "버튼 클릭 - 현재 아이콘 클래스:"
+    },
+    "按钮点击 - 当前文本:": {
+      "key": "k_01cff39bcebc15a1",
+      "en": "Button click - Current text:",
+      "ja": "ボタンクリック - 現在のテキスト:",
+      "ko": "버튼 클릭 - 현재 텍스트:"
+    },
+    "推理槽（BaseReal）": {
+      "key": "k_95114bc9c14f16a9",
+      "en": "Inference slot (BaseReal)",
+      "ja": "推論スロット（BaseReal）",
+      "ko": "추론 슬롯 (BaseReal)"
+    },
+    "收到后端响应:": {
+      "key": "k_9507eabb0f2d0377",
+      "en": "Received backend response:",
+      "ja": "バックエンドの応答を受信しました:",
+      "ko": "백엔드 응답을 받았습니다:"
+    },
+    "收到轨道:": {
+      "key": "k_813536b3ce1450ed",
+      "en": "Received track:",
+      "ja": "トラックを受信しました:",
+      "ko": "트랙을 받았습니다:"
+    },
+    "新增失败": {
+      "key": "k_ca0f83a0af5d2f33",
+      "en": "Add failed",
+      "ja": "追加に失敗しました",
+      "ko": "추가 실패"
+    },
+    "新增成功（已写入数据库）": {
+      "key": "k_0b9f0638c1e6623c",
+      "en": "Added successfully (written to database)",
+      "ja": "正常に追加されました（データベースに書き込まれました）",
+      "ko": "성공적으로 추가되었습니다(데이터베이스에 기록됨)"
+    },
+    "新密码:": {
+      "key": "k_517d7380c15c64f4",
+      "en": "New password:",
+      "ja": "新しいパスワード:",
+      "ko": "새로운 비밀번호:"
+    },
+    "新建会话失败": {
+      "key": "k_d83ae1dfc8b2876d",
+      "en": "Failed to create new session",
+      "ja": "新しいセッションの作成に失敗しました",
+      "ko": "새 세션 생성 실패"
+    },
+    "无法访问麦克风": {
+      "key": "k_7126a0f54ee7a590",
+      "en": "Cannot access microphone",
+      "ja": "マイクにアクセスできません",
+      "ko": "마이크에 액세스할 수 없습니다"
+    },
+    "昨天": {
+      "key": "k_59c4fcb09e276fac",
+      "en": "Yesterday",
+      "ja": "昨日",
+      "ko": "어제"
+    },
+    "暂无会话数据": {
+      "key": "k_ea9498e84488f587",
+      "en": "No session data",
+      "ja": "セッションデータはありません",
+      "ko": "대화 데이터가 없습니다"
+    },
+    "暂无历史会话": {
+      "key": "k_da4e00f7c457df8d",
+      "en": "No historical sessions",
+      "ja": "履歴のセッションはありません",
+      "ko": "이전 대화가 없습니다"
+    },
+    "暂无数据": {
+      "key": "k_b246458f20c8763c",
+      "en": "No data",
+      "ja": "データがありません",
+      "ko": "데이터가 없습니다"
+    },
+    "暂无评分数据": {
+      "key": "k_c0331b662e0fdd0e",
+      "en": "No rating data",
+      "ja": "評価データがありません",
+      "ko": "평점 데이터가 없습니다"
+    },
+    "暂无词频数据": {
+      "key": "k_341fe9a69e9a53c7",
+      "en": "No word frequency data",
+      "ja": "単語頻度データがありません",
+      "ko": "단어 빈도 데이터가 없습니다"
+    },
+    "更多": {
+      "key": "k_9b0c6c7858bffb02",
+      "en": "More",
+      "ja": "もっと",
+      "ko": "더 보기"
+    },
+    "更新后按钮文本:": {
+      "key": "k_32dc05cb61031572",
+      "en": "Button text after update:",
+      "ja": "更新後のボタンテキスト:",
+      "ko": "업데이트 후 버튼 텍스트:"
+    },
+    "更新后按钮类名:": {
+      "key": "k_194d035ec94a5b3e",
+      "en": "Button class name after update:",
+      "ja": "更新後のボタンクラス名:",
+      "ko": "업데이트 후 버튼 클래스 이름:"
+    },
+    "更新失败": {
+      "key": "k_8f8818f05bfa5838",
+      "en": "Update failed",
+      "ja": "更新に失敗しました",
+      "ko": "업데이트 실패"
+    },
+    "更新按钮为停止连接状态": {
+      "key": "k_60fc369016c5b87d",
+      "en": "The update button is in the stop connection state",
+      "ja": "アップデートボタンは接続を停止している状態です",
+      "ko": "업데이트 버튼은 연결을 중지한 상태입니다"
+    },
+    "更新按钮为开始连接状态": {
+      "key": "k_d2eb97e2590e17e6",
+      "en": "The update button is in the start connection state",
+      "ja": "アップデートボタンは接続を開始している状態です",
+      "ko": "업데이트 버튼은 연결을 시작한 상태입니다"
+    },
+    "更早": {
+      "key": "k_c371ec7802a2abe9",
+      "en": "Earlier",
+      "ja": "より前",
+      "ko": "더 이전"
+    },
+    "最新政策": {
+      "key": "k_e7eb0912ec1296f9",
+      "en": "Latest policy",
+      "ja": "最新のポリシー",
+      "ko": "최신 정책"
+    },
+    "未分类": {
+      "key": "k_b28f13ea3e5c62a2",
+      "en": "Uncategorized",
+      "ja": "分類されていません",
+      "ko": "분류되지 않음"
+    },
+    "未填写密码，将自动生成随机密码，继续吗？": {
+      "key": "k_fc73d170c1d2cd3f",
+      "en": "No password was entered, a random password will be generated. Continue?",
+      "ja": "パスワードが入力されていません。ランダムなパスワードが生成されます。続けますか？",
+      "ko": "비밀번호를 입력하지 않았습니다. 임의의 비밀번호가 생성됩니다. 계속하시겠습니까?"
+    },
+    "未成功重置任何账号": {
+      "key": "k_8b04ad338139c671",
+      "en": "Failed to reset any account",
+      "ja": "アカウントをリセットできませんでした",
+      "ko": "어떤 계정도 재설정하지 못했습니다"
+    },
+    "未找到匹配会话": {
+      "key": "k_b9ffde81c93a7915",
+      "en": "No matching session found",
+      "ja": "一致するセッションが見つかりません",
+      "ko": "일치하는 세션이 없습니다"
+    },
+    "查看": {
+      "key": "k_f7acefd2d4cd1deb",
+      "en": "View",
+      "ja": "表示",
+      "ko": "보기"
+    },
+    "查看详情": {
+      "key": "k_faea8c1db9ccdcf8",
+      "en": "View details",
+      "ja": "詳細を表示",
+      "ko": "상세 정보 보기"
+    },
+    "标题不能为空": {
+      "key": "k_f2d8d992fe5c9e3c",
+      "en": "Title cannot be empty",
+      "ja": "タイトルは空にできません",
+      "ko": "제목은 비어 있을 수 없습니다"
+    },
+    "档案保存失败": {
+      "key": "k_e867d50e106ef58f",
+      "en": "Failed to save the file",
+      "ja": "ファイルの保存に失敗しました",
+      "ko": "파일 저장에 실패했습니다"
+    },
+    "档案已保存": {
+      "key": "k_f60c1c741c3016e6",
+      "en": "The file has been saved",
+      "ja": "ファイルが保存されました",
+      "ko": "파일이 저장되었습니다"
+    },
+    "模板下载失败": {
+      "key": "k_d37dfa7f67af8cd0",
+      "en": "Template download failed",
+      "ja": "テンプレートのダウンロードに失敗しました",
+      "ko": "템플릿 다운로드 실패"
+    },
+    "正在思考...": {
+      "key": "k_15b51f2fd5ed017d",
+      "en": "Thinking...",
+      "ja": "考えています...",
+      "ko": "고민 중..."
+    },
+    "没有可下载的重置结果": {
+      "key": "k_02c5f850a1a81cac",
+      "en": "No downloadable reset results",
+      "ja": "ダウンロード可能なリセット結果はありません",
+      "ko": "다운로드 가능한 리셋 결과가 없습니다"
+    },
+    "注册失败": {
+      "key": "k_a1d7fb5dfc66cd4d",
+      "en": "Registration failed",
+      "ja": "登録に失敗しました",
+      "ko": "등록 실패"
+    },
+    "注册失败：无法连接后端": {
+      "key": "k_05f1b945144790ae",
+      "en": "Registration failed: cannot connect to backend",
+      "ja": "登録失敗：バックエンドに接続できません",
+      "ko": "등록 실패: 백엔드에 연결할 수 없습니다"
+    },
+    "注册成功，请返回登录页使用学生账号登录": {
+      "key": "k_29413484d460fe29",
+      "en": "Registration successful, please return to the login page and log in with a student account",
+      "ja": "登録に成功しました。学生アカウントでログインするには、ログインページに戻ってください",
+      "ko": "등록이 성공했습니다. 학생 계정으로 로그인하려면 로그인 페이지로 돌아가세요"
+    },
+    "浏览器不支持语音识别API": {
+      "key": "k_ec45fb37f8606cff",
+      "en": "Browser does not support speech recognition API",
+      "ja": "ブラウザは音声認識APIをサポートしていません",
+      "ko": "브라우저는 음성 인식 API를 지원하지 않습니다"
+    },
+    "浏览器支持语音识别API": {
+      "key": "k_b6c1d054dd43d241",
+      "en": "Browser supports speech recognition API",
+      "ja": "ブラウザは音声認識APIをサポートしています",
+      "ko": "브라우저는 음성 인식 API를 지원합니다"
+    },
+    "消息发送成功": {
+      "key": "k_786f98d1c4da28e9",
+      "en": "Message sent successfully",
+      "ja": "メッセージは正常に送信されました",
+      "ko": "메시지가 성공적으로 전송되었습니다"
+    },
+    "清空失败": {
+      "key": "k_640f1248bc0d9b34",
+      "en": "Clear failed",
+      "ja": "クリアに失敗しました",
+      "ko": "클리어 실패"
+    },
+    "清空请求失败": {
+      "key": "k_03c7447c6a34e107",
+      "en": "Failed to clear request",
+      "ja": "クリアリクエストに失敗しました",
+      "ko": "클리어 요청 실패"
+    },
+    "清空身份预设错误:": {
+      "key": "k_8bde9998cc147b81",
+      "en": "Error clearing identity preset:",
+      "ja": "アイデンティティプリセットのクリアエラー:",
+      "ko": "신분 사전 설정 클리어 오류:"
+    },
+    "满意度加载失败": {
+      "key": "k_d7456e7fed13eff7",
+      "en": "Failed to load satisfaction",
+      "ja": "満足度の読み込みに失敗しました",
+      "ko": "만족도 로드 실패"
+    },
+    "满意度图表渲染异常（请查看控制台错误）": {
+      "key": "k_076ca6880437c9ec",
+      "en": "Abnormal rendering of satisfaction chart (please check the console error)",
+      "ja": "満足度チャートのレンダリング異常（コンソールエラーを確認してください）",
+      "ko": "만족도 차트 렌더링 예외(콘솔 오류 확인)"
+    },
+    "满意度趋势": {
+      "key": "k_286db273db6412f4",
+      "en": "Satisfaction trend",
+      "ja": "満足度の傾向",
+      "ko": "만족도 추세"
+    },
+    "状态保存失败": {
+      "key": "k_d5559fa61ffc2797",
+      "en": "Failed to save status",
+      "ja": "状態の保存に失敗しました",
+      "ko": "상태 저장 실패"
+    },
+    "状态已更新": {
+      "key": "k_fd9803a81fd7c1a1",
+      "en": "Status has been updated",
+      "ja": "状態が更新されました",
+      "ko": "상태가 업데이트되었습니다"
+    },
+    "生成回答超时，已进行兜底播报，请稍后可再问一次以获取更完整答案。": {
+      "key": "k_effe45422f51d3b4",
+      "en": "Generation timeout, fallback broadcast has been performed. Please ask again later for a more complete answer.",
+      "ja": "回答の生成タイムアウト、バックアップ放送が行われました。後ほど再度お尋ねください、より完全な答えを得るために。",
+      "ko": "답변 생성 시간 초과, 백업 방송이 진행되었습니다. 나중에 다시 질문하여 더 완전한 답변을 얻으십시오."
+    },
+    "生活指南": {
+      "key": "k_a8da0d12df03d127",
+      "en": "Life guide",
+      "ja": "生活ガイド",
+      "ko": "생활 가이드"
+    },
+    "用户名不能为空": {
+      "key": "k_ecb38cb099417662",
+      "en": "Username cannot be empty",
+      "ja": "ユーザー名は空にできません",
+      "ko": "사용자 이름은 비어 있을 수 없습니다"
+    },
+    "用户提问高频词": {
+      "key": "k_219b1f520e7dc43c",
+      "en": "Frequently asked questions by users",
+      "ja": "ユーザーがよく質問するキーワード",
+      "ko": "사용자가 자주 묻는 질문"
+    },
+    "用户贡献": {
+      "key": "k_b643ac3105f6736f",
+      "en": "User contributions",
+      "ja": "ユーザーの貢献",
+      "ko": "사용자 기여"
+    },
+    "申请要求": {
+      "key": "k_c34dfc30c7be7c84",
+      "en": "Application requirements",
+      "ja": "申請要件",
+      "ko": "신청 요건"
+    },
+    "留学问答AI助手平台初始化...": {
+      "key": "k_c062f524b3ac722f",
+      "en": "Initializing the study abroad Q&A AI assistant platform...",
+      "ja": "留学Q&AAIアシスタントプラットフォームの初期化...",
+      "ko": "유학 질문 응답 AI 어시스턴트 플랫폼 초기화..."
+    },
+    "知识库命中证据": {
+      "key": "k_53608d529f0369db",
+      "en": "Knowledge base hit evidence",
+      "ja": "知識ベースのヒット証拠",
+      "ko": "지식베이스 충족 증거"
+    },
+    "确认删除该历史会话？": {
+      "key": "k_788b80721dd3328e",
+      "en": "Confirm deletion of this history session?",
+      "ja": "この履歴セッションを削除しますか？",
+      "ko": "이 역사 세션을 삭제하시겠습니까?"
+    },
+    "确认删除该学生账号？": {
+      "key": "k_78fb7a8ea87d2576",
+      "en": "Confirm deletion of this student account?",
+      "ja": "この生徒アカウントを削除しますか？",
+      "ko": "이 학생 계정을 삭제하시겠습니까?"
+    },
+    "确认批量删除选中账号？": {
+      "key": "k_457ef599f1fc43d9",
+      "en": "Confirm batch deletion of selected accounts?",
+      "ja": "選択したアカウントを一括して削除しますか？",
+      "ko": "선택한 계정을 일괄로 삭제하시겠습니까?"
+    },
+    "确认批量重置选中账号密码？": {
+      "key": "k_61d181512e4299a7",
+      "en": "Confirm to reset the password of the selected accounts in bulk?",
+      "ja": "選択したアカウントのパスワードを一括でリセットしますか？",
+      "ko": "선택한 계정의 비밀번호를 대량으로 재설정하시겠습니까?"
+    },
+    "确认结束该会话？结束后可继续查看历史，但建议新建会话再提问。": {
+      "key": "k_96dcd61fc0d888f8",
+      "en": "Confirm to end this session? You can still view the history after ending, but it is recommended to create a new session for further questions.",
+      "ja": "このセッションを終了しますか？終了後は履歴を確認できますが、新しいセッションを作成して質問することをおすすめします。",
+      "ko": "이 세션을 종료하시겠습니까? 종료 후 이전 기록을 계속 확인할 수 있지만, 새 세션을 생성하여 질문하는 것을 권장합니다."
+    },
+    "答案不能为空": {
+      "key": "k_84968697771d9125",
+      "en": "The answer cannot be empty",
+      "ja": "答えは空にできません",
+      "ko": "답변은 비어 있을 수 없습니다"
+    },
+    "签证政策": {
+      "key": "k_0c1d281bb2998237",
+      "en": "Visa Policy",
+      "ja": "ビザ政策",
+      "ko": "비자 정책"
+    },
+    "结束会话": {
+      "key": "k_92399078c44d5262",
+      "en": "End Session",
+      "ja": "セッションを終了",
+      "ko": "세션 종료"
+    },
+    "结束会话失败": {
+      "key": "k_d682a58828f7f01d",
+      "en": "Failed to end the session",
+      "ja": "セッションの終了に失敗しました",
+      "ko": "세션 종료 실패"
+    },
+    "结束日期格式错误，请使用 YYYY-MM-DD（例如 2026-03-31）": {
+      "key": "k_bd0c0974d288bfe8",
+      "en": "End date format error, please use YYYY-MM-DD (e.g. 2026-03-31)",
+      "ja": "終了日付の形式が誤っています。YYYY-MM-DD（例：2026-03-31）を使用してください",
+      "ko": "종료 날짜 형식 오류, YYYY-MM-DD(예: 2026-03-31)를 사용하십시오"
+    },
+    "编辑": {
+      "key": "k_a7f814c0a40db7fd",
+      "en": "Edit",
+      "ja": "編集",
+      "ko": "편집"
+    },
+    "网络连接错误": {
+      "key": "k_3df04f8de3e4021a",
+      "en": "Network connection error",
+      "ja": "ネットワーク接続エラー",
+      "ko": "네트워크 연결 오류"
+    },
+    "网络错误，请检查连接": {
+      "key": "k_f1b0b7f48b41d3cf",
+      "en": "Network error, please check the connection",
+      "ja": "ネットワークエラー、接続を確認してください",
+      "ko": "네트워크 오류, 연결을 확인하십시오"
+    },
+    "获取预加载状态失败，默认关闭预加载:": {
+      "key": "k_1474c0bf9d4d8230",
+      "en": "Failed to get preloading status, defaulting to disabled:",
+      "ja": "プリロード状態を取得できませんでした。デフォルトでプリロードを無効にします:",
+      "ko": "프리로드 상태를 가져오지 못했습니다. 기본적으로 프리로드를 비활성화합니다:"
+    },
+    "讲解": {
+      "key": "k_f01c71e88187fc68",
+      "en": "Explanation",
+      "ja": "説明",
+      "ko": "설명"
+    },
+    "讲解强调动作": {
+      "key": "k_7767c88cc5986c59",
+      "en": "Emphasize action in explanation",
+      "ja": "説明におけるアクションの強調",
+      "ko": "설명에서 동작 강조"
+    },
+    "访客": {
+      "key": "k_2f7ccc84797c843c",
+      "en": "Visitor",
+      "ja": "訪問者",
+      "ko": "방문자"
+    },
+    "评分失败": {
+      "key": "k_8912fcb62bcb0484",
+      "en": "Rating failed",
+      "ja": "評価に失敗しました",
+      "ko": "등급 지정 실패"
+    },
+    "评分已提交": {
+      "key": "k_26e1bcb84bacb7dd",
+      "en": "Rating submitted",
+      "ja": "評価が提出されました",
+      "ko": "등급 제출 완료"
+    },
+    "语音识别开始": {
+      "key": "k_1288152bfb43dd14",
+      "en": "Speech recognition started",
+      "ja": "音声認識が開始されました",
+      "ko": "음성 인식 시작"
+    },
+    "语音识别结束": {
+      "key": "k_353d4683dd2adac1",
+      "en": "Speech recognition ended",
+      "ja": "音声認識が終了しました",
+      "ko": "음성 인식 종료"
+    },
+    "语音识别错误:": {
+      "key": "k_82fe4d050ed223df",
+      "en": "Speech recognition error:",
+      "ja": "音声認識エラー:",
+      "ko": "음성 인식 오류:"
+    },
+    "请允许浏览器访问麦克风权限": {
+      "key": "k_a61d0491680ccc97",
+      "en": "Please allow the browser to access the microphone permission",
+      "ja": "ブラウザにマイクのアクセス権を許可してください",
+      "ko": "브라우저에 마이크 권한을 허용해 주세요"
+    },
+    "请先勾选需要删除的账号": {
+      "key": "k_dadac82d797ad8c1",
+      "en": "Please check the account you want to delete first",
+      "ja": "削除するアカウントを選択してください",
+      "ko": "먼저 삭제할 계정을 선택하세요"
+    },
+    "请先勾选需要启用的账号": {
+      "key": "k_c5720b78c96ce785",
+      "en": "Please check the account you want to enable first",
+      "ja": "有効にするアカウントを選択してください",
+      "ko": "먼저 활성화할 계정을 선택하세요"
+    },
+    "请先勾选需要禁用的账号": {
+      "key": "k_5e7a227207ee2876",
+      "en": "Please check the account you want to disable first",
+      "ja": "無効にするアカウントを選択してください",
+      "ko": "먼저 비활성화할 계정을 선택하세요"
+    },
+    "请先勾选需要重置密码的账号": {
+      "key": "k_7684f326f0c6ac16",
+      "en": "Please check the account you want to reset the password first",
+      "ja": "パスワードをリセットするアカウントを選択してください",
+      "ko": "비밀번호를 재설정할 계정을 먼저 선택하십시오"
+    },
+    "请先开始连接后再新建会话": {
+      "key": "k_167930d6868b764f",
+      "en": "Please start the connection before creating a new session",
+      "ja": "新しいセッションを作成する前に接続を開始してください",
+      "ko": "새로운 세션을 생성하기 전에 연결을 시작하십시오"
+    },
+    "请先登录后再新建会话": {
+      "key": "k_07a1d2f31697bb05",
+      "en": "Please log in before creating a new session",
+      "ja": "新しいセッションを作成する前にログインしてください",
+      "ko": "새로운 세션을 생성하기 전에 로그인하십시오"
+    },
+    "请先选择一个数字人": {
+      "key": "k_232276bcb6b33acb",
+      "en": "Please select a digital person first",
+      "ja": "まずデジタル人を一つ選んでください",
+      "ko": "먼저 디지털 인물을 하나 선택하십시오"
+    },
+    "请先选择一个条目": {
+      "key": "k_b2d9b7cdd721f465",
+      "en": "Please select an item first",
+      "ja": "まず項目を選択してください",
+      "ko": "먼저 항목을 선택하십시오"
+    },
+    "请先选择一个顾问形象": {
+      "key": "k_2d437ad61b8555b6",
+      "en": "Please select a consultant image first",
+      "ja": "まず、アドバイザーのイメージを選択してください",
+      "ko": "먼저 컨설턴트 이미지를 선택하세요"
+    },
+    "请输入数字人的身份信息": {
+      "key": "k_028f79b4d6c995ce",
+      "en": "Please enter the identity information of the digital person",
+      "ja": "デジタル人の身分情報を入力してください",
+      "ko": "디지털 사람의 신분 정보를 입력하십시오"
+    },
+    "请输入新数字人ID（复制目标）": {
+      "key": "k_4178541ae6bf1778",
+      "en": "Please enter the new digital person ID (copy target)",
+      "ja": "新しいデジタル人ID（コピー先）を入力してください",
+      "ko": "새로운 디지털 사람 ID(복사 대상)를 입력하십시오"
+    },
+    "请输入新数字人名称": {
+      "key": "k_ba1fa0f0b1a8e63d",
+      "en": "Please enter the new digital person name",
+      "ja": "新しいデジタル人名を入力してください",
+      "ko": "새로운 디지털 사람 이름을 입력하십시오"
+    },
+    "请输入新的会话标题：": {
+      "key": "k_2445bbdcd10d3e66",
+      "en": "Please enter a new conversation title:",
+      "ja": "新しい会話タイトルを入力してください:",
+      "ko": "새로운 대화 제목을 입력하십시오:"
+    },
+    "请输入旧密码和新密码": {
+      "key": "k_a091d134fefd66da",
+      "en": "Please enter the old password and new password",
+      "ja": "古いパスワードと新しいパスワードを入力してください",
+      "ko": "구비 비밀번호와 새 비밀번호를 입력하십시오"
+    },
+    "读取失败": {
+      "key": "k_d9f607a20068aa41",
+      "en": "Failed to read",
+      "ja": "読み取りに失敗しました",
+      "ko": "읽기 실패"
+    },
+    "账号 / 密码错误": {
+      "key": "k_1ae0a60ea3e10d6c",
+      "en": "Account / password error",
+      "ja": "アカウント/パスワードエラー",
+      "ko": "계정/비밀번호 오류"
+    },
+    "账号 / 密码错误、验证码错误": {
+      "key": "k_fabda9597b566f50",
+      "en": "Account / password error, CAPTCHA error",
+      "ja": "アカウント/パスワードエラー、CAPTCHAエラー",
+      "ko": "계정/비밀번호 오류, 인증 코드 오류"
+    },
+    "趋势图加载失败": {
+      "key": "k_0771973b62c3f203",
+      "en": "Failed to load the trend chart",
+      "ja": "トレンドチャートの読み込みに失敗しました",
+      "ko": "트렌드 차트 로딩 실패"
+    },
+    "趋势图渲染异常（请查看控制台错误）": {
+      "key": "k_b171c95bf0fd4482",
+      "en": "Trend chart rendering error (please check the console error)",
+      "ja": "トレンドチャートのレンダリングエラー（コンソールのエラーを確認してください）",
+      "ko": "트렌드 차트 렌더링 오류(콘솔 오류 확인)"
+    },
+    "身份已同步到新会话:": {
+      "key": "k_7bdf678714e1fdcc",
+      "en": "Identity has been synchronized to a new session:",
+      "ja": "IDは新しいセッションに同期されました：",
+      "ko": "신규 세션에 신분이 동기화되었습니다:"
+    },
+    "身份预设不能为空": {
+      "key": "k_837ed5422d44d6d9",
+      "en": "Identity preset cannot be empty",
+      "ja": "アイデンティティプリセットは空にできません",
+      "ko": "신분 예약은 비어 있을 수 없습니다"
+    },
+    "身份预设保存失败:": {
+      "key": "k_3f30da2099fe7047",
+      "en": "Failed to save identity preset:",
+      "ja": "アイデンティティプリセットの保存に失敗しました：",
+      "ko": "신분 예약 저장 실패:"
+    },
+    "身份预设保存成功": {
+      "key": "k_85096a51a7291f48",
+      "en": "Identity preset saved successfully",
+      "ja": "アイデンティティプリセットが正常に保存されました",
+      "ko": "신분 예약이 성공적으로 저장되었습니다"
+    },
+    "身份预设已保存到后端 JSON": {
+      "key": "k_28220722bebcacfa",
+      "en": "The identity preset has been saved to the backend JSON",
+      "ja": "IDの事前設定はバックエンドのJSONに保存されました",
+      "ko": "신분 예측이 백엔드 JSON에 저장되었습니다"
+    },
+    "身份预设已保存，数字人将根据此身份回答问题": {
+      "key": "k_ca4d99d15e489ee4",
+      "en": "The identity preset has been saved, and the digital human will answer questions based on this identity",
+      "ja": "IDの事前設定が保存され、デジタル人間はこのIDに基づいて質問に答えます",
+      "ko": "신분 예측이 저장되었으며, 디지털 인물은 이 신분을 기반으로 질문에 답변합니다"
+    },
+    "身份预设已清空": {
+      "key": "k_385a0de5c2620b85",
+      "en": "The identity preset has been cleared",
+      "ja": "IDの事前設定がクリアされました",
+      "ko": "신분 예측이 초기화되었습니다"
+    },
+    "身份预设已清空，数字人将使用默认身份": {
+      "key": "k_7a135407624cbf2e",
+      "en": "The identity preset has been cleared, and the digital human will use the default identity",
+      "ja": "IDの事前設定がクリアされ、デジタル人間はデフォルトのIDを使用します",
+      "ko": "신분 예측이 초기화되었으며, 디지털 인물은 기본 신분을 사용합니다"
+    },
+    "连接中...": {
+      "key": "k_498556abb4d79ee4",
+      "en": "Connecting...",
+      "ja": "接続中...",
+      "ko": "연결 중..."
+    },
+    "连接失败:": {
+      "key": "k_97223ceb8eb3971f",
+      "en": "Connection failed:",
+      "ja": "接続に失敗しました:",
+      "ko": "연결 실패:"
+    },
+    "选择顾问:": {
+      "key": "k_90fe780deb6f3ae4",
+      "en": "Select consultant:",
+      "ja": "アドバイザーを選択してください:",
+      "ko": "상담사 선택:"
+    },
+    "重命名": {
+      "key": "k_1cd80fd7a8b3284a",
+      "en": "Rename",
+      "ja": "リネーム",
+      "ko": "이름 바꾸기"
+    },
+    "重命名失败": {
+      "key": "k_1664ff6027821b30",
+      "en": "Failed to rename",
+      "ja": "名前の変更に失敗しました",
+      "ko": "이름 바꾸기 실패"
+    },
+    "重置失败": {
+      "key": "k_dd9a02eacfba0404",
+      "en": "Reset failed",
+      "ja": "リセットに失敗しました",
+      "ko": "재설정 실패"
+    },
+    "重置密码": {
+      "key": "k_7e422146dd5b6f51",
+      "en": "Reset Password",
+      "ja": "パスワードのリセット",
+      "ko": "비밀번호 재설정"
+    },
+    "问题类别分布": {
+      "key": "k_b7c413711effedd3",
+      "en": "Distribution of Problem Categories",
+      "ja": "問題カテゴリの分布",
+      "ko": "문제 범주 분포"
+    },
+    "院校信息": {
+      "key": "k_42aa2611ce41e5f7",
+      "en": "Institution Information",
+      "ja": "教育機関情報",
+      "ko": "학교 정보"
+    },
+    "需本机可用 nvidia-smi": {
+      "key": "k_446dc2dce5b6f4de",
+      "en": "nvidia-smi must be available on the local machine",
+      "ja": "ローカルマシンでnvidia-smiが利用可能である必要があります",
+      "ko": "로컬 머신에서 nvidia-smi가 사용 가능해야 합니다"
+    },
+    "非超时会话 / 总会话": {
+      "key": "k_6279328107805906",
+      "en": "Non-timeout Sessions / Total Sessions",
+      "ja": "タイムアウトしないセッション / 総セッション数",
+      "ko": "시간 초과되지 않은 세션 / 총 세션"
+    },
+    "非预加载模式：仅选择，不预加载数字人资源": {
+      "key": "k_04ebf94a933e95d5",
+      "en": "Non-preloading mode: select only, do not pre-load digital human resources",
+      "ja": "プレロードしないモード：選択のみ、デジタル人間リソースを事前読み込みしない",
+      "ko": "사전 로드 모드가 아님: 선택만 하되 디지털 인간 자원을 사전 로드하지 않음"
+    },
+    "预加载失败:": {
+      "key": "k_8af2b8a478532b88",
+      "en": "Pre-loading failed:",
+      "ja": "プレロード失敗：",
+      "ko": "사전 로드 실패:"
+    },
+    "预加载开始": {
+      "key": "k_04eb52fc26e7be75",
+      "en": "Pre-loading starts",
+      "ja": "プレロード開始",
+      "ko": "사전 로드 시작"
+    },
+    "预加载数字人资源:": {
+      "key": "k_8d4bd591ae2707dd",
+      "en": "Pre-loading digital human resources:",
+      "ja": "デジタル人間リソースのプレロード：",
+      "ko": "디지털 인간 자원 사전 로드:"
+    },
+    "预加载模式:": {
+      "key": "k_9554f05aa4d176a9",
+      "en": "Pre-loading mode:",
+      "ja": "プレロードモード：",
+      "ko": "사전 로드 모드:"
+    },
+    "预加载错误:": {
+      "key": "k_0fe438b0d945b56b",
+      "en": "Preloading error:",
+      "ja": "プレロードエラー:",
+      "ko": "프리로드 오류:"
+    },
+    "高频词图表渲染异常（请查看控制台错误）": {
+      "key": "k_34a3dfe7af7ff598",
+      "en": "High-frequency word chart rendering exception (please check the console error)",
+      "ja": "頻度の高い単語のチャートレンダリング異常（コンソールエラーを確認してください）",
+      "ko": "높은 빈도 단어 차트 렌더링 예외(콘솔 오류를 확인하십시오)"
+    },
+    "高频词统计加载失败": {
+      "key": "k_90b9f9020ab04770",
+      "en": "Failed to load high-frequency word statistics",
+      "ja": "頻度の高い単語の統計が読み込まれませんでした",
+      "ko": "높은 빈도 단어 통계 로드 실패"
+    },
+    "默认静态/闲置动作": {
+      "key": "k_0062f6bf6bdfc016",
+      "en": "Default static/idle action",
+      "ja": "デフォルトの静的/アイドル動作",
+      "ko": "기본 정적/무작동"
+    },
+    "{\n  // 防止同一页面被加载 i18n3.js 两次（静态": {
+      "key": "k_1e2332a1c65f5657",
+      "en": "{\n  // Prevent the same page from loading i18n3.js twice (static",
+      "ja": "{\n  // 同じページが i18n3.js を2回読み込まないようにする（静的",
+      "ko": "{\n  // 동일한 페이지가 i18n3.js 를 두 번 로드하지 않도록 (정적"
+    },
+    "16s/圈": {
+      "key": "k_ad69a4f78f77e6e1",
+      "en": "16s/cycle",
+      "ja": "16秒/サイクル",
+      "ko": "16초/사이클"
+    },
+    "<option value=\"\">加载失败</option>": {
+      "key": "k_1a031ef28df958e3",
+      "en": "<option value=\"\">Failed to load</option>",
+      "ja": "<option value=\"\">読み込みに失敗しました</option>",
+      "ko": "<option value=\"\">로드 실패</option>"
+    },
+    "zh-CN-YunxiaNeural|中文女声 Yunxia&#10;zh-CN-YunjianNeural|中文男声 Yunjian": {
+      "key": "k_61c07afb59d9b432",
+      "en": "zh-CN-YunxiaNeural|中文女声 Yunxia&#10;zh-CN-YunjianNeural|中文男声 Yunjian",
+      "ja": "zh-CN-YunxiaNeural|中文女声 Yunxia&#10;zh-CN-YunjianNeural|中文男声 Yunjian",
+      "ko": "zh-CN-YunxiaNeural|中文女声 Yunxia&#10;zh-CN-YunjianNeural|中文男声 Yunjian"
+    },
+    "保存允许音色列表": {
+      "key": "k_e5dd98c5c55fe49c",
+      "en": "Save allowed tone list",
+      "ja": "許可されたトーンリストを保存",
+      "ko": "허용된 톤 목록 저장"
+    },
+    "停止连接": {
+      "key": "k_878f8c3a01d7a773",
+      "en": "Stop connection",
+      "ja": "接続を停止する",
+      "ko": "연결 중지"
+    },
+    "允许音色列表已保存": {
+      "key": "k_bb709d11553af433",
+      "en": "Allowed tone list has been saved",
+      "ja": "許可されたトーンリストが保存されました",
+      "ko": "허용된 톤 목록이 저장되었습니다"
+    },
+    "允许音色列表（学生端下拉框来源）": {
+      "key": "k_facb5cea2cd46b30",
+      "en": "Allowed tone list (source of student dropdown)",
+      "ja": "許可されたトーンリスト（生徒用ドロップダウンのソース）",
+      "ko": "허용된 톤 목록(학생용 드롭다운 소스)"
+    },
+    "字幕滚动显示区域": {
+      "key": "k_0f54bcc604a242cf",
+      "en": "Subtitle scrolling display area",
+      "ja": "字幕のスクロール表示領域",
+      "ko": "자막 스크롤 표시 영역"
+    },
+    "字幕滚动速度": {
+      "key": "k_6512bb16018554fa",
+      "en": "Subtitle scroll speed",
+      "ja": "字幕のスクロール速度",
+      "ko": "자막 스크롤 속도"
+    },
+    "按钮点击 - 当前是否开始状态:": {
+      "key": "k_7b5d171aaf8e8e3a",
+      "en": "Button click - Is the current state started:",
+      "ja": "ボタンクリック - 現在の状態が開始されていますか:",
+      "ko": "버튼 클릭 - 현재 시작 상태입니까:"
+    },
+    "接続停止": {
+      "key": "k_fc6e7a2a63c410e2",
+      "en": "Connection Stop",
+      "ja": "接続中止",
+      "ko": "연결 중지"
+    },
+    "接続開始": {
+      "key": "k_c89e59d0537f6b1f",
+      "en": "Connection started",
+      "ja": "接続を開始",
+      "ko": "연결 시작"
+    },
+    "暂无可用音色": {
+      "key": "k_4465cf6e2e499a99",
+      "en": "No available sound colors",
+      "ja": "利用可能なサウンドカラーはありません",
+      "ko": "사용 가능한 사운드 색상이 없습니다"
+    },
+    "每行一个音色，格式：voice|label（label 可省略）": {
+      "key": "k_1658f582b113745e",
+      "en": "Each line is a voice, format: voice|label (label can be omitted)",
+      "ja": "1行に1つのボイス、形式：voice|label（labelは省略可能）",
+      "ko": "각 줄에 하나의 음색, 형식: voice|label (label은 생략 가능)"
+    },
+    "管理员维护允许音色，当前会话可切换": {
+      "key": "k_be1915cedf779f01",
+      "en": "Administrator maintenance allows tone, current session can be switched",
+      "ja": "管理者メンテナンスはトーンを許可し、現在のセッションを切り替えることができます",
+      "ko": "관리자 유지보수는 톤을 허용하며, 현재 세션을 전환할 수 있습니다"
+    },
+    "请至少填写一个音色": {
+      "key": "k_5b08dca786b84fe9",
+      "en": "Please fill in at least one sound",
+      "ja": "少なくとも1つのサウンドを入力してください",
+      "ko": "최소 하나의 사운드를 입력해주세요"
+    },
+    "音色切换失败": {
+      "key": "k_8f6fec84112d3a94",
+      "en": "Failed to switch voice",
+      "ja": "ボイスの切り替えに失敗しました",
+      "ko": "음색 전환 실패"
+    }
+  }
+}

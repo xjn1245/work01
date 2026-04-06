@@ -1,0 +1,200 @@
+/* Shared styles for admin pages */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: #0b1220;
+  color: #e6edf3;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.admin-shell {
+  display: flex;
+  height: 100vh;
+}
+
+.admin-sidebar {
+  width: 260px;
+  background: #0f1a30;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px 14px;
+  box-sizing: border-box;
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 16px;
+  font-weight: 700;
+}
+
+.admin-brand .logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+}
+
+.admin-menu {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-menu button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cfe0ff;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-menu button.active {
+  background: rgba(79, 70, 229, 0.18);
+  border-color: rgba(79, 70, 229, 0.45);
+}
+
+.admin-content {
+  flex: 1;
+  padding: 18px 22px;
+  overflow: auto;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.col {
+  flex: 1;
+  min-width: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #b9c7e6;
+  font-size: 13px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e6edf3;
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.btn {
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e6edf3;
+}
+
+.btn.primary {
+  border-color: rgba(79, 70, 229, 0.55);
+  background: rgba(79, 70, 229, 0.25);
+}
+
+.btn.danger {
+  border-color: rgba(239, 68, 68, 0.55);
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.notice {
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+.notice.error {
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.18);
+}
+
+.notice.success {
+  border: 1px solid rgba(34, 197, 94, 0.45);
+  background: rgba(34, 197, 94, 0.16);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 10px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+}
+
+.table th {
+  color: #b9c7e6;
+  font-weight: 600;
+}
+
+.muted {
+  color: #9fb0d5;
+}
+
+.drop-list {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.12);
+  min-height: 60px;
+}
+
+.drop-item {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+  cursor: grab;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.drop-item:last-child {
+  margin-bottom: 0;
+}
+
